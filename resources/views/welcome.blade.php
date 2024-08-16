@@ -5,10 +5,10 @@
 @section('content')
 
     <section id="home">
-        <div id="carouselHome" class="carousel slide " data-bs-touch="true">
+        <div id="carouselHome" class="carousel slide " data-bs-touch="true" data-bs-ride="true">
             <div class="carousel-inner">
                 @foreach ($banners as $banner)
-                <div class="carousel-item {{$loop->first ? 'active' : ''}}">
+                <div class="carousel-item {{$loop->first ? 'active' : ''}}" data-bs-interval="3000">
                     <img src="{{$banner->image_url}}" class="d-block w-100 banner-image"/>
                     <div class="carousel-caption d-none d-md-block">
                         @if (count($banner->titles_array))
