@@ -1,0 +1,258 @@
+// Import variables
+@import "variables";
+
+// Import all of Bootstrap's CSS
+@import "bootstrap/scss/bootstrap";
+
+// Import aos css
+@import "aos/dist/aos";
+
+html{
+    scroll-behavior: smooth;
+}
+
+#app{
+    transition: all 500ms ease-in-out;
+}
+
+// Custom styles
+#custom-nav{
+
+    .navbar-brand{
+
+        width: 210px;
+        @media (min-width: 768px){
+            width: 249px;
+        }
+        img{
+            width: 100%;
+        }
+    }
+
+    .navbar-collapse{
+        justify-content: flex-end;
+        align-self: flex-end;
+    }
+    .navbar-nav{
+
+        // add space between nav items but not after the last one
+        .nav-item{
+            margin-right: 2rem;
+            &:last-child{
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+#carouselHome{
+    .carousel-caption{
+        position: absolute;
+        height: fit-content;
+        right: 0;
+        top: 50%;
+        bottom: 50%;
+        left: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        color: unset;
+        text-align: left;
+        // Center content
+        transform: translateY(-50%);
+    }
+
+    .carousel-item .banner-image{
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        @media (min-width: 768px){
+            height: auto;
+            aspect-ratio: unset;
+        }
+    }
+
+    .text-banner > *{
+        text-shadow: 7px 1px 9px rgba(0, 0, 0, 0.2);
+        font-size: 6rem;
+        line-height: 1;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next{
+        width: 15%;
+        @media (min-width: 768px){
+            width: 5%;
+        }
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon{
+        background-size: contain;
+    }
+
+    .carousel-control-next-icon{
+        // rotate the next icon
+        transform: rotate(180deg);
+    }
+}
+
+.title {
+    margin-bottom: 25px;
+    *{
+        position: relative;
+        &::after{
+            content: "";
+            display: inline-block;
+            width: 30%;
+            height: 4px;
+            background-color: $blue-light;
+            position: absolute;
+            bottom: -18px;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    &.under-green{
+        *{
+            &::after{
+                background-color: $green-light;
+            }
+        }
+    }
+}
+
+#services{
+    padding: 2rem 0;
+    @media (min-width: 768px){
+        padding: 4rem 0;
+    }
+}
+
+#what-we-do,
+#how-we-do-it,
+#diagram,
+#approcach,
+#our-team,
+#contact{
+    padding: 2rem 0;
+
+    @media (min-width: 768px){
+        padding: 8rem 0;
+    }
+}
+
+#how-we-do-it, #our-team{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 80vh;
+
+    // parallax effect
+    background-attachment: fixed;
+}
+
+.spacer{
+    height: 70px;
+    @media (min-width: 768px){
+        height: 100px;
+    }
+}
+
+.card-whatyouget{
+    --bs-bg-opacity: 0.8;
+    background-color: rgba(var(--bs-blue-light-2-rgb), var(--bs-bg-opacity)) !important;
+    padding: 2rem;
+    border-radius: 1rem;
+    border-left: 1rem solid rgba(var(--bs-green-light-rgb), 1);
+    transition: all 0.3s ease-in-out;
+    color: white;
+    height: auto;
+    &:hover{
+        transform: scale(1.05);
+    }
+
+    @media (min-width: 768px){
+        height: 200px;
+    }
+}
+
+.card-whatwedo{
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.5);
+    // grow to fill the remaining space
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .card-header{
+        //
+    }
+
+    .card-footer{
+        // Fill flex remaining space
+        flex: 1;
+        min-height: 350px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom;
+        padding: 1rem;
+
+        @media (min-width: 768px){
+            min-height: 200px;
+            padding: 2rem;
+        }
+    }
+}
+
+.card-team{
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    .team-image{
+        max-width: 80%;
+        width: 100%;
+
+        @media (min-width: 768px){
+            max-width: 60%;
+        }
+
+    }
+    .team-social-icon{
+        img{
+            border-radius: 0.9rem;
+        }
+    }
+
+    @media (min-width: 768px){
+        max-width: 300px;
+    }
+
+    @media (min-width: 1200px){
+        max-width: 480px;
+    }
+}
+
+.form-control{
+    &.custom-form{
+        border-radius: .75rem;
+        padding: 0.8rem 1rem;
+        border: 1px solid rgba(var(--bs-blue-light-rgb), 0.5);
+        transition: all 0.3s ease-in-out;
+        &:focus{
+            border-color: rgba(var(--bs-green-light-rgb), 1);
+            box-shadow: 0 0 0 0.25rem rgba(var(--bs-green-light-rgb), 0.25);
+        }
+
+        &.is-invalid{
+            border-color: rgba(var(--bs-danger-rgb), 0.5);
+            box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), 0.25);
+        }
+
+        &::placeholder{
+            color: black;
+        }
+    }
+}
+
