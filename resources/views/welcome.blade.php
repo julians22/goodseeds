@@ -23,11 +23,11 @@
                 @endforeach
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url('{{ asset('icons/arrow.png') }}')"></span>
+                <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true" style="background-image: url('{{ asset('icons/arrow.png') }}')"></span>
+                <span class="carousel-control-next-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
@@ -160,7 +160,7 @@
                 <div class="col-md-4">
                     <div class="d-flex flex-column align-items-center">
                         <div class="icon-approach icon-why mb-3">
-                            <img src="{{ asset('icons/why.png') }}" alt="" width="100" data-aos="fade-right">
+                            <img src="{{ asset('img/icons/why.png') }}" alt="" width="100" data-aos="fade-right">
                         </div>
                         <span class="d-block text-green-light fw-bolder display-5" data-aos="fade-right" data-aos-duration="780">WHY</span>
                     </div>
@@ -171,7 +171,7 @@
                 <div class="col-md-4">
                     <div class="d-flex flex-column align-items-center">
                         <div class="icon-approach icon-what mb-3 me-lg-3">
-                            <img src="{{ asset('icons/what.png') }}" alt="" width="100" data-aos="fade-right">
+                            <img src="{{ asset('img/icons/what.png') }}" alt="" width="100" data-aos="fade-right">
                         </div>
                         <span class="d-block text-green-light fw-bolder display-5" data-aos="fade-right" data-aos-duration="780">WHAT</span>
                     </div>
@@ -182,7 +182,7 @@
                 <div class="col-md-4">
                     <div class="d-flex flex-column align-items-center">
                         <div class="icon-approach icon-how mb-3">
-                            <img src="{{ asset('icons/how.png') }}" alt="" width="100" data-aos="fade-right">
+                            <img src="{{ asset('img/icons/how.png') }}" alt="" width="100" data-aos="fade-right">
                         </div>
                         <span class="d-block text-green-light fw-bolder display-5" data-aos="fade-right" data-aos-duration="780">HOW</span>
                     </div>
@@ -236,7 +236,7 @@
                                                                 @php
                                                                     $icon = $item['platform'];
                                                                 @endphp
-                                                                <img src="{{ asset('icons/'.$icon.'.png') }}" alt="">
+                                                                <img src="{{ asset('img/icons/'.$icon.'.png') }}" alt="">
                                                             </a>
                                                         </span>
                                                     @endforeach
@@ -273,10 +273,10 @@
                     <p class="lead text-white">Northridge Business Center A1/7 <br> BSD City, Tangerang Selatan, Banten <br> INDONESIA</p>
                     <div class="row gx-1">
                         <div class="col-1">
-                            <a href="https://www.instagram.com/good_seeds.id" class="d-block"><img src="{{ asset('icons/instagram.png') }}" alt="" class="img-fluid w-100"></a>
+                            <a href="https://www.instagram.com/good_seeds.id" class="d-block"><img src="{{ asset('img/icons/instagram.png') }}" alt="" class="img-fluid w-100"></a>
                         </div>
                         <div class="col-1">
-                            <a href="https://www.linkedin.com/company/goodseeds_id" class="d-block"><img src="{{ asset('icons/linkedin.png') }}" alt="" class="img-fluid w-100"></a>
+                            <a href="https://www.linkedin.com/company/goodseeds_id" class="d-block"><img src="{{ asset('img/icons/linkedin.png') }}" alt="" class="img-fluid w-100"></a>
                         </div>
                     </div>
                 </div>
