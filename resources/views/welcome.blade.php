@@ -90,22 +90,22 @@
             </div>
 
             <div class="row gx-0 gy-5 gx-md-5 mt-2 mt-lg-5">
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <div class="card-whatyouget fw-medium lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                         Holistic, customized and structured approach
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <div class="card-whatyouget fw-medium lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                         Dedicated professionals with diverse backgrounds and extensive experience in Business & Organization Development, and Human Resources Management
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <div class="card-whatyouget fw-medium lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                         Systematic methodology
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <div class="card-whatyouget fw-medium lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                         Practical and applicable guidance that shortens your learning curve and minimizes trial and error
                     </div>
