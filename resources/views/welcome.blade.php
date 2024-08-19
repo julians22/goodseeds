@@ -156,8 +156,8 @@
                 </div>
             </div>
 
-            <div class="row mt-5 gy-md-0 gy-2">
-                <div class="col-md-4">
+            <div class="row mt-5 gy-lg-0 gy-2">
+                <div class="col-lg-4">
                     <div class="d-flex flex-column align-items-center">
                         <div class="icon-approach icon-why mb-3">
                             <img src="{{ asset('img/icons/why.png') }}" alt="" width="100" data-aos="fade-right">
@@ -168,7 +168,7 @@
                         <p class="text-center lead fw-medium" data-aos="fade-right" data-aos-delay="150" data-aos-duration="700">Growth means stepping out of your comfort zone. It requires consistency and perseverance to grow, scale, and sustain success. A strong "WHY" energizes and drives you every morning. We help you to understand your purpose that fuels your passion and commitment to success.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <div class="d-flex flex-column align-items-center">
                         <div class="icon-approach icon-what mb-3 me-lg-3">
                             <img src="{{ asset('img/icons/what.png') }}" alt="" width="100" data-aos="fade-right">
@@ -179,7 +179,7 @@
                         <p class="text-center lead fw-medium" data-aos="fade-right" data-aos-delay="150" data-aos-duration="700">We help you to set specific, measurable goals, identify quick wins, and establish clear directions to reach your targets. Clear objectives and milestones ensure tangible progress and sustained motivation throughout the journey.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <div class="d-flex flex-column align-items-center">
                         <div class="icon-approach icon-how mb-3">
                             <img src="{{ asset('img/icons/how.png') }}" alt="" width="100" data-aos="fade-right">
@@ -268,7 +268,7 @@
             </div>
 
             <div class="row mt-2 mt-lg-5 d-flex flex-column-reverse flex-md-row">
-                <div class="col-md-4 mt-4 mt-lg-0">
+                <div class="col-lg-4 mt-4 mt-lg-0">
                     <img src="{{ asset('logo-white.png') }}" alt="" class="img-fluid mb-4">
                     <p class="lead text-white">Northridge Business Center A1/7 <br> BSD City, Tangerang Selatan, Banten <br> INDONESIA</p>
                     <div class="row gx-1">
@@ -280,7 +280,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-lg-8">
                     <form action="{{ route('secure-contact') }}" method="POST" id="contact-form">
                         @csrf
                         <div class="row gy-3">
@@ -330,6 +330,10 @@
                 768: {
                     perPage: 1,
                     rewindSpeed: 1000,
+                },
+                1024: {
+                    perPage: 2,
+                    rewindSpeed: 1500,
                 }
             }
         };
