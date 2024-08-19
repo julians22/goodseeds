@@ -10,7 +10,7 @@
                 @foreach ($banners as $banner)
                 <div class="carousel-item {{$loop->first ? 'active' : ''}}" data-bs-interval="3000">
                     <img src="{{$banner->image_url}}" class="d-block w-100 banner-image"/>
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption d-none d-lg-block">
                         @if (count($banner->titles_array))
                         <div class="text-banner container fw-bold">
                             @foreach ($banner->titles_array as $title)
