@@ -11,13 +11,12 @@
                 <div class="carousel-item {{$loop->first ? 'active' : ''}}" data-bs-interval="3000">
                     <img src="{{$banner->image_url}}" class="d-block w-100 banner-image"/>
                     <div class="carousel-caption d-none d-lg-block">
-                        @if (count($banner->titles_array))
                         <div class="text-banner container fw-bold">
-                            @foreach ($banner->titles_array as $title)
-                                <span style="color: {{$title["color"]}}">{{$title["word"]}}</span><br>
-                            @endforeach
+                            <span class="text-blue-light">NURTURE</span><br>
+                            <span class="text-blue-light">PEOPLE</span><br>
+                            <span class="text-green-light">EMPOWER</span><br>
+                            <span class="text-green-light">BUSINESS</span>
                         </div>
-                        @endif
                     </div>
                 </div>
                 @endforeach
@@ -31,6 +30,15 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+    </section>
+
+    <section id="placeholder" class="d-block d-md-hidden">
+        <h1 class="display-4 text-center fw-bolder" data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="title text-center">
+            <span class="text-blue-light">NURTURE</span>
+            <span class="text-blue-light">PEOPLE</span><br>
+            <span class="text-green-light">EMPOWER</span>
+            <span class="text-green-light">BUSINESS</span>
+        </h1>
     </section>
 
 
