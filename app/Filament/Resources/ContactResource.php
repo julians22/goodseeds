@@ -40,7 +40,6 @@ class ContactResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->modal(true)
                     ->modalWidth('2xl')
                     ->form([
                         TextInput::make('name')

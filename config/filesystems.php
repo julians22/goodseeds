@@ -60,6 +60,14 @@ return [
             'throw' => false,
         ],
 
+        'service' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/services'),
+            'url' => env('APP_URL').'/storage/services',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

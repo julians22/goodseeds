@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'NURTURE PEOPLE EMPOWER BUSINESS')
+@section('title', $settings['siteTitle'] ?? 'NURTURE PEOPLE EMPOWER BUSINESS')
 
 @section('content')
 
@@ -11,12 +11,13 @@
                 <div class="carousel-item {{$loop->first ? 'active' : ''}}" data-bs-interval="3000">
                     <img src="{{$banner->image_url}}" class="d-block w-100 banner-image"/>
                     <div class="carousel-caption d-none d-lg-block">
+                        @if (count($banner->titles_array))
                         <div class="text-banner container fw-bold">
-                            <span class="text-blue-light">NURTURE</span><br>
-                            <span class="text-blue-light">PEOPLE</span><br>
-                            <span class="text-green-light">EMPOWER</span><br>
-                            <span class="text-green-light">BUSINESS</span>
+                            @foreach ($banner->titles_array as $title)
+                                <span style="color: {{$title["color"]}}">{{$title["word"]}}</span><br>
+                            @endforeach
                         </div>
+                        @endif
                     </div>
                 </div>
                 @endforeach
@@ -32,12 +33,15 @@
         </div>
     </section>
 
-    <section id="placeholder" class="d-block d-md-hidden">
+    <section id="placeholder" class="d-block d-md-none">
         <h1 class="display-4 text-center fw-bolder" data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="title text-center">
-            <span class="text-blue-light">NURTURE</span>
-            <span class="text-blue-light">PEOPLE</span><br>
-            <span class="text-green-light">EMPOWER</span>
-            <span class="text-green-light">BUSINESS</span>
+            @if (count($primaryText->titles_array))
+            <div class="text-banner container fw-bold">
+                @foreach ($primaryText->titles_array as $title)
+                    <span style="color: {{$title["color"]}}">{{$title["word"]}}</span>
+                @endforeach
+            </div>
+            @endif
         </h1>
     </section>
 
@@ -46,7 +50,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-12">
-                    <p class="text-center lead fw-md-medium">We are a consulting firm on a mission to empower business owners to scale up and sustain their enterprises by delivering end-to-end, customized solutions, including consulting, coaching & mentoring, training, and recruitment. Our approach is tailored to meet your specific needs and goals. We focus on creating long- term value by setting the right strategy, optimizing your business operations, and nurturing your people for sustained growth.</p>
+                    <div class="text-center lead fw-md-medium editor-body">
+                        {!! tiptap_converter()->asHTML($sectionSetting->aboutDescription) !!}
+                    </div>
+                    {{-- <p class="">We are a consulting firm on a mission to empower business owners to scale up and sustain their enterprises by delivering end-to-end, customized solutions, including consulting, coaching & mentoring, training, and recruitment. Our approach is tailored to meet your specific needs and goals. We focus on creating long- term value by setting the right strategy, optimizing your business operations, and nurturing your people for sustained growth.</p> --}}
                 </div>
             </div>
         </div>
@@ -65,17 +72,17 @@
             </div>
             <div class="row gx-0 gy-5 gx-md-5 mt-2 mt-lg-5">
 
-                @foreach ($posts as $item)
+                @foreach ($services as $item)
                     <div class="col-md-6">
                         <div class="card-whatwedo" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                             <div class="card-header">
-                                <img src="{{ $item['image'] }}" alt="" class="w-100">
+                                <img src="{{ $item->image_url }}" alt="" class="w-100">
                             </div>
 
                             <div class="card-footer" style="background-image: url('{{ asset('card-footer.jpg') }}')">
-                                <h2 class="text-white fw-bold">{{ $item['title'] }}</h2>
+                                <h2 class="text-white fw-bold">{{ $item->name }}</h2>
                                 <article class="fw-medium lead">
-                                    {!! $item['content'] !!}
+                                    {!! $item->description !!}
                                 </article>
                             </div>
                         </div>
@@ -122,7 +129,7 @@
         </div>
     </section>
 
-    <section id="diagram" class="overflow-hidden">
+    <section id="diagram" class="overflow-hidden pb-0">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-10 d-none d-md-block">
@@ -144,6 +151,8 @@
                 </div>
             </div>
         </div>
+    </section>
+    <section id="our-approach" class="pt-0">
         <div class="spacer"></div>
         <div class="container">
             <div class="row">
@@ -158,9 +167,9 @@
 
             <div class="row mt-5">
                 <div class="col-md-12">
-                    <p class="text-center lead fw-medium">
-                        At goodseeds.id, we understand that no two businesses are alike. That's why we take the time to understand your unique challenges and goals. Our holistic, customized, and structured approach is key to achieving your specific objectives and sustainable success. Here’s how we do it:
-                    </p>
+                    <div class="editor-body text-center lead fw-medium">
+                        {!! tiptap_converter()->asHTML($sectionSetting->approachDescription) !!}
+                    </div>
                 </div>
             </div>
 
@@ -228,7 +237,7 @@
                                     <li class="splide__slide">
                                         <div class="card-team">
                                             <div class="d-flex flex-column align-items-center">
-                                                <img src="{{ $item->image_url }}" alt="" class="team-image">
+                                                <img src="{{ $item->image_url }}" alt="" class="team-image rounded-circle">
                                                 <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="title text-center mt-4">
                                                     <span class="fw-bolder d-inline text-white h3">
                                                         {{ $item->name }}
@@ -277,15 +286,14 @@
 
             <div class="row mt-2 mt-lg-5 d-flex flex-column-reverse flex-md-row">
                 <div class="col-lg-4 mt-4 mt-lg-0">
-                    <img src="{{ asset('logo-white.png') }}" alt="" class="img-fluid mb-4">
-                    <p class="lead text-white">Northridge Business Center A1/7 <br> BSD City, Tangerang Selatan, Banten <br> INDONESIA</p>
+                    <img src="{{ $settings['footerLogo'] }}" alt="" class="img-fluid mb-4" width="350">
+                    <p class="lead text-white">{!! $settings['siteAddress'] !!}</p>
                     <div class="row gx-1">
-                        <div class="col-1">
-                            <a href="https://www.instagram.com/good_seeds.id" class="d-block"><img src="{{ asset('img/icons/instagram.png') }}" alt="" class="img-fluid w-100"></a>
-                        </div>
-                        <div class="col-1">
-                            <a href="https://www.linkedin.com/company/goodseeds_id" class="d-block"><img src="{{ asset('img/icons/linkedin.png') }}" alt="" class="img-fluid w-100"></a>
-                        </div>
+                        @foreach ($settings['socialMediaLinks'] as $item)
+                            <div class="col-1">
+                                <a href="{{ $item['link'] }}" class="d-block"><img src="{{ $item['icon'] }}" alt="" class="img-fluid w-100"></a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-lg-8">
@@ -325,23 +333,20 @@
     document.addEventListener('DOMContentLoaded', function() {
         // init splide js
         let homeSplideOptions = {
-            perPage: 2,
+            perPage: 1,
             perMove: 1,
             arrows: false,
             focus: 'center',
-            drag: false,
             autoplay: true,
-            interval: 2500,
+            interval: 5000,
             rewind: true,
-            rewindSpeed: 500,
+            rewindSpeed: 800,
+            drag: true,
+            mediaQuery: 'min',
             breakpoints: {
-                768: {
-                    perPage: 1,
-                    rewindSpeed: 1000,
-                },
                 1024: {
+                    drag: false,
                     perPage: 2,
-                    rewindSpeed: 1500,
                 }
             }
         };

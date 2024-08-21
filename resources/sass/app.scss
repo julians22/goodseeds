@@ -147,7 +147,7 @@ html{
 #placeholder,
 #how-we-do-it,
 #diagram,
-#approcach,
+#our-approach,
 #our-team,
 #contact{
     padding: 2rem 0;
@@ -220,6 +220,14 @@ html{
     }
 }
 
+#our-team{
+    .splide__pagination{
+        @media (max-width: 768px){
+            bottom: -1.5em;
+        }
+    }
+}
+
 .card-team{
     max-width: 480px;
     margin-left: auto;
@@ -267,6 +275,15 @@ html{
         &::placeholder{
             color: black;
         }
+    }
+}
+
+.editor-body{
+    p{
+        font-size: inherit;
+        line-height: inherit;
+        font-weight: inherit;
+        text-align: inherit;
     }
 }
 

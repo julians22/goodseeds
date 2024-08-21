@@ -3,67 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\Service;
 use App\Models\Team;
+use App\Settings\GeneralSetting;
+use App\Settings\SectionSetting;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(GeneralSetting $generalSetting, SectionSetting $sectionSetting)
     {
+        // dd($sectionSetting);
         $banners = Banner::take(5)->get();
+
+        $primaryText = $banners->where('primary_text', true)->first();
+
         $teams = Team::take(5)->get();
 
-        // make dummy posts
-        $posts = [
-            [
-                'title' => 'Consulting Services',
-                'image' => asset('1doing.jpg'),
-                'content' => 'We offer customized consulting to address your specific
-                                challenges and goals, including:
-                                <ul>
-                                    <li>Strategic planning</li>
-                                    <li>Business & organizational development</li>
-                                    <li>System development & implementation</li>
-                                    <li>Change management</li>
-                                </ul>',
-            ],
-            [
-                'title' => 'Coaching and Mentoring',
-                'image' => asset('2doing.jpg'),
-                'content' => 'Our one-on-one coaching and mentoring services guide
-                        business owners and key personnel through the
-                        transformation journey, helping them reach their full
-                        potential and optimum performance.'
-            ],
-            [
-                'title' => 'Training Programs',
-                'image' => asset('3doing.jpg'),
-                'content' => 'Our training programs enhance workforce skills and
-                                capabilities, including:
-                                <ul>
-                                    <li>Leadership Development program</li>
-                                    <li>Management Trainee program</li>
-                                    <li>B2B Consultative Sales</li>
-                                    <li>Soft skills training such as : Vision & Growth
-                                        Mindset, Effective Communication & Influencing,
-                                        Problem Solving & Decision Making & Impactful
-                                        Presentation Skills
-                                    </li>
-                                </ul>
-                                Mindset, Effective Communication & Influencing,
-                                Problem Solving & Decision Making & Impactful
-                                Presentation Skills',
-            ],
-            [
-                'title' => 'Recruitment Services',
-                'image' => asset('4doing.jpg'),
-                'content' => 'We help you attract and retain top talent. Our strategic
-                        approach ensures candidates not only have the right
-                        skills and experience but also fit your company culture,
-                        driving your business forward.'
-            ]
+        $services = Service::take(4)->get();
+
+
+        $socialIcons = $generalSetting->socialMediaLinks;
+
+        // Attach icon from storage
+        foreach ($socialIcons as $key => $socialIcon) {
+            $socialIcons[$key]['icon'] = asset('img/icons/' . $socialIcon['role'] . '.png');
+        }
+
+
+        $settings = [
+            'headerLogo' => $generalSetting->headerLogo ? asset('storage/' . $generalSetting->headerLogo) : asset('logo.png'),
+            'footerLogo' => $generalSetting->footerLogo ? asset('storage/' . $generalSetting->footerLogo) : asset('logo-white.png'),
+            'siteAddress' => $generalSetting->siteAddress ? nl2br($generalSetting->siteAddress) : '',
+            'socialMediaLinks' => $socialIcons,
+            'siteTitle' => $generalSetting->siteTitle,
         ];
 
-        return view('welcome', compact('banners', 'posts', 'teams'));
+        return view('welcome', compact('banners', 'services', 'teams', 'settings', 'primaryText', 'sectionSetting'));
     }
 }

@@ -12,6 +12,7 @@ class Banner extends Model
     protected $fillable = [
         'image',
         'titles',
+        'primary_text',
     ];
 
     protected $casts = [

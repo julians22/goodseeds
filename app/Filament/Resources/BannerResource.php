@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BannerResource\Pages;
 use App\Filament\Resources\BannerResource\RelationManagers;
 use App\Models\Banner;
+use App\Tables\Columns\BannerTextColumn;
 use Filament\Forms;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
@@ -28,7 +29,7 @@ class BannerResource extends Resource
                     ->image()
                     ->disk('banner')
                     ->required(),
-
+                Forms\Components\Toggle::make('primary_text'),
                 Forms\Components\Repeater::make('titles')
                     ->schema([
                         Forms\Components\TextInput::make('word')
@@ -39,6 +40,7 @@ class BannerResource extends Resource
                             ->label('Color')
                             ->required(),
                     ])
+                    ->columnSpanFull()
                     ->defaultItems(4)
                     ->maxItems(4),
             ]);
@@ -50,6 +52,15 @@ class BannerResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
                     ->disk('banner'),
+                Tables\Columns\ToggleColumn::make('primary_text')
+                    ->placeholder('Primary Text')
+                    ->afterStateUpdated(function ($record, $state) {
+                        $exceptBanner = Banner::withoutGlobalScope(SoftDeletingScope::class)->where('id', '!=', $record->id)->get();
+                        $exceptBanner->each(function ($banner) {
+                            $banner->update(['primary_text' => false]);
+                        });
+                    }),
+                BannerTextColumn::make('titles'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -6,7 +6,7 @@
         </button>
         <a class="navbar-brand" href="#">
             <span>
-                <img src="{{ asset('logo.png') }}" alt="" width="249">
+                <img src="{{ $settings['headerLogo'] }}" alt="" width="249">
             </span>
         </a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -15,7 +15,7 @@
                     <a class="nav-link fw-bold" aria-current="page" href="#what-we-do">OUR SERVICES</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" href="#how-we-do-it">HOW WE DO IT</a>
+                    <a class="nav-link fw-bold" href="#our-approach">OUR APPROACH</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fw-bold" href="#our-team">OUR TEAM</a>
