@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Approach;
 use App\Models\Banner;
+use App\Models\Provide;
 use App\Models\Service;
 use App\Models\Team;
 use App\Settings\GeneralSetting;
@@ -22,6 +24,10 @@ class HomeController extends Controller
 
         $services = Service::take(4)->get();
 
+        $provides = Provide::take(4)->get();
+
+        $approaches = Approach::take(4)->get();
+
 
         $socialIcons = $generalSetting->socialMediaLinks;
 
@@ -39,6 +45,6 @@ class HomeController extends Controller
             'siteTitle' => $generalSetting->siteTitle,
         ];
 
-        return view('welcome', compact('banners', 'services', 'teams', 'settings', 'primaryText', 'sectionSetting'));
+        return view('welcome', compact('banners', 'services', 'teams', 'settings', 'primaryText', 'sectionSetting', 'provides', 'approaches'));
     }
 }

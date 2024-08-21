@@ -17,6 +17,12 @@ class ManageSection extends SettingsPage
 
     protected static string $settings = SectionSetting::class;
 
+    protected static ?string $navigationGroup = 'Settings';
+
+    protected static ?string $navigationLabel = 'Section Settings';
+
+    protected static ?int $navigationSort = 2;
+
     public function form(Form $form): Form
     {
         return $form
@@ -36,7 +42,7 @@ class ManageSection extends SettingsPage
                                 Forms\Components\TextInput::make('servicesTitle')
                                     ->label('Title'),
                             ]),
-                        Tab::make('Portfolio')
+                        Tab::make('Provide')
                             ->schema([
                                 Forms\Components\TextInput::make('provideTitle')
                                     ->label('Title'),
@@ -49,8 +55,6 @@ class ManageSection extends SettingsPage
                             ]),
                         Tab::make('Approach')
                             ->schema([
-                                Forms\Components\TextInput::make('approachTitle')
-                                    ->label('Title'),
                                 Forms\Components\RichEditor::make('approachDescription')
                                     ->label('Description'),
                             ]),

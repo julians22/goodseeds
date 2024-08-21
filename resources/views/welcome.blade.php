@@ -98,33 +98,20 @@
                 <div class="col-md-12">
                     <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="title text-center">
                         <h2 class="fw-bolder display-5 d-inline text-green-light">
-                            WHAT YOU GET
+                            {{ $sectionSetting->provideTitle }}
                         </h2>
                     </div>
                 </div>
             </div>
 
             <div class="row gx-0 gy-5 gx-md-5 mt-2 mt-lg-5">
-                <div class="col-lg-6">
-                    <div class="card-whatyouget fw-medium lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                        Holistic, customized and structured approach
+                @foreach ($provides as $item)
+                    <div class="col-lg-6">
+                        <div class="card-whatyouget fw-medium lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                            {!! $item->content !!}
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card-whatyouget fw-medium lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                        Dedicated professionals with diverse backgrounds and extensive experience in Business & Organization Development, and Human Resources Management
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card-whatyouget fw-medium lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                        Systematic methodology
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card-whatyouget fw-medium lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                        Practical and applicable guidance that shortens your learning curve and minimizes trial and error
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -159,7 +146,7 @@
                 <div class="col-md-12">
                     <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="title text-center">
                         <h2 class="fw-bolder display-5 d-inline text-green-light">
-                            OUR APPROACH
+                            {{ $sectionSetting->approachTitle }}
                         </h2>
                     </div>
                 </div>
@@ -174,41 +161,21 @@
             </div>
 
             <div class="row mt-5 gy-lg-0 gy-2">
-                <div class="col-lg-4">
-                    <div class="d-flex flex-column align-items-center">
-                        <div class="icon-approach icon-why mb-3">
-                            <img src="{{ asset('img/icons/why.png') }}" alt="" width="100" data-aos="fade-right">
+                @foreach ($approaches as $item)
+                    <div class="col-lg-4">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="icon-approach icon-why mb-3">
+                                <img src="{{ $item->icon_url }}" alt="" width="100" data-aos="fade-right">
+                            </div>
+                            <span class="d-block text-green-light fw-bolder display-5" data-aos="fade-right" data-aos-duration="780">{{ $item->title }}</span>
                         </div>
-                        <span class="d-block text-green-light fw-bolder display-5" data-aos="fade-right" data-aos-duration="780">WHY</span>
-                    </div>
-                    <div class="mt-lg-2">
-                        <p class="text-center lead fw-medium" data-aos="fade-right" data-aos-delay="150" data-aos-duration="700">Growth means stepping out of your comfort zone. It requires consistency and perseverance to grow, scale, and sustain success. A strong "WHY" energizes and drives you every morning. We help you to understand your purpose that fuels your passion and commitment to success.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="d-flex flex-column align-items-center">
-                        <div class="icon-approach icon-what mb-3 me-lg-3">
-                            <img src="{{ asset('img/icons/what.png') }}" alt="" width="100" data-aos="fade-right">
+                        <div class="mt-lg-2">
+                            <p class="text-center lead fw-medium" data-aos="fade-right" data-aos-delay="150" data-aos-duration="700">
+                                {!! $item->description !!}
+                            </p>
                         </div>
-                        <span class="d-block text-green-light fw-bolder display-5" data-aos="fade-right" data-aos-duration="780">WHAT</span>
                     </div>
-                    <div class="mt-lg-2">
-                        <p class="text-center lead fw-medium" data-aos="fade-right" data-aos-delay="150" data-aos-duration="700">We help you to set specific, measurable goals, identify quick wins, and establish clear directions to reach your targets. Clear objectives and milestones ensure tangible progress and sustained motivation throughout the journey.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="d-flex flex-column align-items-center">
-                        <div class="icon-approach icon-how mb-3">
-                            <img src="{{ asset('img/icons/how.png') }}" alt="" width="100" data-aos="fade-right">
-                        </div>
-                        <span class="d-block text-green-light fw-bolder display-5" data-aos="fade-right" data-aos-duration="780">HOW</span>
-                    </div>
-                    <div class="mt-lg-2">
-                        <p class="text-center lead fw-medium" data-aos="fade-right" data-aos-delay="150" data-aos-duration="700">
-                            We create step-by-step, actionable plans that adopt best practices while being custom-fit to your unique situation. Our tailored approach ensures that solutions are effective, practical, and relevant to your business context.
-                        </p>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
         </div>
@@ -316,7 +283,7 @@
                                 <textarea name="message" id="message" rows="5" placeholder="Message" class="form-control custom-form"></textarea>
                             </div>
                             <div class="col-12 d-flex">
-                                <button type="submit" class="btn btn-green-light ms-auto d-inline-block px-5 text-white fw-medium">SUBMIT</button>
+                                <button type="submit" class="btn btn-green-light ms-auto d-inline-flex px-5 text-white fw-medium">SUBMIT <span class="custom-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span></button>
                             </div>
                         </div>
                     </form>

@@ -20,6 +20,12 @@ class ManageSite extends SettingsPage
 
     protected static string $settings = GeneralSetting::class;
 
+    protected static ?string $navigationGroup = 'Settings';
+
+    protected static ?string $navigationLabel = 'Site Information';
+
+    protected static ?int $navigationSort = 1;
+
     public function form(Form $form): Form
     {
         return $form
