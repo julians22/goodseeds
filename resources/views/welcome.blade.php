@@ -116,9 +116,18 @@
         </div>
     </section>
 
-    <section id="diagram" class="overflow-hidden pb-0">
+    <section id="our-approach" class="overflow-hidden pb-0">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="title text-center">
+                        <h2 class="fw-bolder display-5 d-inline text-green-light">
+                            {{ $sectionSetting->approachTitle }}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5 justify-content-center">
                 <div class="col-10 d-none d-md-block">
                     <img src="{{ asset('diagram-01.png') }}"
                         class="w-100"
@@ -138,20 +147,8 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section id="our-approach" class="pt-0">
-        <div class="spacer"></div>
+        {{-- <div class="spacer"></div> --}}
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="title text-center">
-                        <h2 class="fw-bolder display-5 d-inline text-green-light">
-                            {{ $sectionSetting->approachTitle }}
-                        </h2>
-                    </div>
-                </div>
-            </div>
-
             <div class="row mt-5">
                 <div class="col-md-12">
                     <div class="editor-body text-center lead fw-medium">
@@ -297,7 +294,25 @@
 @push('scripts')
 
 <script>
+    // const navbar = document.getElementById('custom-nav');
+    const navbarMobile = document.getElementById('mobile-custom-nav');
+
+    // let navbarHeight = navbar.offsetHeight;
+    navbarMobile.querySelector('.menu-icon').addEventListener('click', function() {
+        navbarMobile.classList.toggle('open');
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
+
+        // const body = document.body;
+        // body.style.paddingTop = navbarHeight + 'px';
+
+        setTimeout(() => {
+            navbarMobile.querySelector('.menu').classList.add('shouldanimate');
+
+        }, 3000);
+
+
         // init splide js
         let homeSplideOptions = {
             perPage: 1,

@@ -37,7 +37,9 @@
     @include('includes.nav')
 
     <div id="app">
-      @yield('content')
+        <main data-bs-spy="scroll" data-bs-target=".navScrollSpy" data-bs-root-margin="0px 0px -80px" data-bs-smooth-scroll="true">
+            @yield('content')
+        </main>
     </div>
 
     <footer class="py-2 py-md-4 bg-purple">
