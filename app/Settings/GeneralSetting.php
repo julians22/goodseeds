@@ -22,6 +22,15 @@ class GeneralSetting extends Settings
     // Site Title
     public string $siteTitle = '';
 
+    // Notification Email
+    public array $notificationRecipients = [];
+
+    // Whatsapp ContactNumber
+    public string $whatsappContactNumber = '';
+
+    // Whatsapp ContactMessage
+    public string $whatsappContactMessage = '';
+
     public static function group(): string
     {
         return 'general';

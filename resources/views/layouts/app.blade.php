@@ -52,6 +52,8 @@
         </div>
     </footer>
 
+    @stack('floating')
+
     @stack('scripts')
 
   </body>

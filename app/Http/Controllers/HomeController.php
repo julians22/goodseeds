@@ -36,6 +36,9 @@ class HomeController extends Controller
             $socialIcons[$key]['icon'] = asset('img/icons/' . $socialIcon['role'] . '.png');
         }
 
+        $whatsappMessage = urlencode($generalSetting->whatsappContactMessage);
+
+        $whatsappLink = "https://wa.me/+62{$generalSetting->whatsappContactNumber}?text={$whatsappMessage}";
 
         $settings = [
             'headerLogo' => $generalSetting->headerLogo ? asset('storage/' . $generalSetting->headerLogo) : asset('logo.png'),
@@ -43,6 +46,7 @@ class HomeController extends Controller
             'siteAddress' => $generalSetting->siteAddress ? nl2br($generalSetting->siteAddress) : '',
             'socialMediaLinks' => $socialIcons,
             'siteTitle' => $generalSetting->siteTitle,
+            'whatsappLink' => $whatsappLink,
         ];
 
         return view('welcome', compact('banners', 'services', 'teams', 'settings', 'primaryText', 'sectionSetting', 'provides', 'approaches'));

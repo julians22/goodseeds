@@ -34,7 +34,7 @@ class ManageSite extends SettingsPage
                 ->columns(12)
                 ->schema([
                     Section::make('Site Information')
-                        ->columns(1)
+                        ->columnSpan(6)
                         ->schema([
                             TextInput::make('siteTitle')
                                 ->required(),
@@ -48,20 +48,29 @@ class ManageSite extends SettingsPage
                                 ->image()
                                 ->disk('public')
                                 ->required(),
-                            // Repeatble Social Media Links
-                            Repeater::make('socialMediaLinks')
-                                ->schema([
-                                    Select::make('role')
-                                        ->options([
-                                            'linkedin' => 'Linkedin',
-                                            'instagram' => 'Instagram',
-                                            'facebook' => 'Facebook',
-                                            'twitter' => 'Twitter',
-                                            ])
-                                        ->required(),
-                                    TextInput::make('link')->required(),
-                                    ]),
                         ]),
+                        Section::make('Contact Information')
+                            ->columnSpan(6)
+                            ->schema([
+                                TextInput::make('whatsappContactNumber')
+                                    ->prefix('+62')
+                                    ->placeholder('e.g. 81234567890')
+                                    ->required(),
+                                Textarea::make('whatsappContactMessage'),
+                                // Repeatble Social Media Links
+                                Repeater::make('socialMediaLinks')
+                                    ->schema([
+                                        Select::make('role')
+                                            ->options([
+                                                'linkedin' => 'Linkedin',
+                                                'instagram' => 'Instagram',
+                                                'facebook' => 'Facebook',
+                                                'twitter' => 'Twitter',
+                                                ])
+                                            ->required(),
+                                        TextInput::make('link')->required(),
+                                        ]),
+                            ])
                 ])
             ]);
     }

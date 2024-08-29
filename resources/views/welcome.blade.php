@@ -291,6 +291,14 @@
 
 @endsection
 
+@push('floating')
+    <div id="whatsapp-icon">
+        <a href="{{ $settings['whatsappLink'] }}" class="text-decoration-none m-0 d-block" target="blank">
+            <img src="{{ asset('img/icons/wa.png') }}" alt="" class="img-fluid">
+        </a>
+    </div>
+@endpush
+
 @push('scripts')
 
 <script>
@@ -355,14 +363,22 @@
             axios.post(url, data)
                 .then(response => {
                     form.reset();
-
-                    let data = response.data;
-                    let name = data.contact.name;
+                    let name = data.name;
 
                     alert('Thank you, ' + name + '. Your message has been sent successfully.');
                 })
                 .catch(error => {
                     console.error(error);
+
+                    // Handle Error
+                    // 419 - Expired Session | Do reload page
+                    // 422 - Validation Error
+
+                    if (error.response.status === 419) {
+                        alert('Session expired. Please try again.');
+                        location.reload();
+                        return;
+                    }
 
                     if (error.response.status === 422) {
                         let errors = error.response.data.errors;
