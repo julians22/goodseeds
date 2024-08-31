@@ -421,6 +421,9 @@
 
             let url = form.getAttribute('action');
 
+            // disable submit button
+            form.querySelector('button[type="submit"]').setAttribute('disabled', 'disabled');
+
             axios.post(url, data)
                 .then(response => {
                     form.reset();
@@ -459,6 +462,8 @@
                     console.log('finally');
                     // allways reset recaptcha
                     grecaptcha.reset();
+                    // enable submit button
+                    form.querySelector('button[type="submit"]').removeAttribute('disabled');
                 });
         });
     }
