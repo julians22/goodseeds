@@ -19,7 +19,12 @@ class User extends Authenticatable implements FilamentUser
     {
         // Email should be verified to access the panel.
         // email is admin@admin.com
-        return $this->email === 'admin@goodseeds.com' && $this->hasVerifiedEmail();
+        // if env is not production, return true
+        if (app()->environment('production')) {
+            return $this->email === 'admin@goodseeds.com' && $this->hasVerifiedEmail();
+        }else{
+            return true;
+        }
     }
 
     /**
