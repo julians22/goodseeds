@@ -38,7 +38,9 @@ class HomeController extends Controller
 
         $whatsappMessage = urlencode($generalSetting->whatsappContactMessage);
 
-        $whatsappLink = "https://wa.me/+62{$generalSetting->whatsappContactNumber}?text={$whatsappMessage}";
+        $whatsappLink = "https://api.whatsapp.com/send?phone=+62{$generalSetting->whatsappContactNumber}&text={$whatsappMessage}";
+
+        // $whatsappLink = "https://wa.me/+62{$generalSetting->whatsappContactNumber}?text={$whatsappMessage}";
 
         $settings = [
             'headerLogo' => $generalSetting->headerLogo ? asset('storage/' . $generalSetting->headerLogo) : asset('logo.png'),

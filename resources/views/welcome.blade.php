@@ -274,13 +274,18 @@
                               <input type="email" name="email" class="form-control custom-form" autocomplete="email" placeholder="Email" aria-label="Email" required>
                             </div>
                             <div class="col-12">
-                              <input type="text" name="phone" class="form-control custom-form" autocomplete="mobile" placeholder="Phone Number" aria-label="Phone Number">
+                              <input type="tel" oninput="this.value = this.value.replace(/[^0-9+]/g, '').replace(/(\..*?)\..*/g, '$1');" name="phone" class="form-control custom-form" autocomplete="mobile" placeholder="Phone Number" aria-label="Phone Number">
                             </div>
                             <div class="col-12">
                                 <textarea name="message" id="message" rows="5" placeholder="Message" class="form-control custom-form"></textarea>
                             </div>
-                            <div class="col-12 d-flex">
-                                <button type="submit" class="btn btn-green-light ms-auto d-inline-flex px-5 text-white fw-medium">SUBMIT <span class="custom-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span></button>
+                            <div class="col-12 d-flex flex-md-row flex-column">
+                                <div>
+                                    <div class="g-recaptcha ms-auto" data-sitekey="{{config('services.recaptcha.sitekey')}}"></div>
+                                </div>
+                                <div class="ms-md-auto d-inline-block mt-md-0 mt-2">
+                                    <button type="submit" class="d-inline-flex btn btn-green-light px-5 text-white fw-medium">SUBMIT <span class="custom-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span></button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -293,9 +298,45 @@
 
 @push('floating')
     <div id="whatsapp-icon">
-        <a href="{{ $settings['whatsappLink'] }}" class="text-decoration-none m-0 d-block" target="blank">
-            <img src="{{ asset('img/icons/wa.png') }}" alt="" class="img-fluid">
-        </a>
+        <img src="{{ asset('img/icons/wa.png') }}" alt="" class="img-fluid">
+    </div>
+    <div class="widget-wrapper shadow-lg" id="chat-widget">
+        <div class="header position-relative bg-blue-light p-3 rounded-top-3 text-white">
+            <div class="row gx-2 d-flex align-items-center">
+                <div class="col-2">
+                    <div class="profile-image">
+                        <img src="{{ asset('img/Logo.jpg') }}" alt="Goodseeds.id Logo" class="img-fluid rounded-circle">
+                    </div>
+                </div>
+                <div class="col">
+                    <h6 class="fw-bold mb-0">Goodseeds.id</h6>
+                    <small class="fw-medium">Senin - Jumat (09:00 - 18:00 WIB)</small>
+                </div>
+            </div>
+            {{-- close icon bootstap times --}}
+            <button type="button" class="btn-close btn-sm btn-close-white position-absolute top-0 end-0 mt-2 me-2" aria-label="Close"></button>
+        </div>
+        <div class="body py-4 px-3" style="background-image: url({{asset('img/chats/ChatBackground.png')}})">
+            <div>
+                <div class="chat-message px-3 py-2 rounded">
+                    <div class="chat-message-content">
+                        <p class="text-black-50 fs-7 mb-1">
+                            <strong>goodseeds.id</strong>
+                        </p>
+                        <p class="fs-7 mb-2">
+                            Selamat datang di website goodseeds.id. Apabila anda ingin bertanya seputar goodseeds.id bisa chat dengan kami
+                        </p>
+                        {{-- Hour --}}
+                        <div class="text-end">
+                            <p class="text-secondary mb-0 fs-7">09:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer p-3 rounded-bottom-3 bg-white">
+            <a href="{{ $settings['whatsappLink'] }}" title="Mulai Chat" class="btn d-block rounded-pill btn-sm btn-green-light text-white" id="start-chat">Mulai Chat</a>
+        </div>
     </div>
 @endpush
 
@@ -309,6 +350,11 @@
     navbarMobile.querySelector('.menu-icon').addEventListener('click', function() {
         navbarMobile.classList.toggle('open');
     });
+
+    const chatWidget = document.getElementById('chat-widget');
+    const widgetTrigger = document.getElementById('whatsapp-icon');
+    const startChat = document.getElementById('start-chat');
+    const chatClose = chatWidget.querySelector('.btn-close');
 
     document.addEventListener('DOMContentLoaded', function() {
 
@@ -345,6 +391,21 @@
 
         // Handel submit contact-form
         storeFormData();
+
+        // Handle whatsapp widget
+        widgetTrigger.addEventListener('click', function() {
+            chatWidget.classList.toggle('open');
+        });
+
+        chatClose.addEventListener('click', function() {
+            chatWidget.classList.remove('open');
+        });
+
+        startChat.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(this.href, 'newwindow', 'width=800, height=600');
+        });
+
 
     });
 
@@ -387,9 +448,17 @@
                             message += errors[key][0] + '\n';
                         }
                         alert(message);
-                    } else {
+                    }else if (error.response.status === 400 && error.response.data.message == 'recaptcha_failed') {
+                        // reset recaptcha
+                        alert('Recaptcha failed. Please try again.');
+                    }else {
                         alert('Something went wrong. Please try again later.');
                     }
+                })
+                .finally(() => {
+                    console.log('finally');
+                    // allways reset recaptcha
+                    grecaptcha.reset();
                 });
         });
     }

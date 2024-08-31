@@ -1,18 +1,25 @@
 <!doctype html>
 <html lang="en">
   <head>
+
     {{-- Gtag --}}
     @if (config('app.env') === 'production')
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CXH0CPZB18"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-    gtag('config', 'G-CXH0CPZB18');
+        gtag('config', 'G-CXH0CPZB18');
     </script>
+
     @endif
+
+    {{-- Recaptcha Script --}}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Welcome') | {{ appName() }}</title>

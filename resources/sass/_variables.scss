@@ -6,6 +6,7 @@ $blue-light-2: #0198E1;
 $green-light: #A1C300;
 $purple: #131e48;
 $orange: #fcaf17;
+$brown: #e6ddd4;
 
 $nav-height: 80px;
 $nav-mobile-height: 70px;
@@ -15,8 +16,15 @@ $theme-colors: (
     "blue-light-2": $blue-light-2,
     "green-light": $green-light,
     "purple": $purple,
-    "orange": $orange
+    "orange": $orange,
+    "brown" : $brown
 );
+
+$additional-sizes: (
+    "7" : 14px,
+);
+
+$font-sizes: map-merge($theme-colors, $additional-sizes);
 
 
 /* ----------------------------------------------

@@ -37,6 +37,10 @@ class ContactResource extends Resource
                 TextColumn::make('phone'),
                 TextColumn::make('message')
                     ->formatStateUsing(fn (string $state) => substr($state, 0, 50) . '...'),
+                TextColumn::make('created_at')
+                    ->format(function ($value) {
+                        return $value->format('Y-m-d H:i:s');
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
