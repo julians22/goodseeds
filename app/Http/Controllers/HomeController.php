@@ -28,7 +28,6 @@ class HomeController extends Controller
 
         $approaches = Approach::take(4)->get();
 
-
         $socialIcons = $generalSetting->socialMediaLinks;
 
         // Attach icon from storage
@@ -39,8 +38,6 @@ class HomeController extends Controller
         $whatsappMessage = urlencode($generalSetting->whatsappContactMessage);
 
         $whatsappLink = "https://api.whatsapp.com/send?phone=62{$generalSetting->whatsappContactNumber}&text={$whatsappMessage}";
-
-        // $whatsappLink = "https://wa.me/+62{$generalSetting->whatsappContactNumber}?text={$whatsappMessage}";
 
         $settings = [
             'headerLogo' => $generalSetting->headerLogo ? asset('storage/' . $generalSetting->headerLogo) : asset('logo.png'),
