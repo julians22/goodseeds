@@ -6,6 +6,6 @@ return new class extends SettingsMigration
 {
     public function up(): void
     {
-        $this->migrator->add('general.notificationRecipients', '');
+        $this->migrator->add('general.notificationRecipients', []);
     }
 };
