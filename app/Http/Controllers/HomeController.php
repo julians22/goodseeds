@@ -38,7 +38,7 @@ class HomeController extends Controller
 
         $whatsappMessage = urlencode($generalSetting->whatsappContactMessage);
 
-        $whatsappLink = "https://api.whatsapp.com/send?phone=+62{$generalSetting->whatsappContactNumber}&text={$whatsappMessage}";
+        $whatsappLink = "https://api.whatsapp.com/send?phone=62{$generalSetting->whatsappContactNumber}&text={$whatsappMessage}";
 
         // $whatsappLink = "https://wa.me/+62{$generalSetting->whatsappContactNumber}?text={$whatsappMessage}";
 
