@@ -324,12 +324,8 @@
                             <strong>goodseeds.id</strong>
                         </p>
                         <p class="fs-7 mb-2">
-                            Selamat datang di website goodseeds.id. Apabila anda ingin bertanya seputar goodseeds.id bisa chat dengan kami
+                            {{ $settings['whatsappPopupGreetingMessage'] }}
                         </p>
-                        {{-- Hour --}}
-                        <div class="text-end">
-                            <p class="text-secondary mb-0 fs-7">09:00</p>
-                        </div>
                     </div>
                 </div>
             </div>

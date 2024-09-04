@@ -46,6 +46,7 @@ class HomeController extends Controller
             'socialMediaLinks' => $socialIcons,
             'siteTitle' => $generalSetting->siteTitle,
             'whatsappLink' => $whatsappLink,
+            'whatsappPopupGreetingMessage' => $generalSetting->whatsappPopupGreetingMessage,
         ];
 
         return view('welcome', compact('banners', 'services', 'teams', 'settings', 'primaryText', 'sectionSetting', 'provides', 'approaches'));
