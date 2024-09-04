@@ -21,7 +21,7 @@ class User extends Authenticatable implements FilamentUser
         // email is admin@admin.com
         // if env is not production, return true
         if (app()->environment('production')) {
-            return $this->email === 'admin@goodseeds.com' && $this->hasVerifiedEmail();
+            return $this->email === 'admin@goodseeds.id' && $this->hasVerifiedEmail();
         }else{
             return true;
         }
