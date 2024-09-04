@@ -36,6 +36,7 @@ class ContactMail extends Mailable
         return new Envelope(
             subject: 'Contact Mail Notification | ' . $now,
             from: new Address('noreply@goodseeds.id', 'Noreply Goodseeds'),
+            replyTo: new Address($this->contact->email, $this->contact->name),
         );
     }
 
