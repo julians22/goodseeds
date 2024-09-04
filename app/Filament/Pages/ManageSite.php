@@ -37,14 +37,18 @@ class ManageSite extends SettingsPage
                         ->columnSpan(6)
                         ->schema([
                             TextInput::make('siteTitle')
+                                ->helperText('The title of the site')
                                 ->required(),
                             Textarea::make('siteAddress')
+                                ->helperText('The address of the site')
                                 ->required(),
                             FileUpload::make('headerLogo')
+                                ->helperText('The logo of the site, recommended format: PNG, landscape orientation')
                                 ->image()
                                 ->disk('public')
                                 ->required(),
                             FileUpload::make('footerLogo')
+                                ->helperText('The logo of the site, recommended format: PNG, landscape orientation')
                                 ->image()
                                 ->disk('public')
                                 ->required(),
@@ -53,19 +57,23 @@ class ManageSite extends SettingsPage
                             ->columnSpan(6)
                             ->schema([
                                 TextInput::make('whatsappContactNumber')
+                                    ->helperText('The contact number for WhatsApp, place the number without the country code')
                                     ->prefix('+62')
                                     ->placeholder('e.g. 81234567890')
                                     ->required(),
-                                Textarea::make('whatsappContactMessage'),
+                                Textarea::make('whatsappContactMessage')
+                                    ->helperText('The message to be sent when the contact number is clicked')
+                                    ->required(),
+                                Textarea::make('whatsappPopupGreetingMessage')
+                                    ->helperText('The message to be shown in the WhatsApp popup')
+                                    ->required(),
                                 // Repeatble Social Media Links
                                 Repeater::make('socialMediaLinks')
                                     ->schema([
                                         Select::make('role')
                                             ->options([
                                                 'linkedin' => 'Linkedin',
-                                                'instagram' => 'Instagram',
-                                                'facebook' => 'Facebook',
-                                                'twitter' => 'Twitter',
+                                                'instagram' => 'Instagram'
                                                 ])
                                             ->required(),
                                         TextInput::make('link')->required(),

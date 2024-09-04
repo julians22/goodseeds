@@ -12,12 +12,17 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationLabel = 'Contact List';
+
+    protected static ?int $navigationSort = 8;
 
     public static function form(Form $form): Form
     {
@@ -37,11 +42,9 @@ class ContactResource extends Resource
                 TextColumn::make('phone'),
                 TextColumn::make('message')
                     ->formatStateUsing(fn (string $state) => substr($state, 0, 50) . '...'),
-                TextColumn::make('created_at')
-                    ->format(function ($value) {
-                        return $value->format('Y-m-d H:i:s');
-                    }),
+                TextColumn::make('created_at'),
             ])
+            ->defaultSort('created_at', 'desc')
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->modalWidth('2xl')

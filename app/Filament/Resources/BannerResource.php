@@ -21,28 +21,44 @@ class BannerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?int $navigationSort = 2;
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('image')
+                    ->label('Banner Image')
+                    ->helperText('Recommended size: 1395 x 654 pixels, format: JPG, PNG')
                     ->image()
                     ->disk('banner')
                     ->required(),
-                Forms\Components\Toggle::make('primary_text'),
-                Forms\Components\Repeater::make('titles')
+                Forms\Components\Toggle::make('primary_text')
+                    ->label('Primary Text')
+                    ->helperText('If enabled, this banner will be the primary text banner, meaning it will be showed on mobile devices')
+                    ->default(false),
+                // Section titles
+                Forms\Components\Section::make('Banner Titles')
+                    ->description('Add up to 4 words, each with a different color, to be displayed on the banner')
                     ->schema([
-                        Forms\Components\TextInput::make('word')
-                            ->label('Word')
-                            ->required(),
-                        // Word colors
-                        Forms\Components\ColorPicker::make('color')
-                            ->label('Color')
-                            ->required(),
+                        Forms\Components\Repeater::make('titles')
+                            ->schema([
+                                Forms\Components\TextInput::make('word')
+                                    ->helperText('Enter a word, e.g. "Nurture"')
+                                    ->label('Word')
+                                    ->required(),
+                                // Word colors
+                                Forms\Components\ColorPicker::make('color')
+                                    ->helperText('Pick a color for the word')
+                                    ->label('Color')
+                                    ->required(),
+                            ])
+                            ->columnSpanFull()
+                            ->defaultItems(4)
+                            ->maxItems(4),
+
                     ])
-                    ->columnSpanFull()
-                    ->defaultItems(4)
-                    ->maxItems(4),
+
             ]);
     }
 

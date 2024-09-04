@@ -27,13 +27,16 @@ class ServiceResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->helperText('The name of the service')
                     ->label('Service Name')
                     ->required(),
                 Forms\Components\RichEditor::make('description')
+                    ->helperText('The description of the service')
                     ->label('Service Description')
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
+                    ->helperText('Recommended size: 497 x 268 pixels, format: JPG, PNG')
                     ->label('Service Image')
                     ->image()
                     ->disk('service')
@@ -83,10 +86,6 @@ class ServiceResource extends Resource
     }
 
     public static function canCreate(): bool{
-        return false;
-    }
-
-    public static function canUpdate(): bool{
         return false;
     }
 }

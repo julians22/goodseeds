@@ -30,12 +30,15 @@ class ApproachResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
+                    ->helperText('The title of the approach item')
                     ->label('Title')
                     ->required(),
                 Forms\Components\Textarea::make('description')
+                    ->helperText('The description of the approach item')
                     ->label('Description')
                     ->required(),
                 Forms\Components\FileUpload::make('icon')
+                    ->helperText('Recommended size: 200 x 200 pixels, format: PNG')
                     ->label('Icon')
                     ->image()
                     ->disk('approach')
@@ -84,5 +87,9 @@ class ApproachResource extends Resource
             'create' => Pages\CreateApproach::route('/create'),
             'edit' => Pages\EditApproach::route('/{record}/edit'),
         ];
+    }
+
+    public static function canCreate(): bool{
+        return false;
     }
 }

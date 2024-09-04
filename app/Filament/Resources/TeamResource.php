@@ -24,28 +24,37 @@ class TeamResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->helperText('The name of the team member')
                     ->required(),
                 Forms\Components\Textarea::make('description')
+                    ->helperText('The description of the team member')
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
+                    ->helperText('Recommended size: 500 x 500 pixels, format: JPG, PNG')
                     ->image()
                     ->avatar()
                     ->required()
                     ->disk('team'),
                 // Reperater for socials
                 // Socialsare options to add social media links, linkedin & Instagram only
-                Forms\Components\Repeater::make('socials')
+                Forms\Components\Section::make('Socials')
+                    ->description('Add social media links for the team member')
                     ->schema([
-                        Forms\Components\Select::make('platform')
-                            ->options([
-                                'linkedin' => 'LinkedIn',
-                                'instagram' => 'Instagram',
-                            ])
-                            ->required(),
-                        Forms\Components\TextInput::make('url')
-                            ->required(),
-                        ]),
+                        Forms\Components\Repeater::make('socials')
+                            ->schema([
+                                Forms\Components\Select::make('platform')
+                                    ->options([
+                                        'linkedin' => 'LinkedIn',
+                                        'instagram' => 'Instagram',
+                                    ])
+                                    ->helperText('The social media platform, only LinkedIn and Instagram are supported')
+                                    ->required(),
+                                Forms\Components\TextInput::make('url')
+                                    ->helperText('The URL of the social media profile')
+                                    ->required(),
+                                ]),
+                    ])
             ]);
     }
 

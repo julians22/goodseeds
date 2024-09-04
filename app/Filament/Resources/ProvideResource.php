@@ -28,6 +28,7 @@ class ProvideResource extends Resource
         return $form
             ->schema([
                 Forms\Components\RichEditor::make('content')
+                    ->helperText('The content of the provide item')
                     ->required(),
             ]);
     }

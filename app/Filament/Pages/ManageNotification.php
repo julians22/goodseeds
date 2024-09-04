@@ -24,6 +24,7 @@ class ManageNotification extends SettingsPage
                 Forms\Components\Repeater::make('notificationRecipients')
                     ->schema([
                         Forms\Components\TextInput::make('email')
+                            ->helperText('Email address of the recipient')
                             ->label('Email')
                             ->email()
                             ->placeholder('Email Recipient')

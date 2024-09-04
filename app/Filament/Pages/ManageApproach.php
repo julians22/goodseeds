@@ -22,8 +22,12 @@ class ManageApproach extends SettingsPage
         return $form
             ->schema([
                 Forms\Components\TextInput::make('approachTitle')
+                    ->required()
+                    ->helperText('The title of the approach item')
                     ->label('Title'),
                 Forms\Components\RichEditor::make('approachDescription')
+                    ->required()
+                    ->helperText('The description of the approach item')
                     ->label('Description'),
             ]);
     }

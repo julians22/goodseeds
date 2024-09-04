@@ -31,6 +31,9 @@ class GeneralSetting extends Settings
     // Whatsapp ContactMessage
     public string $whatsappContactMessage = '';
 
+    // Whatsapp Popup Greeting Message
+    public string $whatsappPopupGreetingMessage = '';
+
     public static function group(): string
     {
         return 'general';

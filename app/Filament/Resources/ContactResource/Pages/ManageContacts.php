@@ -10,6 +10,8 @@ class ManageContacts extends ManageRecords
 {
     protected static string $resource = ContactResource::class;
 
+    protected static ?string $title = 'Contact List';
+
     protected function getHeaderActions(): array
     {
         return [
