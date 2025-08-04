@@ -21,14 +21,17 @@ class SecurityHeaders
         $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
 
         // Content-Security-Policy
-        $response->headers->set('Content-Security-Policy', "
-            default-src 'self';
-            script-src 'self' https://www.googletagmanager.com https://www.google.com/recaptcha/ 'unsafe-inline';
-            style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
-            font-src 'self' https://fonts.gstatic.com;
-            img-src 'self' data:;
-            frame-src https://www.google.com/recaptcha/;
-        ");
+        $csp = implode(' ', [
+            "default-src 'self';",
+            "script-src 'self' https://www.googletagmanager.com https://www.google.com/recaptcha/ 'unsafe-inline';",
+            "style-src 'self' https://fonts.googleapis.com 'unsafe-inline';",
+            "font-src 'self' https://fonts.gstatic.com;",
+            "img-src 'self' data:;",
+            "frame-src https://www.google.com/recaptcha/;"
+        ]);
+
+        $response->headers->set('Content-Security-Policy', $csp);
+
 
         // X-Frame-Options
         $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
