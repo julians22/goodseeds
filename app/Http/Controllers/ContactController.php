@@ -15,7 +15,6 @@ class ContactController extends Controller
 
     public function store(Request $request, GeneralSetting $generalSetting)
     {
-        dd('test');
         $request->validate([
             'name' => 'required|max:225',
             'email' => 'required|email',
@@ -86,7 +85,7 @@ class ContactController extends Controller
 
         try{
             // Get notification recipients
-            $recipients = $generalSetting->notificationRecipients;
+            $recipients = $generalSetting->notificationRecipients; // ['email1', 'email2', 'email3']
             $emails = collect($recipients)->map(function ($recipient) {
                 return $recipient['email'];
             });
@@ -95,6 +94,8 @@ class ContactController extends Controller
 
             // Send email to admin
             Mail::to($emails)->send(new ContactMail($contact));
+
+
         } catch (\Throwable $th) {
             $mailSend = $th->getMessage();
         }
