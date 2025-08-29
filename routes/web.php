@@ -15,5 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::post('secure-contact', [ContactController::class, 'store'])->name('secure-contact');
+
+
+Route::localized(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('what-we-do', [HomeController::class, 'whatWeDo'])->name('what-we-do');
+    Route::get('success-stories', [HomeController::class, 'successStories'])->name('success-stories');
+    Route::get('article', [HomeController::class, 'article'])->name('article');
+    Route::post('secure-contact', [ContactController::class, 'store'])->name('secure-contact');
+    // Define your localized routes here
+});

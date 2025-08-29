@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Approach;
+use App\Models\Article;
 use App\Models\Banner;
 use App\Models\Provide;
 use App\Models\Service;
@@ -50,5 +51,63 @@ class HomeController extends Controller
         ];
 
         return view('welcome', compact('banners', 'services', 'teams', 'settings', 'primaryText', 'sectionSetting', 'provides', 'approaches'));
+    }
+
+    public function whatWeDo(GeneralSetting $generalSetting)
+    {
+        $socialIcons = $generalSetting->socialMediaLinks;
+
+    }
+
+    public function successStories(GeneralSetting $generalSetting)
+    {
+        $socialIcons = $generalSetting->socialMediaLinks;
+
+    }
+
+    public function article(GeneralSetting $generalSetting)
+    {
+        $socialIcons = $generalSetting->socialMediaLinks;
+
+        // Attach icon from storage
+        foreach ($socialIcons as $key => $socialIcon) {
+            $socialIcons[$key]['icon'] = asset('img/icons/' . $socialIcon['role'] . '.png');
+        }
+
+        $whatsappMessage = urlencode($generalSetting->whatsappContactMessage);
+
+        $whatsappLink = "https://api.whatsapp.com/send?phone=62{$generalSetting->whatsappContactNumber}&text={$whatsappMessage}";
+
+        $settings = [
+            'headerLogo' => $generalSetting->headerLogo ? asset('storage/' . $generalSetting->headerLogo) : asset('logo.png'),
+            'footerLogo' => $generalSetting->footerLogo ? asset('storage/' . $generalSetting->footerLogo) : asset('logo-white.png'),
+            'siteAddress' => $generalSetting->siteAddress ? nl2br($generalSetting->siteAddress) : '',
+            'socialMediaLinks' => $socialIcons,
+            'siteTitle' => $generalSetting->siteTitle,
+            'whatsappLink' => $whatsappLink,
+            'whatsappPopupGreetingMessage' => $generalSetting->whatsappPopupGreetingMessage,
+        ];
+
+        $articleTitle = __('wordings.article__title');
+        $articleDescription = __('wordings.article__description');
+
+        // Newline to HTML line break conversion
+        $articleTitle = nl2br($articleTitle);
+        $articleDescription = nl2br($articleDescription);
+
+        // Clean up HTML Elements
+        $articleTitleCleaned = strip_tags($articleTitle);
+        $articleDescriptionCleaned = strip_tags($articleDescription);
+
+        $pageAttributes = [
+            'title' => $articleTitle,
+            'title_browser' => $articleTitleCleaned,
+            'description' => $articleDescription,
+            'description_browser' => $articleDescriptionCleaned,
+        ];
+
+        $articles = Article::take(3)->get();
+
+        return view('article', compact('settings', 'pageAttributes', 'articles'));
     }
 }

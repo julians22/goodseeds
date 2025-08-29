@@ -31,7 +31,11 @@ class SecurityHeaders
             "connect-src 'self' https://www.google-analytics.com;",
         ]);
 
-        $response->headers->set('Content-Security-Policy', $csp);
+        if (config('app.env') === 'production') {
+            $csp .= " upgrade-insecure-requests;";
+            $response->headers->set('Content-Security-Policy', $csp);
+        }
+
 
 
         // X-Frame-Options
