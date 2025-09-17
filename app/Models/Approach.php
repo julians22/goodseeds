@@ -15,11 +15,11 @@ class Approach extends Model
         'icon',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
+    protected $casts = [
+        'title' => 'array',
+        'description' => 'array',
+    ];
+
     protected $appends = ['icon_url'];
 
     public function getIconUrlAttribute()

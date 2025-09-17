@@ -14,10 +14,13 @@ class Team extends Model
         'description',
         'image',
         'socials',
+        'certificate',
     ];
 
     protected $casts = [
         'socials' => 'array',
+        'certificate' => 'array',
+        'description' => 'array',
     ];
 
     /**
@@ -25,13 +28,22 @@ class Team extends Model
      *
      * @var array
      */
-    protected $appends = ['image_url', 'socials_array'];
+    protected $appends = ['image_url', 'socials_array', 'certificate_array'];
 
     public function getImageUrlAttribute()
     {
         return $this->image
             ? asset('storage/teams/' . $this->image)
             : null;
+    }
+
+    public function getCertificateArrayAttribute()
+    {
+        if (is_array($this->certificate)) {
+            return $this->certificate;
+        }
+
+        return json_decode($this->certificate, true);
     }
 
     // SocialsArray accessors

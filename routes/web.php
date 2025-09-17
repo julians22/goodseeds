@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +20,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::localized(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('what-we-do', [HomeController::class, 'whatWeDo'])->name('what-we-do');
-    Route::get('success-stories', [HomeController::class, 'successStories'])->name('success-stories');
-    Route::get('article', [HomeController::class, 'article'])->name('article');
+
+    Route::get(__('routes.insight'), [HomeController::class, 'article'])->name('article');
+    Route::get(__('routes.insight').'/{slug}', [HomeController::class, 'showArticle'])->name('insight-detail');
+
+    Route::get(__('routes.success_story'), [HomeController::class, 'indexSuccessStory'])->name('success-story');
+    Route::get(__('routes.success_story').'/{slug}', [HomeController::class, 'showSuccessStory'])->name('success-story-detail');
+
+    Route::get(__('routes.what_we_do'), [HomeController::class, 'indexWhatWeDo'])->name('what-we-do');
+
     Route::post('secure-contact', [ContactController::class, 'store'])->name('secure-contact');
-    // Define your localized routes here
 });

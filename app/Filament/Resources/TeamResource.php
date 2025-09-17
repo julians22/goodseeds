@@ -26,14 +26,20 @@ class TeamResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->helperText('The name of the team member')
                     ->required(),
-                Forms\Components\Textarea::make('description')
-                    ->helperText('The description of the team member')
-                    ->required()
-                    ->columnSpanFull(),
+                Forms\Components\Fieldset::make('description')
+                    ->label('Description')
+                    ->schema([
+                        Forms\Components\RichEditor::make('description.en')
+                            ->label('English Description')
+                            ->required(),
+                        Forms\Components\RichEditor::make('description.id')
+                            ->label('Bahasa Description')
+                            ->required(),
+                    ])
+                    ->columns(2),
                 Forms\Components\FileUpload::make('image')
                     ->helperText('Recommended size: 500 x 500 pixels, format: JPG, PNG')
                     ->image()
-                    ->avatar()
                     ->required()
                     ->disk('team'),
                 // Reperater for socials
@@ -54,7 +60,24 @@ class TeamResource extends Resource
                                     ->helperText('The URL of the social media profile')
                                     ->required(),
                                 ]),
-                    ])
+                            ]),
+                Forms\Components\Section::make('Certificates')
+                ->description('Upload certificates related to this team member')
+                ->schema([
+                    Forms\Components\Repeater::make('certificate')
+                        ->schema([
+                            Forms\Components\FileUpload::make('file')
+                                ->label('Certificate File')
+                                ->helperText('Recommended size: 500 x 500 pixels, Upload certificate image (JPG, PNG, PDF)')
+                                ->image() 
+                                ->avatar()
+                                ->directory('certificates')
+                                ->nullable(),
+                        ])
+                        ->collapsible()
+                        ->defaultItems(0),
+                ])
+                ->columnSpanFull(),
             ]);
     }
 

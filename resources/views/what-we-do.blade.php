@@ -1,0 +1,248 @@
+@extends('layouts.app')
+
+@section('title', $meta->meta_title[app()->getLocale()] ?? ($settings['siteTitle'] ?? 'What We Do'))
+@section('description', $meta->meta_description[app()->getLocale()] ?? ($settings['siteTitle'] ?? 'What We Do'))
+@section('keywords', implode(',', $meta->meta_keywords[app()->getLocale()] ?? []))
+
+
+@section('content')
+  <!--Main layout-->
+  <main>
+    <div class="pt-5" style="background: #f1f2f2;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center">
+                        <h1 class="page__title">
+                            {!! nl2br($sectionSetting->servicesNewTitle[app()->getLocale()] ?? __('wordings.whatServicesTitle')) !!}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding: 2rem 0;">
+                <div class="col-md-12">
+                    <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center">
+                        <h4 class="d-inline">
+                            {!! $sectionSetting->servicesDescription[app()->getLocale()] ?? __('wordings.whatServicesDescription') !!}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="services-section">
+            @foreach ($services as $item)
+                <div  class="row align-items-stretch gx-0 gy-0 service-item">
+                    @if($loop->iteration % 2 == 1)
+                        <div class="col-md-6 service-image" data-aos="fade-right" data-aos-duration="900" data-aos-easing="ease-in-out">
+                            <img src="{{ $item->image_url }}" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-md-6 service-text d-flex flex-column justify-content-center" data-aos="fade-left" data-aos-duration="900" data-aos-easing="ease-in-out" style="background:#f1f2f2;">
+                            <div class="p-5">
+                                <h2 class="fw-bold">{{ $item->name }}</h2>
+                                <article class="fw-medium lead">
+                                    {!! $item->description[app()->getLocale()] ?? '' !!}
+                                </article>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-md-6 order-md-2 service-image" data-aos="fade-left" data-aos-duration="900" data-aos-easing="ease-in-out">
+                            <img src="{{ $item->image_url }}" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-md-6 order-md-1 service-text d-flex flex-column justify-content-center" data-aos="fade-right" data-aos-duration="900" data-aos-easing="ease-in-out" style="background:#f1f2f2;">
+                            <div class="p-5">
+                                <h2 class="fw-bold">{{ $item->name }}</h2>
+                                <article class="fw-medium lead description-list">
+                                    {!! $item->description[app()->getLocale()] ?? '' !!}
+                                </article>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    <section id="our-approach" class="pb-12 overflow-hidden">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center title">
+                        <h2 class="d-inline text-green-light fw-bolder display-5">
+                            {!! nl2br($sectionSetting->approachTitle[app()->getLocale()] ?? 'What We Do') !!}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="justify-content-center mt-5 row">
+                <div class="d-md-block col-10 d-none">
+                    <img src="{{ asset('diagram-01.png') }}"
+                        class="w-100"
+                        alt=""
+                        data-aos="fade-up"
+                        data-aos-duration="1500"
+                        data-aos-delay="100">
+                </div>
+
+                <div class="col-12 d-md-none">
+                    <img src="{{ asset('diagram.png') }}"
+                        class="w-100"
+                        alt=""
+                        data-aos="fade-up"
+                        data-aos-duration="1500"
+                        data-aos-delay="100">
+                </div>
+            </div>
+        </div>
+        {{-- <div class="spacer"></div> --}}
+        <div class="container">
+            <div class="mt-5 row">
+                <div class="col-md-12">
+                    <div class="text-center editor-body lead fw-medium">
+                        <h4>
+                            {!! $sectionSetting->approachDescription[app()->getLocale()] ?? '' !!}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 row gy-lg-0 gy-2">
+                @foreach ($approaches as $item)
+                    <div class="col-lg-4">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="mb-3 icon-approach icon-why">
+                                <img src="{{ $item->icon_url }}" alt="" width="100" data-aos="fade-right">
+                            </div>
+                            <span class="d-block text-green-light fw-bolder display-5" data-aos="fade-right" data-aos-duration="780">{!! $item->title[app()->getLocale()] ?? '' !!}</span>
+                        </div>
+                        <div class="mt-lg-2 ">
+                            <div class="text-center lead fw-medium" data-aos="fade-right" data-aos-delay="150" data-aos-duration="700">
+                                {!! $item->description[app()->getLocale()] ?? '' !!}
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section id="our-team" style="background-image: url('{{ asset('bg-team.jpg') }}')">
+        <div class="">
+            <div class="row" style="padding: 4rem 0 2rem 0;">
+                <div class="col-md-12">
+                    <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="title text-center">
+                        <h1 class="fw-bolder display-5 d-inline text-white">
+                            {!! nl2br($sectionSetting->teamTitle[app()->getLocale()] ?? __('wordings.teamTitle')) !!}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="carouselTeam" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner container">
+                        @foreach ($teams as $team)
+                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                <div class="row align-items-center text-white team-member">
+                                    <div class="col-12 col-md-6 team-photo" data-aos="fade-right" data-aos-duration="780">
+                                        <img src="{{ $team->image_url }}"
+                                            alt="{{ $team->name }}"
+                                            class="image-profile">
+                                    </div>
+
+                                    <div class="col-12 col-md-6 d-flex flex-column gap-3" data-aos="fade-left" data-aos-duration="780">
+                                        <div class="desc-team">
+                                            @if ($team->certificate)
+                                                <div class="d-flex flex-wrap justify-content-start gap-3 mb-3">
+                                                    @foreach ($team->certificate as $cert)
+                                                        @php
+                                                            $path = $cert['file'];
+                                                            // Kalau sudah diawali "img/", berarti dari public
+                                                            $url = str_starts_with($path, 'img/')
+                                                                ? asset($path)
+                                                                : asset('storage/'.$path);
+                                                        @endphp
+                                                        <img src="{{ $url }}" alt="Certificate" class="certificate-logo">
+                                                    @endforeach
+                                                </div>
+                                            @endif
+
+                                            <h1 class="fw-bold mb-0 team-name">{{ $team->name }}</h1>
+                                            <h4 class="team-desc">{!! nl2br($team->description[app()->getLocale()] ?? 'What We Do') !!}</h4>
+                                            @if ($team->socials_array)
+                                                <div class="team-socials d-flex gap-3 mt-2">
+                                                    @foreach ($team->socials_array as $social)
+                                                        @php $icon = $social['platform']; @endphp
+                                                        <a href="{{ $social['url'] }}" target="_blank">
+                                                            <img src="{{ asset('img/icons/'.$icon.'.png') }}" 
+                                                                alt="{{ $icon }}" 
+                                                                class="social-icon">
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach 
+                    </div>
+
+                    {{-- Tombol navigasi custom --}}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselTeam" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"
+                            style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselTeam" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"
+                            style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+  </main>
+  <!--Main layout-->
+@endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const serviceId = params.get('service');
+        if (serviceId) {
+            const el = document.getElementById('service-' + serviceId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+            history.replaceState(null, null, window.location.pathname);
+        }
+
+        let homeSplideOptions = {
+            perPage: 1,
+            perMove: 1,
+            arrows: false,
+            focus: 'center',
+            autoplay: true,
+            interval: 5000,
+            rewind: true,
+            rewindSpeed: 800,
+            drag: true,
+            mediaQuery: 'min',
+            breakpoints: {
+                1024: {
+                    drag: false,
+                    perPage: 2,
+                }
+            }
+        };
+        const homeSplide = initSplide('.splide', homeSplideOptions);
+
+    });
+</script>
+@endpush
+
+

@@ -7,34 +7,44 @@
         </a>
         <ul class="ms-auto mb-2 mb-lg-0 navbar-nav">
             <li class="nav-item">
-                <a class="nav-link fw-bold" aria-current="page" href="#what-we-do">@lang("OUR SERVICES")</a>
+                <a class="nav-link fw-bold {{ request()->routeIs('*.what-we-do') ? 'active' : '' }}"
+                    href="{{ route('what-we-do') }}">
+                    @lang("WHAT WE DO")
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold" href="#our-approach">@lang("OUR APPROACH")</a>
+                <a class="nav-link fw-bold {{ request()->routeIs('*.success-story*') ? 'active' : '' }}"
+                    href="{{ route('success-story') }}">
+                    @lang("SUCCESS STORY")
+                </a>            
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold" href="#our-team">@lang("OUR TEAM")</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link fw-bold" href="{{ route('article') }}">@lang("ARTICLE")</a>
+                <a class="nav-link fw-bold {{ request()->routeIs('*.article*') ? 'active' : '' }}"
+                    href="{{ route('article') }}">
+                    @lang("INSIGHTS")
+                </a>  
             </li>
             <li class="nav-item">
                 <a class="nav-link fw-bold" href="#contact">@lang("CONTACT US")</a>
             </li>
         </ul>
         <div class="dropdown language-dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 @php
                     $currentLocale = App::getLocale();
                 @endphp
-                {{ strtoupper($currentLocale) }}
+                <img src="{{ asset('img/flags/' . $currentLocale . '.png') }}" 
+                    alt="{{ $currentLocale }}" width="20" class="me-2">
+                <span class="nav-link fw-bold">{{ strtoupper($currentLocale) }}</span>
             </button>
+
             @if (Route::isLocalized() || Route::isFallback())
             <ul class="dropdown-menu">
                 @foreach(LocaleConfig::getLocales() as $locale)
                     @if ( ! App::isLocale($locale))
                         <li>
                             <a class="dropdown-item" href="{{ Route::localizedUrl($locale) }}">
+                                <img src="{{ asset('img/flags/' . $locale . '.png') }}" alt="{{ $locale }}" width="20">
                                 {{ strtoupper($locale) }}
                             </a>
                         </li>
@@ -43,6 +53,63 @@
             </ul>
             @endif
         </div>
+
+        {{-- <div class="dropdown language-dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @php
+                    $currentLocale = App::getLocale();
+                @endphp
+                {{ strtoupper($currentLocale) }}
+            </button>
+
+            @php
+                $currentRouteName = Route::currentRouteName();
+                $currentRouteParameters = Route::current()->parameters();
+
+                $slugs = [];
+
+                if ($currentRouteName === 'success-story-detail' && isset($currentRouteParameters['slug'])) {
+                    $currentSlug = $currentRouteParameters['slug'];
+
+                    $successModel = \App\Models\Success::where("slug->{$currentLocale}", $currentSlug)->first();
+
+                    if (!$successModel) {
+                        $allSuccess = \App\Models\Success::all();
+                        $successModel = $allSuccess->first(function ($item) use ($currentLocale, $currentSlug) {
+                            $slugs = $item->slug;
+                            return isset($slugs[$currentLocale]) && $slugs[$currentLocale] === $currentSlug;
+                        });
+                    }
+
+                    if ($successModel) {
+                        $slugs = $successModel->slug;
+                    }
+                }
+                
+            @endphp
+
+            <ul class="dropdown-menu">
+                @foreach(LocaleConfig::getLocales() as $locale)
+                    @if ($locale !== $currentLocale)
+                        @php
+                            $params = $currentRouteParameters;
+
+                            // Jika di halaman detail success story, ganti slug ke slug bahasa target
+                            if ($currentRouteName === 'success-story-detail' && isset($slugs[$locale])) {
+                                $params['slug'] = $slugs[$locale];
+                            }
+
+                            $url = Route::localizedUrl($locale, $params);
+                        @endphp
+                        <li>
+                            <a class="dropdown-item" href="{{ $url }}">
+                                {{ strtoupper($locale) }}
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+        </div> --}}
     </div>
 </nav>
 
@@ -61,14 +128,23 @@
     </div>
     <div class="menu">
       <ul>
-        <li>
-            <a class="nav-link fw-bold" aria-current="page" href="#what-we-do">OUR SERVICES</a>
+        <li class="nav-item">
+            <a class="nav-link fw-bold {{ request()->routeIs('*.what-we-do') ? 'active' : '' }}"
+                href="{{ route('what-we-do') }}">
+                @lang("WHAT WE DO")
+            </a>
         </li>
-        <li>
-            <a class="nav-link fw-bold" href="#our-approach">OUR APPROACH</a>
+        <li class="nav-item">
+            <a class="nav-link fw-bold {{ request()->routeIs('*.success-story*') ? 'active' : '' }}"
+                href="{{ route('success-story') }}">
+                @lang("SUCCESS STORY")
+            </a>            
         </li>
-        <li>
-            <a class="nav-link fw-bold" href="#our-team">OUR TEAM</a>
+        <li class="nav-item">
+            <a class="nav-link fw-bold {{ request()->routeIs('*.article*') ? 'active' : '' }}"
+                href="{{ route('article') }}">
+                @lang("INSIGHTS")
+            </a>  
         </li>
         <li>
             <a class="nav-link fw-bold" href="#contact">CONTACT US</a>

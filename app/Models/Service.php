@@ -8,11 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     use HasFactory;
+    public array $translatable = ['name', 'description'];
 
     protected $fillable = [
         'name',
         'description',
         'image',
+    ];
+
+    protected $casts = [
+        'description' => 'array',
     ];
 
     /**

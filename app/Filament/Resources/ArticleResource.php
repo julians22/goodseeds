@@ -8,6 +8,7 @@ use App\Models\Article;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -24,14 +25,54 @@ class ArticleResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Fieldset::make('Meta')
+                    ->schema([
+                        Forms\Components\TextInput::make('meta.title.en')
+                            ->label('English Meta Title')
+                            ->maxLength(255)
+                            ->required(),
+                        Forms\Components\TextInput::make('meta.title.id')
+                            ->label('Bahasa Meta Title')
+                            ->maxLength(255)
+                            ->required(),
+
+                        Forms\Components\Textarea::make('meta.description.en')
+                            ->label('English Meta Description')
+                            ->maxLength(255)
+                            ->required(),
+                        Forms\Components\Textarea::make('meta.description.id')
+                            ->label('Bahasa Meta Description')
+                            ->maxLength(255)
+                            ->required(),
+                        Forms\Components\TagsInput::make('meta.keywords.en')
+                            ->label('EN Keywords')
+                            ->placeholder('Ketik lalu tekan Enter'),
+                        Forms\Components\TagsInput::make('meta.keywords.id')
+                            ->label('ID Keywords')
+                            ->placeholder('Ketik lalu tekan Enter'),
+                    ])
+                    ->columns(2),
+
+                SpatieMediaLibraryFileUpload::make('thumbnail')
+                    ->label('Thumbnail')
+                    ->collection('thumbnail')
+                    ->image()
+                    ->columnSpan(1),
+
+                SpatieMediaLibraryFileUpload::make('featured_image')
+                    ->label('Gambar Utama')
+                    ->collection('featured_image')
+                    ->image()
+                    ->columnSpan(2)
+                    ->required(),
 
                 Forms\Components\Fieldset::make('Title')
                     ->schema([
-                        Forms\Components\TextInput::make('title.en')
+                        Forms\Components\Textarea::make('title.en')
                             ->label('English Title')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('title.id')
+                        Forms\Components\Textarea::make('title.id')
                             ->label('Bahasa Title')
                             ->required()
                             ->maxLength(255),
@@ -50,19 +91,6 @@ class ArticleResource extends Resource
                             ->required(),
                     ])
                     ->columns(1),
-
-                Forms\Components\Fieldset::make('Meta Title')
-                    ->schema([
-                        Forms\Components\TextInput::make('meta.title.en')
-                            ->label('English Meta Title')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('meta.title.id')
-                            ->label('Bahasa Meta Title')
-                            ->required()
-                            ->maxLength(255),
-                    ])
-                ->columns(2),
 
                 Forms\Components\Fieldset::make('Excerpt')
                     ->schema([
@@ -84,6 +112,11 @@ class ArticleResource extends Resource
                     ->minDate(now()->subYears(5))
                     ->placeholder('Select a date'),
 
+                Forms\Components\Toggle::make('is_published')
+                    ->label('Is Published')
+                    ->default(true)
+                    ->required(),
+
             ]);
     }
 
@@ -91,7 +124,17 @@ class ArticleResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Title')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('article_date')
+                    ->label('Article Date')
+                    ->date()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('is_published')
+                    ->label('Published')
+                    ->boolean()
+                    ->sortable(),
             ])
             ->filters([
                 //

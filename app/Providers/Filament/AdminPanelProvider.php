@@ -44,14 +44,14 @@ class AdminPanelProvider extends PanelProvider
                 'Settings'
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-                \BezhanSalleh\FilamentGoogleAnalytics\Widgets\PageViewsWidget::class,
-                \BezhanSalleh\FilamentGoogleAnalytics\Widgets\VisitorsWidget::class,
-                \BezhanSalleh\FilamentGoogleAnalytics\Widgets\ActiveUsersOneDayWidget::class,
-                \BezhanSalleh\FilamentGoogleAnalytics\Widgets\ActiveUsersSevenDayWidget::class,
-                \BezhanSalleh\FilamentGoogleAnalytics\Widgets\ActiveUsersTwentyEightDayWidget::class,
-                \BezhanSalleh\FilamentGoogleAnalytics\Widgets\SessionsWidget::class,
-            ])
+            // ->widgets([
+            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\PageViewsWidget::class,
+            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\VisitorsWidget::class,
+            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\ActiveUsersOneDayWidget::class,
+            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\ActiveUsersSevenDayWidget::class,
+            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\ActiveUsersTwentyEightDayWidget::class,
+            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\SessionsWidget::class,
+            // ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

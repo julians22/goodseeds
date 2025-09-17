@@ -22,6 +22,7 @@ class Article extends Model implements HasMedia
         'content',
         'excerpt',
         'meta',
+        'article_date',
         'is_published',
     ];
 

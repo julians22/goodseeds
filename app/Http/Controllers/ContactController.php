@@ -55,15 +55,11 @@ class ContactController extends Controller
         DB::beginTransaction();
 
         try {
-            // clean name,email,message,company field
             $name = strip_tags($request->name);
             $email = strip_tags($request->email);
             $company = strip_tags($request->company);
             $message = strip_tags($request->message);
 
-
-
-            // Insert Contact to database
             $contact = Contact::create([
                 'name' => $name,
                 'email' => $email,
@@ -84,15 +80,13 @@ class ContactController extends Controller
         }
 
         try{
-            // Get notification recipients
-            $recipients = $generalSetting->notificationRecipients; // ['email1', 'email2', 'email3']
+            $recipients = $generalSetting->notificationRecipients;
             $emails = collect($recipients)->map(function ($recipient) {
                 return $recipient['email'];
             });
 
             $mailSend = 'Success';
 
-            // Send email to admin
             Mail::to($emails)->send(new ContactMail($contact));
 
 

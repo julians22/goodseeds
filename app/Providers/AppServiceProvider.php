@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use App\Settings\GeneralSetting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,28 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('*', function ($view) {
+        $generalSetting = app(GeneralSetting::class);
+
+        $socialIcons = $generalSetting->socialMediaLinks;
+        foreach ($socialIcons as $key => $socialIcon) {
+            $socialIcons[$key]['icon'] = asset('img/icons/' . $socialIcon['role'] . '.png');
+        }
+
+        $whatsappMessage = urlencode($generalSetting->whatsappContactMessage);
+        $whatsappLink = "https://api.whatsapp.com/send?phone=62{$generalSetting->whatsappContactNumber}&text={$whatsappMessage}";
+
+        $settings = [
+            'headerLogo' => $generalSetting->headerLogo ? asset('storage/' . $generalSetting->headerLogo) : asset('logo.png'),
+            'footerLogo' => $generalSetting->footerLogo ? asset('storage/' . $generalSetting->footerLogo) : asset('logo-white.png'),
+            'siteAddress' => $generalSetting->siteAddress ? nl2br($generalSetting->siteAddress) : '',
+            'socialMediaLinks' => $socialIcons,
+            'siteTitle' => $generalSetting->siteTitle,
+            'whatsappLink' => $whatsappLink,
+            'whatsappPopupGreetingMessage' => $generalSetting->whatsappPopupGreetingMessage,
+        ];
+
+        $view->with('settings', $settings);
+    });
     }
 }

@@ -6,6 +6,7 @@ use App\Filament\Resources\ServiceResource\Pages;
 use App\Filament\Resources\ServiceResource\RelationManagers;
 use App\Models\Service;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
+        protected static ?string $navigationGroup = 'Pages Management';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -30,11 +32,16 @@ class ServiceResource extends Resource
                     ->helperText('The name of the service')
                     ->label('Service Name')
                     ->required(),
-                Forms\Components\RichEditor::make('description')
-                    ->helperText('The description of the service')
-                    ->label('Service Description')
-                    ->required()
-                    ->columnSpanFull(),
+                Forms\Components\Fieldset::make('description')
+                    ->schema([
+                        RichEditor::make('description.en')
+                            ->label('English Description')
+                            ->required(),
+                        RichEditor::make('description.id')
+                            ->label('Bahasa Description')
+                            ->required(),
+                    ])
+                    ->columns(1),
                 Forms\Components\FileUpload::make('image')
                     ->helperText('Recommended size: 497 x 268 pixels, format: JPG, PNG')
                     ->label('Service Image')
@@ -86,6 +93,6 @@ class ServiceResource extends Resource
     }
 
     public static function canCreate(): bool{
-        return false;
+        return true;
     }
 }

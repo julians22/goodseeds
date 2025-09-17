@@ -29,14 +29,28 @@ class ApproachResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->helperText('The title of the approach item')
+                Forms\Components\Fieldset::make('title')
                     ->label('Title')
-                    ->required(),
-                Forms\Components\Textarea::make('description')
-                    ->helperText('The description of the approach item')
+                    ->schema([
+                        Forms\Components\Textarea::make('title.en')
+                            ->label('English Title')
+                            ->required(),
+                        Forms\Components\Textarea::make('title.id')
+                            ->label('Bahasa Title')
+                            ->required(),
+                    ])
+                    ->columns(2),
+                Forms\Components\Fieldset::make('description')
                     ->label('Description')
-                    ->required(),
+                    ->schema([
+                        Forms\Components\RichEditor::make('description.en')
+                            ->label('English Description')
+                            ->required(),
+                        Forms\Components\RichEditor::make('description.id')
+                            ->label('Bahasa Description')
+                            ->required(),
+                    ])
+                    ->columns(2),
                 Forms\Components\FileUpload::make('icon')
                     ->helperText('Recommended size: 200 x 200 pixels, format: PNG')
                     ->label('Icon')

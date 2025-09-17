@@ -1,63 +1,81 @@
 @extends('layouts.app')
 
-@section('title', $pageAttributes['title_browser'] ?? 'Article')
-@section('description', $pageAttributes['description_browser'] ?? 'Article Description')
-
+@section('title', $meta->meta_title[app()->getLocale()] ?? ($settings['siteTitle'] ?? 'NURTURE PEOPLE EMPOWER BUSINESS'))
+@section('description', $meta->meta_description[app()->getLocale()] ?? ($settings['siteTitle'] ?? 'NURTURE PEOPLE EMPOWER BUSINESS'))
+@section('keywords', implode(',', $meta->meta_keywords[app()->getLocale()] ?? []))
 
 @section('content')
-
-
-  <!--Main layout-->
-  <main class="py-5">
+  <main class="py-5" style="background:#f1f2f2;">
     <div class="container">
       <!--Section: Content-->
       <section>
-        <h1 class="mb-5 page__title">{!! $pageAttributes['title'] !!}</h1>
-
-        <p class="page__description">{!! $pageAttributes['description'] !!}</p>
-
-        <div class="mt-4 row">
-
-            @foreach ($articles as $article)
-            <div class="mb-4 col-lg-4 col-md-12">
-                <div class="card">
-                    <div class="bg-image hover-overlay" data-mdb-ripple-init data-mdb-ripple-color="light">
-                        <img src="{{ $article->getFirstMediaUrl('thumbnail') }}" class="img-fluid" />
-                        <a href="#!">
-                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $article->title }}</h5>
-                        <p class="card-text">
-                            {{ $article->excerpt }}
-                        </p>
-                        <a href="#!" class="btn btn-primary" data-mdb-ripple-init>Read</a>
-                    </div>
+        <div class="row">   
+            <div class="col-md-12">
+                <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center">
+                    <h1 class="page__title">
+                        {!! nl2br($sectionSetting->articleTitle[app()->getLocale()]) ?? $pageAttributes['title']  !!}
+                    </h1>
                 </div>
             </div>
-            @endforeach
+        </div>
 
+        <div class="row" style="padding: 2rem 0;">
+            <div class="col-md-12">
+                <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center">
+                    <h4 class="page__description">
+                        {!! $sectionSetting->articleDescription[app()->getLocale()] ?? $pageAttributes['description'] !!}
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 row">
+            @foreach ($articles as $item)
+              <div class="col-md-4">
+                <a href="{{ route('insight-detail', $item->slug) }}" class="text-decoration-none text-reset">
+                    <div class="card-whatwedo" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                        <div class="card-header">
+                            <img src="{{ $item->getFirstMediaUrl('thumbnail') }}" class="img-fluid" />
+                        </div>
+                        <div class="card-footer">
+                            <h5 class="text-blue-400 fw-bold">{{ $item->title }}</h5>
+                            <p class="fw-medium lead success-excerpt">
+                                {{ $item->excerpt }}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+              </div>
+            @endforeach
         </div>
       </section>
       <!--Section: Content-->
 
-      <!-- Pagination -->
-      <nav class="my-4" aria-label="...">
-        <ul class="justify-content-center pagination pagination-circle">
-          <li class="page-item">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
+      <div class="mt-10">
+        @if ($articles->hasPages())
+            <div class="custom-pagination">
+                @if ($articles->onFirstPage())
+                    <span class="page-link disabled">&lsaquo;</span>
+                @else
+                    <a href="{{ $articles->previousPageUrl() }}" class="page-link">&lsaquo;</a>
+                @endif
+
+                @for ($page = 1; $page <= $articles->lastPage(); $page++)
+                    @if ($page == $articles->currentPage())
+                        <span class="page-link active">{{ $page }}</span>
+                    @else
+                        <a href="{{ $articles->url($page) }}" class="page-link">{{ $page }}</a>
+                    @endif
+                @endfor
+
+                @if ($articles->hasMorePages())
+                    <a href="{{ $articles->nextPageUrl() }}" class="page-link">&rsaquo;</a>
+                @else
+                    <span class="page-link disabled">&rsaquo;</span>
+                @endif
+            </div>
+        @endif
+    </div>
     </div>
   </main>
   <!--Main layout-->
