@@ -195,12 +195,22 @@
             </div>
             <div id="carouselClients" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner container">
-                    @foreach (collect($loopingClients)->chunk(5) as $chunkIndex => $chunk)
+                    @foreach ($clients->chunk(5) as $chunkIndex => $chunk)
                         <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
                             <div class="d-flex justify-content-center">
                                 @foreach ($chunk as $client)
                                     <div class="mx-3">
-                                        <img src="{{ $client }}" alt="Client Logo" class="img-fluid">
+                                        @if ($client->link)
+                                            <a href="{{ $client->link }}" target="_blank" rel="noopener">
+                                                <img src="{{ $client->icon_url }}" 
+                                                    alt="{{ $client->name }}" 
+                                                    class="img-fluid">
+                                            </a>
+                                        @else
+                                            <img src="{{ $client->icon_url }}" 
+                                                alt="{{ $client->name }}" 
+                                                class="img-fluid">
+                                        @endif
                                     </div>
                                 @endforeach
                             </div>

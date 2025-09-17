@@ -6,6 +6,7 @@ use App\Models\Approach;
 use App\Models\Article;
 use App\Models\ArticlesPages;
 use App\Models\Banner;
+use App\Models\Client;
 use App\Models\HomePages;
 use App\Models\HomeSupports;
 use App\Models\Provide;
@@ -29,12 +30,30 @@ class HomeController extends Controller
         $provides = Provide::take(4)->get();
         $approaches = Approach::take(4)->get();
         $meta = HomePages::first();
+        $clients = Client::all();
 
-        $clients = [];
-        for ($i = 1; $i <= 6; $i++) {
-            $clients[] = url("img/clients/logo-{$i}.png");
+        if ($clients->isEmpty()) {
+            $Dummyclients = [];
+            for ($i = 1; $i <= 6; $i++) {
+                $Dummyclients[] = (object) [
+                    'icon_url' => url("img/clients/logo-{$i}.png"),
+                    'name'     => "Client {$i}",
+                    'link'     => null,
+                ];
+            }
+            $clients = collect($Dummyclients);
         }
-        $loopingClients = array_merge($clients, $clients);
+
+        $total = $clients->count();
+        $perSlide = 5;
+        $remainder = $total % $perSlide;
+
+        if ($remainder > 0) {
+            $needed = $perSlide - $remainder;
+            $clients = $clients->merge($clients->take($needed));
+        }
+
+        $clients = $clients->merge($clients);
 
         $experts = [
             [
@@ -81,7 +100,7 @@ class HomeController extends Controller
             return $service;
         });
 
-        return view('welcome', compact('banners', 'services', 'teams', 'primaryText', 'sectionSetting', 'provides', 'approaches', 'loopingClients', 'experts', 'meta'));
+        return view('welcome', compact('banners', 'services', 'teams', 'primaryText', 'sectionSetting', 'provides', 'approaches', 'experts', 'meta', 'clients'));
     }
 
     public function article(GeneralSetting $generalSetting, SectionSetting $sectionSetting)
