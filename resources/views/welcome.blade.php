@@ -182,8 +182,8 @@
         </div>
     </section>
 
-    <section id="carouselClients" style="background: #f1f2f2; padding: 4rem 0;">
-        <div class="container text-center" >
+    <section class="carouselClients" style="background: #f1f2f2; padding: 4rem 0;">
+        <div class="text-center" >
             <div class="row" style="padding: 2rem 0;">
                 <div class="col-md-12">
                     <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center title">
@@ -194,7 +194,7 @@
                 </div>
             </div>
             <div id="carouselClients" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
+                <div class="carousel-inner container">
                     @foreach (collect($loopingClients)->chunk(5) as $chunkIndex => $chunk)
                         <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
                             <div class="d-flex justify-content-center">
