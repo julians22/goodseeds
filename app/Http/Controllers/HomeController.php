@@ -65,7 +65,7 @@ class HomeController extends Controller
                 'image' => 'teams/expert-people.png',
             ],
         ];
-        
+
         if ($teams->isEmpty()) {
             $teams = collect($experts)->map(function ($item) {
                 return (object) [
@@ -75,7 +75,7 @@ class HomeController extends Controller
             });
         } else {
             $teams->transform(function ($team) {
-                $team->image_url = $team->image_url; 
+                $team->image_url = $team->image_url;
                 return $team;
             });
         }
@@ -240,7 +240,7 @@ class HomeController extends Controller
     {
         // // App::setLocale("en");
         // $locale = app()->getLocale();
-        // // dump($locale); 
+        // // dump($locale);
         // $id = last(explode('-', $slug));
 
         $success = Success::where('slug', $slug)
