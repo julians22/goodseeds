@@ -9,10 +9,10 @@
     <div class="container article-detail">
         <div class="row">
             <div class="col-md-12">
-                <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center title">
-                    <h2 class="d-inline text-green-light fw-bolder display-5">
+                <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center">
+                    <h1 class="page__title">
                         {!! nl2br($article->getTranslation('title', app()->getLocale())) !!}
-                    </h2>
+                    </h1>
                 </div>
             </div>
         </div>
