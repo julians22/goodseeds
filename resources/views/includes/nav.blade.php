@@ -19,8 +19,8 @@
                 </a>            
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold {{ request()->routeIs('*.article*') ? 'active' : '' }}"
-                    href="{{ route('article') }}">
+                <a class="nav-link fw-bold {{ request()->routeIs('*.insight*') ? 'active' : '' }}"
+                    href="{{ route('insight') }}">
                     @lang("INSIGHTS")
                 </a>  
             </li>
@@ -141,8 +141,8 @@
             </a>            
         </li>
         <li class="nav-item">
-            <a class="nav-link fw-bold {{ request()->routeIs('*.article*') ? 'active' : '' }}"
-                href="{{ route('article') }}">
+            <a class="nav-link fw-bold {{ request()->routeIs('*.insight*') ? 'active' : '' }}"
+                href="{{ route('insight') }}">
                 @lang("INSIGHTS")
             </a>  
         </li>

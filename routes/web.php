@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::localized(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    Route::get(__('routes.insight'), [HomeController::class, 'article'])->name('article');
+    Route::get(__('routes.insight'), [HomeController::class, 'article'])->name('insight');
     Route::get(__('routes.insight').'/{slug}', [HomeController::class, 'showArticle'])->name('insight-detail');
 
     Route::get(__('routes.success_story'), [HomeController::class, 'indexSuccessStory'])->name('success-story');
