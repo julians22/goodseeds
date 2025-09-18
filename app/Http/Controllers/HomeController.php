@@ -109,6 +109,8 @@ class HomeController extends Controller
         $articles = Article::with('media')
             ->where('is_published', true)
             ->orderBy('article_date', 'desc')
+            ->orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc')
             ->paginate(3);
 
@@ -226,6 +228,8 @@ class HomeController extends Controller
         $SuccessStories = Success::with('media')
             ->where('is_published', true)
             ->orderBy('success_date', 'desc')
+            ->orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc')
             ->paginate(3);
 
