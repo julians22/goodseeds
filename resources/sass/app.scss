@@ -215,7 +215,6 @@ body{
 
     .line {
       display: block;
-      text-shadow: 7px 1px 9px rgba(0, 0, 0, 0.2);
       font-size: 3rem;
       line-height: 1.1;
       color: $blue-light;
@@ -573,21 +572,19 @@ body{
     }
 }
 
-
 .text-banner > *{
-        text-shadow: 7px 1px 9px rgba(0, 0, 0, 0.2);
-        font-size: 2rem;
-        line-height: 1;
+    font-size: 2rem;
+    line-height: 1;
 
-        @media (min-width: 768px){
-            font-size: 4rem;
-            line-height: 1;
-        }
-        @media (min-width: 1200px){
-            font-size: 6rem;
-            line-height: 1;
-        }
+    @media (min-width: 768px){
+        font-size: 4rem;
+        line-height: 1;
     }
+    @media (min-width: 1200px){
+        font-size: 6rem;
+        line-height: 1;
+    }
+}
     
 .title {
     margin-bottom: 25px;
@@ -614,6 +611,19 @@ body{
                 background-color: $green-light;
             }
         }
+    }
+}
+
+.article-detail-content {
+    padding : 2rem 3rem;
+    @media (max-width: 1281px) {
+        padding : 2rem 5rem;
+    }
+    @media (max-width: 1024px) {
+        padding : 2rem 2.5rem;
+    }
+    @media (max-width: 768px) {
+        padding : 2rem 1.5rem;
     }
 }
 
@@ -1141,17 +1151,31 @@ button{
 
 .btn-nav {
   display: inline-block;
-  background: #8f9194;
-  color: #fff;
+  color: black;
   border-radius: 50px;
   padding: 0.5rem 1rem;
   font-weight: 600;
   font-size: 0.9rem;
   text-decoration: none;
-  transition: background 0.3s ease;
+  position: relative;
+  transition: color 0.3s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0; 
+    width: 100%;
+    height: 2px;
+    background-color: #0096df;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
 
   &:hover {
-    background: #007bff;
-    text-decoration: none;
+    &::after {
+      transform: translateX(-50%) scaleX(1);
+    }
   }
 }

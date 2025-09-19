@@ -6,7 +6,7 @@
 
 @section('content')
 <main class="py-5" style="background:#f1f2f2;">
-    <div class="container article-detail">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center">
@@ -35,7 +35,7 @@
     @endif
 
     <div class="container article-detail">
-        <div class="row" style="padding: 2rem 0;">
+        <div class="row">
             <div class="col-md-12">
                 <div data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-in-out" class="article-detail-content">
                     <h5 class="d-inline">
@@ -60,7 +60,7 @@
                     <a href="{{ route('insight-detail', $next->slug) }}" 
                        class="btn-nav">
                         Next Post &gt;
-                    </a>
+                    </a> 
                 @endif
             </div>
         @endif

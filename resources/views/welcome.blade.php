@@ -29,7 +29,7 @@
     <section id="placeholder" class="py-5">
         <div class="container">
             <div class="row align-items-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                <div class="col-md-6" style="padding-bottom:2rem;">
+                <div class="col-md-5" style="padding-bottom:2rem;">
                     <div class="text-banner fw-bold">
                         @foreach (preg_split('/\r\n|\r|\n/', $sectionSetting->aboutTitle[app()->getLocale()] ?? __('wordings.homeAbout_title')) ?? '' as $i => $line)
                             <span class="line {{ $i >= 2 ? 'green' : '' }}">
@@ -38,7 +38,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="text-left lead fw-md-medium editor-body">
                         <h3>{!! $sectionSetting->aboutDescription[app()->getLocale()] ?? __('wordings.homeAbout_text') ?? '' !!}</h3>
                     </div>

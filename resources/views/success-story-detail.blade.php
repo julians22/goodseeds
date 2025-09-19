@@ -35,9 +35,9 @@
     @endif
 
     <div class="container success-detail">
-        <div class="row" style="padding: 2rem 0;">
+        <div class="row">
             <div class="col-md-12">
-                <div data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-in-out" class="success-detail-content">
+                <div class="article-detail-content" data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-in-out" class="success-detail-content">
                     <h5 class="d-inline">
                         {!! $success->getTranslation('content', app()->getLocale()) !!}
                     </h5>
