@@ -191,70 +191,32 @@
                 </div>
             </div>
 
-            <div id="carouselClientsDesktop" class="carousel slide d-none d-md-block" data-bs-ride="carousel">
-                <div class="carousel-inner container">
-                    @foreach ($slidesDesktop as $slideIndex => $slide)
-                        <div class="carousel-item {{ $slideIndex === 0 ? 'active' : '' }}">
-                            <div class="d-flex justify-content-center">
-                                @foreach ($slide as $client)
-                                    <div class="mx-3">
-                                        @if (!empty($client->link))
-                                            <a href="{{ $client->link }}" target="_blank" rel="noopener">
-                                                <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
-                                            </a>
-                                        @else
-                                            <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </div>
+            <div class="position-relative container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                <div class="clients-slider">
+                    @foreach ($clients as $client)
+                        <div class="client-item text-center">
+                            @if (!empty($client->link))
+                                <a href="{{ $client->link }}" target="_blank" rel="noopener">
+                                    <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
+                                </a>
+                            @else
+                                <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
+                            @endif
                         </div>
                     @endforeach
                 </div>
 
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselClientsDesktop" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow-grey.png') }}')"></span>
-                    <span class="visually-hidden">Previous</span>
+                <!-- Custom arrows -->
+                <button type="button" class="slick-prev custom-prev">
+                    <img src="{{ asset('img/icons/arrow-grey.png') }}" alt="Prev">
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselClientsDesktop" data-bs-slide="next" style="transform: rotate(180deg);">
-                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow-grey.png') }}')"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-
-            <div id="carouselClientsMobile" class="carousel slide d-block d-md-none" data-bs-ride="carousel">
-                <div class="carousel-inner container">
-                    @foreach ($slidesMobile as $slideIndex => $slide)
-                        <div class="carousel-item {{ $slideIndex === 0 ? 'active' : '' }}">
-                            <div class="d-flex justify-content-center">
-                                @foreach ($slide as $client)
-                                    <div class="mx-2">
-                                        @if (!empty($client->link))
-                                            <a href="{{ $client->link }}" target="_blank" rel="noopener">
-                                                <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
-                                            </a>
-                                        @else
-                                            <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselClientsMobile" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow-grey.png') }}')"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselClientsMobile" data-bs-slide="next" style="transform: rotate(180deg)">
-                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow-grey.png') }}')"></span>
-                    <span class="visually-hidden">Next</span>
+                <button type="button" class="slick-next custom-next" style="transform: rotate(180deg);">
+                    <img src="{{ asset('img/icons/arrow-grey.png') }}" alt="Next">
                 </button>
             </div>
-
         </div>
     </section>
+
 
     <section id="home-team" style="background-image: url('{{ asset('bg-team.jpg') }}')">
         <div class="">
@@ -282,7 +244,7 @@
 
             <div class="row">
                 <div class="container">
-                    <div id="carouselHomeTeam" class="carousel slide" data-bs-ride="carousel">
+                    <div id="carouselHomeTeam" class="carousel slide" data-bs-ride="carousel---">
                         <div class="carousel-inner">
                             @php
                                 $teamsList = $teams->isNotEmpty()
@@ -324,7 +286,7 @@
                             @endfor
                         </div>
 
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselHomeTeam" data-bs-slide="prev">
+                        {{-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselHomeTeam" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"
                                 style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
                             <span class="visually-hidden">Previous</span>
@@ -333,7 +295,7 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"
                                 style="background-image: url('{{ asset('img/icons/arrow.png') }}'); transform: rotate(180deg);"></span>
                             <span class="visually-hidden">Next</span>
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
             </div>

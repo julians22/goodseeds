@@ -45,29 +45,6 @@ class HomeController extends Controller
         }
 
         $clients = $clients->values();
-        $total   = $clients->count();
-
-        $makeSlides = function ($clients, $perSlide) {
-            $slides = [];
-            $total  = $clients->count();
-
-            if ($total > 0) {
-                for ($i = 0; $i < $total; $i++) {
-                    $start = $i % $total;
-                    $window = collect();
-                    for ($j = 0; $j < $perSlide; $j++) {
-                        $index = ($start + $j) % $total;
-                        $window->push($clients->get($index));
-                    }
-                    $slides[] = $window;
-                }
-            }
-
-            return $slides;
-        };
-
-        $slidesDesktop = $makeSlides($clients, 5);
-        $slidesMobile  = $makeSlides($clients, 2);
 
         $experts = [
             [
@@ -123,10 +100,9 @@ class HomeController extends Controller
             'experts',
             'meta',
             'clients',
-            'slidesDesktop',
-            'slidesMobile',
         ));
     }
+
 
 
     public function article(GeneralSetting $generalSetting, SectionSetting $sectionSetting)

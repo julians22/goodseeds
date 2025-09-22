@@ -7,6 +7,7 @@
 // Import aos css
 @import "aos/dist/aos";
 
+
 html{
     scroll-behavior: smooth;
 }
@@ -609,37 +610,47 @@ body{
 }
 
 #carouselClients {
-    overflow: hidden;
-    .carousel-item {
-        padding: 15px;
-        text-align: center;
+    .clients-slider {
+        img {
+            max-height: 300px;
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
     }
 
-    img {
-        max-height: 300px;
-        transition: transform 0.3s ease;
+    .custom-prev,
+    .custom-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 10;
+
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
     }
 
-    img:hover {
-        transform: scale(1.05);
+    .custom-prev {
+        left: 0; 
     }
 
-    .carousel-control-prev,
-    .carousel-control-next {
-        width: 5%;
+    .custom-next {
+        right: 0; 
     }
 
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-        background-size: contain;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-    }
+}
 
-    .carousel-control-next-icon {
-        transform: rotate(180deg);
-    }
+.slick-prev::before,
+.slick-next::before {
+    content: none !important;
 }
 
 .text-banner > *{
