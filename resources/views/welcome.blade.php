@@ -26,10 +26,10 @@
         </div>
     </section>
 
-    <section id="placeholder" class="py-5">
+    <section id="placeholder" class="pt-5">
         <div class="container">
             <div class="row align-items-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                <div class="col-md-5" style="padding-bottom:2rem;">
+                <div class="col-md-4" style="padding-bottom:2rem;">
                     <div class="text-banner fw-bold">
                         @foreach (preg_split('/\r\n|\r|\n/', $sectionSetting->aboutTitle[app()->getLocale()] ?? __('wordings.homeAbout_title')) ?? '' as $i => $line)
                             <span class="line {{ $i >= 2 ? 'green' : '' }}">
@@ -38,17 +38,14 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <div class="text-left lead fw-md-medium editor-body">
                         <h3>{!! $sectionSetting->aboutDescription[app()->getLocale()] ?? __('wordings.homeAbout_text') ?? '' !!}</h3>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <section id="supports">
-        <div class="container my-5">
+        <div class="container mb-5">
             <div class="row" style="padding: 2rem 0;">
                 <div class="col-md-12 mb-6">
                     <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center title">
@@ -182,13 +179,13 @@
         </div>
     </section>
 
-    <section class="carouselClients" style="background: #f1f2f2; padding: 4rem 0;">
+    <section class="carouselClients" style="padding: 4rem 0; overflow: hidden;">
         <div class="text-center" >
             <div class="row" style="padding: 2rem 0;">
                 <div class="col-md-12">
                     <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center title">
                         <h2 class="d-inline text-green-light fw-bolder display-5">
-                            @lang("CLIENTS")
+                            @lang("Our Clients")
                         </h2>
                     </div>
                 </div>
@@ -220,11 +217,11 @@
 
                 <!-- Controls -->
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselClients" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
+                    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow-grey.png') }}')"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#carouselClients" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
+                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow-grey.png') }}')"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>

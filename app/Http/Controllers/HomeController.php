@@ -44,16 +44,14 @@ class HomeController extends Controller
             $clients = collect($Dummyclients);
         }
 
-        $total = $clients->count();
-        $perSlide = 5;
+        $perSlide  = 5;
+        $total     = $clients->count();
         $remainder = $total % $perSlide;
 
         if ($remainder > 0) {
-            $needed = $perSlide - $remainder;
-            $clients = $clients->merge($clients->take($needed));
+            $needed  = $perSlide - $remainder;
+            $clients = $clients->concat($clients->take($needed));
         }
-
-        $clients = $clients->merge($clients);
 
         $experts = [
             [
@@ -89,10 +87,8 @@ class HomeController extends Controller
 
             foreach ($decoded as $lang => $content) {
                 $content = preg_replace('/<p\b[^>]*>.*?<\/p>/si', '', $content);
-
                 $content = str_replace('&nbsp;', ' ', $content);
                 $content = preg_replace('/\s{2,}/', ' ', $content);
-
                 $decoded[$lang] = trim($content);
             }
 
@@ -100,7 +96,18 @@ class HomeController extends Controller
             return $service;
         });
 
-        return view('welcome', compact('banners', 'services', 'teams', 'primaryText', 'sectionSetting', 'provides', 'approaches', 'experts', 'meta', 'clients'));
+        return view('welcome', compact(
+            'banners',
+            'services',
+            'teams',
+            'primaryText',
+            'sectionSetting',
+            'provides',
+            'approaches',
+            'experts',
+            'meta',
+            'clients'
+        ));
     }
 
     public function article(GeneralSetting $generalSetting, SectionSetting $sectionSetting)
