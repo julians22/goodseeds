@@ -29,22 +29,22 @@
     <section id="placeholder" class="pt-5">
         <div class="container">
             <div class="row align-items-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                <div class="col-md-4" style="padding-bottom:2rem;">
-                    <div class="text-banner fw-bold">
-                        @foreach (preg_split('/\r\n|\r|\n/', $sectionSetting->aboutTitle[app()->getLocale()] ?? __('wordings.homeAbout_title')) ?? '' as $i => $line)
-                            <span class="line {{ $i >= 2 ? 'green' : '' }}">
-                                {{ $line }}
-                            </span>
-                        @endforeach
-                    </div>
+                <div class="col-xxl-4 col-xl-5 col-lg-5" style="padding-bottom:2rem;">
+                <div class="text-banner fw-bold">
+                    @foreach (preg_split('/\r\n|\r|\n/', $sectionSetting->aboutTitle[app()->getLocale()] ?? __('wordings.homeAbout_title')) ?? '' as $i => $line)
+                    <span class="line {{ $i >= 2 ? 'green' : '' }}">
+                        {{ $line }}
+                    </span>
+                    @endforeach
                 </div>
-                <div class="col-md-8">
-                    <div class="text-left lead fw-md-medium editor-body">
-                        <h3>{!! $sectionSetting->aboutDescription[app()->getLocale()] ?? __('wordings.homeAbout_text') ?? '' !!}</h3>
-                    </div>
+                </div>
+                <div class="col-xxl-8 col-xl-7 col-lg-7">
+                <div class="text-left lead fw-md-medium editor-body">
+                    <h3>{!! $sectionSetting->aboutDescription[app()->getLocale()] ?? __('wordings.homeAbout_text') ?? '' !!}</h3>
+                </div>
                 </div>
             </div>
-        </div>
+            </div>
         <div class="container mb-5">
             <div class="row" style="padding: 2rem 0;">
                 <div class="col-md-12 mb-6">
@@ -121,10 +121,10 @@
                                     <div class="card-footer">
                                         <h2 class="text-blue-400 fw-bold">{{ $item['services_title'] }}</h2>
                                         <article class="fw-medium lead">
-                                        {!! isset($item->id) 
-                                            ? ($item->description[app()->getLocale()] ?? '') 
-                                            : preg_replace('/<p[^>]*>.*?<\/p>/s', '', $item['services_content']) !!}
-                                    </article>
+                                            {!! isset($item->id) 
+                                                ? ($item->description[app()->getLocale()] ?? '') 
+                                                : preg_replace('/<p[^>]*>.*?<\/p>/s', '', $item['services_content']) !!}
+                                        </article>
                                     </div>
                                 </div>
                             </a>
@@ -180,7 +180,7 @@
     </section>
 
     <section class="carouselClients" style="padding: 4rem 0; overflow: hidden;">
-        <div class="text-center" >
+        <div class="text-center">
             <div class="row" style="padding: 2rem 0;">
                 <div class="col-md-12">
                     <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center title">
@@ -190,23 +190,20 @@
                     </div>
                 </div>
             </div>
-            <div id="carouselClients" class="carousel slide" data-bs-ride="carousel">
+
+            <div id="carouselClientsDesktop" class="carousel slide d-none d-md-block" data-bs-ride="carousel">
                 <div class="carousel-inner container">
-                    @foreach ($clients->chunk(5) as $chunkIndex => $chunk)
-                        <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
+                    @foreach ($slidesDesktop as $slideIndex => $slide)
+                        <div class="carousel-item {{ $slideIndex === 0 ? 'active' : '' }}">
                             <div class="d-flex justify-content-center">
-                                @foreach ($chunk as $client)
+                                @foreach ($slide as $client)
                                     <div class="mx-3">
-                                        @if ($client->link)
+                                        @if (!empty($client->link))
                                             <a href="{{ $client->link }}" target="_blank" rel="noopener">
-                                                <img src="{{ $client->icon_url }}" 
-                                                    alt="{{ $client->name }}" 
-                                                    class="img-fluid">
+                                                <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
                                             </a>
                                         @else
-                                            <img src="{{ $client->icon_url }}" 
-                                                alt="{{ $client->name }}" 
-                                                class="img-fluid">
+                                            <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
                                         @endif
                                     </div>
                                 @endforeach
@@ -215,12 +212,42 @@
                     @endforeach
                 </div>
 
-                <!-- Controls -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselClients" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselClientsDesktop" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow-grey.png') }}')"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselClients" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselClientsDesktop" data-bs-slide="next" style="transform: rotate(180deg);">
+                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow-grey.png') }}')"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <div id="carouselClientsMobile" class="carousel slide d-block d-md-none" data-bs-ride="carousel">
+                <div class="carousel-inner container">
+                    @foreach ($slidesMobile as $slideIndex => $slide)
+                        <div class="carousel-item {{ $slideIndex === 0 ? 'active' : '' }}">
+                            <div class="d-flex justify-content-center">
+                                @foreach ($slide as $client)
+                                    <div class="mx-2">
+                                        @if (!empty($client->link))
+                                            <a href="{{ $client->link }}" target="_blank" rel="noopener">
+                                                <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
+                                            </a>
+                                        @else
+                                            <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselClientsMobile" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow-grey.png') }}')"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselClientsMobile" data-bs-slide="next" style="transform: rotate(180deg)">
                     <span class="carousel-control-next-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow-grey.png') }}')"></span>
                     <span class="visually-hidden">Next</span>
                 </button>

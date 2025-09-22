@@ -207,11 +207,17 @@ body{
 }
 
 #placeholder {
+    @media (max-width: 1280px){
+        padding: 0 6rem;
+    }
+    @media (max-width: 768px){
+        padding: 0;
+    }
   .text-banner {
     // min-width: 100%;
     word-wrap: break-word; 
     overflow-wrap: break-word;
-    text-align: left; 
+    text-align: center; 
 
     .line {
       display: block;
@@ -224,9 +230,11 @@ body{
 
       @media (min-width: 768px) {
         font-size: 3rem;
+        text-align: left; 
       }
       @media (min-width: 1200px) {
         font-size: 4.6rem;
+        text-align: left; 
       }
 
       &.green {
@@ -236,9 +244,20 @@ body{
   }
     .editor-body{
         p{
-            font-size: 1.6rem;
+            font-size: 1rem;
             line-height: 2;
-            text-align: inherit;
+            text-align: center;
+            padding: 0 2rem;
+            @media (min-width: 768px) {
+                font-size: 1.2rem;
+                padding: 0;
+                text-align: left;
+            }
+            @media (min-width: 1200px) {
+                font-size: 1.6rem;
+                padding: 0;
+                text-align:left;
+            }
         }
     }
     .homesupport__card {
@@ -253,8 +272,11 @@ body{
         margin: 0 auto;
 
         img {
-        width: 100%;
-        height: auto;
+            width: 100%;
+            height: auto;
+            @media (max-width: 768px){
+                width: 80%;
+            }
         }
     }
 
@@ -263,111 +285,126 @@ body{
         padding: 1rem 1rem 0 1rem;
         line-height: 1.5;
         color: #333;
+        @media (max-width: 768px){
+            font-size: 1.2rem;
+        }
     }
     }
 
 }
 
-
 #home-team {
     overflow: hidden;
+
     .expert-text{
         font-size: 2rem;
         line-height: 1.6;
         color: white;
         margin-top: 1rem;
-        @media (min-width: 768px){
-            font-size: 1.5rem;
-        }
-    }
-  .team-slide {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    min-height: 480px;
-  }
-
-  .team-card {
-    display: flex;
-    flex-direction: column;
-    // align-items: center;
-    text-align: center;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    backface-visibility: hidden;
-
-    .team-photo {
-      overflow: hidden;
-      border-radius: 12px;
-      img {
-        display: block;
-        max-width: 100%;
-        height: auto;
-        transition: transform 0.5s ease;
-      }
-    }
-
-    &.big {
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        z-index: 2;
-        .team-photo img {
-            width: 480px;
-            height: auto;
-        }
-        .team-name h2 {
-            font-size: 3rem;
+        @media (max-width: 768px){
+            font-size: 1.2rem;
+            padding: 0 2rem;
         }
     }
 
-    &.small {
-        position: relative;
-        bottom: 0;
-        right: 10%;
-        z-index: 1;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        opacity: 0.9;
-        transform: scale(0.7);
-        .team-photo img {
-            width: 420px; 
-            height: auto;
+    .carousel-inner{
+        @media (max-width: 768px){
+            padding: 0 4rem;
         }
-        .team-name h3 {
-            font-size: 2.5rem;
-        }
-        opacity: 0.9;
-        transform: scale(1.05);
-        padding-top:3rem;
     }
-  }
 
-  .carousel-item.active .team-card.big {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  @media (max-width: 991.98px) {
     .team-slide {
-      gap: 1.5rem;
-      min-height: auto;
-      flex-direction: column;
-      padding: 2rem 0;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        min-height: 480px;
     }
 
-    .team-card.big .team-photo img {
-      width: 320px;
-    }
-    .team-card.small .team-photo img {
-      width: 120px;
+    .team-card {
+        display: flex;
+        flex-direction: column;
+        // align-items: center;
+        text-align: center;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        backface-visibility: hidden;
+
+
+        .team-photo {
+            overflow: hidden;
+            border-radius: 12px;
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        }
+
+        &.big {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            z-index: 2;
+            .team-photo img {
+                width: 480px;
+                height: auto;
+            }
+            .team-name h2 {
+                font-size: 3rem;
+            }
+        }
+
+        &.small {
+            position: relative;
+            bottom: 0;
+            right: 10%;
+            z-index: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            opacity: 0.9;
+            transform: scale(0.7);
+            .team-photo img {
+                width: 420px; 
+                height: auto;
+            }
+            .team-name h3 {
+                font-size: 2.5rem;
+                @media (max-width: 768px) {
+                    font-size: 1.2rem;
+                }
+            }
+            opacity: 0.9;
+            transform: scale(1.05);
+            padding-top:3rem;
+        }
     }
 
-    .team-card.big .team-name h2 {
-      font-size: 2rem;
+    .carousel-item.active .team-card.big {
+        transform: scale(1);
+        opacity: 1;
     }
+
+    @media (max-width: 991.98px) {
+        .team-slide {
+        gap: 1.5rem;
+        min-height: auto;
+        flex-direction: column;
+        padding: 2rem 0;
+        }
+
+        .team-card.big .team-photo img {
+        width: 320px;
+        }
+        .team-card.small .team-photo img {
+        width: 120px;
+        }
+
+        .team-card.big .team-name h2 {
+        font-size: 2rem;
+        }
   }
 
   @media (max-width: 575.98px) {
@@ -547,7 +584,8 @@ body{
         margin-top: 1.5rem;
 
         @media (max-width: 768px) {
-        font-size: 1.5rem;
+            font-size: 1.2rem;
+            padding: 0 2rem;
         }
     }
 
@@ -671,7 +709,7 @@ body{
 #diagram,
 #our-approach,
 #contact{
-    padding: 2rem 0;
+    padding: 2rem;
 
     @media (min-width: 1024px){
         padding: 4rem 0;
@@ -725,6 +763,7 @@ body{
     flex-direction: column;
     height: 100%;
 
+
     .card-header {
         height: 250px;
         overflow: hidden;
@@ -760,7 +799,11 @@ body{
         background-position: bottom;
         padding: 2rem;
         transition: background-image 0.3s ease-in-out;
-
+        article{
+            @media (max-width: 768px){
+                font-size: 1.2rem;
+            }
+        }
         @media (min-width: 768px) {
             min-height: 200px;
             padding: 2rem;

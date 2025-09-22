@@ -38,7 +38,7 @@ class TeamResource extends Resource
                     ])
                     ->columns(2),
                 Forms\Components\FileUpload::make('image')
-                    ->helperText('Recommended size: 500 x 500 pixels, format: JPG, PNG')
+                    ->helperText('Recommended size: 520 x 693px (3 : 4), format: JPG, PNG')
                     ->image()
                     ->required()
                     ->disk('team'),
