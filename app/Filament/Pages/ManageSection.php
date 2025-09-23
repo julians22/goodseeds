@@ -191,7 +191,26 @@ class ManageSection extends SettingsPage
                                             ->required(),
                                     ])
                                     ->columns(2),
-                            ]),
+                                Forms\Components\Fieldset::make('teamSection')
+                                    ->label('Team Section')
+                                    ->schema([
+                                        Forms\Components\Grid::make(2)
+                                            ->schema([
+                                                Forms\Components\TextInput::make('teamSection.teamNameLeft')
+                                                    ->label('Team Name Left')
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('teamSection.teamNameRight')
+                                                    ->label('Team Name Right')
+                                                    ->required(),
+                                            ]),
+                                    Forms\Components\FileUpload::make('teamSection.teamImage')
+                                        ->label('Team Image')
+                                        ->disk('public')
+                                        ->directory('team')
+                                        ->image(),
+                                    ])
+                                    ->columns(1),
+                                ]),
 
                         Tab::make('Message')
                             ->schema([
@@ -286,9 +305,7 @@ class ManageSection extends SettingsPage
                                     ->columns(2),
                             ]),
                     ])
-                    ->columnSpanFull()
-
-                    
+                    ->columnSpanFull(),
             ]);
     }
 }

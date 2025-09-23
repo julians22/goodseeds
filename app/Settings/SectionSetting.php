@@ -34,6 +34,7 @@ class SectionSetting extends Settings
     // Team Content
     public ?array $teamTitle = null;
     public ?array $teamDescription = null;
+    public ?array $teamSection = null;
 
     // Message Content
     public ?array $messages = null;

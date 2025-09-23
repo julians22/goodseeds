@@ -242,9 +242,9 @@
                 </div>
             </div>
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="container">
-                    <div id="carouselHomeTeam" class="carousel slide" data-bs-ride="carousel---">
+                    <div id="carouselHomeTeam" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @php
                                 $teamsList = $teams->isNotEmpty()
@@ -286,7 +286,7 @@
                             @endfor
                         </div>
 
-                        {{-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselHomeTeam" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselHomeTeam" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"
                                 style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
                             <span class="visually-hidden">Previous</span>
@@ -295,7 +295,29 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"
                                 style="background-image: url('{{ asset('img/icons/arrow.png') }}'); transform: rotate(180deg);"></span>
                             <span class="visually-hidden">Next</span>
-                        </button> --}}
+                        </button>
+                    </div>
+                </div>
+            </div> --}}
+
+            <div class="row justify-content-center align-items-center">
+                <div class="container">
+                    <div class="team-wrapper">
+                        <div class="col-auto">
+                            <h3 class="text-white mb-0">
+                                {{ $sectionSetting->teamSection['teamNameLeft'] ?? '' }} 
+                            </h3>
+                        </div>
+                        <div class="col-auto team-photo">
+                            <img src="{{ isset($sectionSetting->teamSection['teamImage']) ? asset('storage/' . $sectionSetting->teamSection['teamImage']) : asset('img/icons/default.png') }}"
+                                alt="Team Image"
+                                class="img-fluid">
+                        </div>
+                        <div class="col-auto">
+                            <h3 class="text-white mb-0">
+                                {{ $sectionSetting->teamSection['teamNameRight'] ?? '' }}
+                            </h3>
+                        </div>
                     </div>
                 </div>
             </div>
