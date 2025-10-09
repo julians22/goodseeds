@@ -5,7 +5,7 @@ return [
     'homeAbout_title' => "MEMBINA \n ORANG \n MEMBERDAYAKAN \n BISNIS",
     'homeAbout_text' => "Kami adalah firma konsultan yang berdedikasi untuk membantu pemilik bisnis mengembangkan dan mempertahankan usahanya melalui layanan konsultasi, coaching, pelatihan, dan rekrutmen yang disesuaikan. Dengan menyelaraskan strategi, mengoptimalkan operasional, dan mengembangkan sumber daya manusia, kami menciptakan nilai jangka panjang dan pertumbuhan yang berkelanjutan.",
 
-    'homeAboutSupport_title' => "Apa yang Membuat Kami Berbeda",
+    'homeAboutSupport_title' => "What Makes Us Different",
     'homeAboutSupport_data' => [
         [
             'shortDesc' => "Strategi holistik dan khusus yang selaras dengan bisnis dan manusia",
