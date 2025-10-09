@@ -6,46 +6,42 @@
 
 @section('content')
 
-    <section id="home">
-        <div id="carouselHome" class="carousel slide" data-bs-touch="true" data-bs-ride="true">
-            <div class="carousel-inner">
-                @foreach ($banners as $banner)
-                    @php
-                        $mediaPath = $banner->image_url ?? (isset($banner->image) ? asset('storage/' . $banner->image) : null);
-                        $ext = strtolower(pathinfo(parse_url($mediaPath, PHP_URL_PATH) ?? '', PATHINFO_EXTENSION));
-                        $isVideo = in_array($ext, ['mp4', 'webm', 'ogg']);
-                    @endphp
+    <section id="home" style="position: relative;">
+        <div id="carouselHome" class="carouselHome">
+            @foreach ($banners as $banner)
+                @php
+                    $mediaPath = $banner->image_url ?? (isset($banner->image) ? asset('storage/' . $banner->image) : null);
+                    $ext = strtolower(pathinfo(parse_url($mediaPath, PHP_URL_PATH) ?? '', PATHINFO_EXTENSION));
+                    $isVideo = in_array($ext, ['mp4', 'webm', 'ogg']);
+                @endphp
 
-                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}" @if(!$isVideo) data-bs-interval="3000" @endif>
-                        @if ($isVideo)
-                            <video
-                                src="{{ $mediaPath }}"
-                                class="d-block w-100 banner-video"
-                                autoplay
-                                muted
-                                playsinline
-                                webkit-playsinline
-                                preload="metadata"
-                                controlsList="nodownload nofullscreen noremoteplayback"
-                                style="pointer-events: none; user-select: none;"
-                            ></video>
-                        @else
-                            <img src="{{ $mediaPath }}" class="d-block w-100 banner-image"/>
-                        @endif
-                    </div>
-                @endforeach
-            </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+                <div class="slide-item">
+                    @if ($isVideo)
+                        <video
+                            src="{{ $mediaPath }}"
+                            class="d-block w-100 banner-video"
+                            muted
+                            playsinline
+                            webkit-playsinline
+                            preload="metadata"
+                            controlsList="nodownload nofullscreen noremoteplayback"
+                            style="pointer-events: none; user-select: none;"
+                        ></video>
+                    @else
+                        <img src="{{ $mediaPath }}" class="d-block w-100 banner-image"/>
+                    @endif
+                </div>
+            @endforeach
         </div>
+
+        <button type="button" class="custom-prev-home" aria-label="Previous">
+            <img src="{{ asset('img/icons/arrow.png') }}" alt="Prev">
+        </button>
+        <button type="button" class="custom-next-home" aria-label="Next">
+            <img src="{{ asset('img/icons/arrow.png') }}" alt="Next">
+        </button>
     </section>
+
 
     <section id="placeholder" class="pt-5">
         <div class="container">
@@ -227,7 +223,6 @@
                     @endforeach
                 </div>
 
-                <!-- Custom arrows -->
                 <button type="button" class="slick-prev custom-prev">
                     <img src="{{ asset('img/icons/arrow-grey.png') }}" alt="Prev">
                 </button>
@@ -307,7 +302,6 @@
                         @endforeach 
                     </div>
 
-                    {{-- Tombol navigasi custom --}}
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselTeam" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"
                             style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
@@ -353,120 +347,5 @@
             items.forEach(item => item.style.height = newMax + "px");
         });
     });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        let homeSplideOptions = {
-                perPage: 1,
-                perMove: 1,
-                arrows: false,
-                focus: 'center',
-                autoplay: true,
-                interval: 5000,
-                rewind: true,
-                rewindSpeed: 800,
-                drag: true,
-                mediaQuery: 'min',
-                breakpoints: {
-                    1024: {
-                        drag: false,
-                        perPage: 2,
-                    }
-                }
-            };
-        const homeSplide = initSplide('.splide', homeSplideOptions);
-
-        const carouselEl = document.getElementById('carouselHome');
-        if (!carouselEl || typeof bootstrap === 'undefined') return;
-
-        const carousel = bootstrap.Carousel.getOrCreateInstance(carouselEl);
-        const items = () => Array.from(carouselEl.querySelectorAll('.carousel-item'));
-        const videos = Array.from(carouselEl.querySelectorAll('video.banner-video'));
-
-        const videoTimes = new Map();
-
-        const pauseAll = () => {
-            videos.forEach(v => {
-                try {
-                    v.pause();
-                    videoTimes.set(v.src, v.currentTime);
-                } catch (e) {}
-            });
-        };
-
-        videos.forEach(v => {
-            try { 
-                v.muted = true;
-                v.playsInline = true;
-                v.setAttribute('webkit-playsinline', '');
-                v.preload = 'metadata';
-                v.controls = false;
-                v.disablePictureInPicture = true;
-                v.controlsList = 'nodownload nofullscreen noremoteplayback';
-                v.style.pointerEvents = 'none';
-            } catch (e) {}
-
-            v.addEventListener('ended', function() {
-                const allItems = items();
-                const currentItem = v.closest('.carousel-item');
-                const idx = allItems.indexOf(currentItem);
-                const nextIndex = (idx + 1) % allItems.length;
-
-                try {
-                    carousel.to(nextIndex);
-                    carousel.cycle();
-                } catch (e) {}
-            });
-        });
-
-        carouselEl.addEventListener('slide.bs.carousel', function () {
-            const active = carouselEl.querySelector('.carousel-item.active');
-            if (!active) return;
-
-            const vid = active.querySelector('video.banner-video');
-            if (vid) {
-                try {
-                    videoTimes.set(vid.src, vid.currentTime);
-                    vid.pause();
-                } catch (e) {}
-            }
-        });
-
-        carouselEl.addEventListener('slid.bs.carousel', function () {
-            pauseAll(); 
-
-            const active = carouselEl.querySelector('.carousel-item.active');
-            if (!active) return;
-
-            const vid = active.querySelector('video.banner-video');
-            if (vid) {
-                try { carousel.cycle(); } catch (e) {}
-
-                const lastTime = videoTimes.get(vid.src) || 0;
-                if (lastTime > 0 && lastTime < vid.duration - 0.5) {
-                    vid.currentTime = lastTime;
-                }
-
-                const playPromise = vid.play();
-                if (playPromise && playPromise.catch) {
-                    playPromise.catch(()=>{});
-                }
-            } else {
-                try { carousel.cycle(); } catch (e) {}
-            }
-        });
-
-        (function handleInitial() {
-            const active = carouselEl.querySelector('.carousel-item.active');
-            if (!active) return;
-            const vid = active.querySelector('video.banner-video');
-            if (vid) {
-                try { carousel.pause(); } catch(e){}
-                vid.play().catch(()=>{});
-            } else {
-                try { carousel.cycle(); } catch(e){}
-            }
-        })();
-    });
 </script>
-@endpush
 

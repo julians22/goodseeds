@@ -160,50 +160,54 @@ body{
     }
 }
 
-#carouselHome{
-    .carousel-caption{
+#home {
+    position: relative; // penting supaya tombol bisa absolute terhadap section ini
+
+    .custom-prev-home,
+    .custom-next-home {
         position: absolute;
-        height: fit-content;
-        right: 0;
         top: 50%;
-        left: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-        color: unset;
-        text-align: center;
-        // Center content
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        z-index: 20; 
+        transition: opacity 0.3s ease;
+        opacity: 0.8;
 
-        @media (min-width: 768px){
-            bottom: 50%;
-            transform: translateY(-50%);
-            text-align: left;
+        img {
+            width: 40px;
+            height: auto;
+            display: block;
+        }
+
+        &:hover {
+            opacity: 1;
         }
     }
 
-    .carousel-item .banner-image{
+    .custom-prev-home {
+        left: 20px;
+    }
+
+    .custom-next-home {
+        right: 20px;
+        transform: translateY(-50%) rotate(180deg);
+    }
+}
+
+#carouselHome {
+    .slide-item {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .banner-image,
+    .banner-video {
         width: 100%;
-        // aspect-ratio: 1/1;
-        // object-fit: cover;
         height: auto;
-        @media (min-width: 768px){
-            aspect-ratio: unset;
-        }
-    }
-
-    .carousel-control-prev,
-    .carousel-control-next{
-        width: 15%;
-        @media (min-width: 768px){
-            width: 5%;
-        }
-    }
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon{
-        background-size: contain;
-    }
-
-    .carousel-control-next-icon{
-        transform: rotate(180deg);
+        display: block;
     }
 }
 
@@ -747,9 +751,25 @@ body{
 
 .carouselClients {
     .clients-slider {
+        position: relative;
+        width: 100%;
+
+        .slick-track {
+            display: flex;
+            align-items: center; 
+        }
+
+        .slick-slide {
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+        }
+
         img {
-            max-height: 300px;
+            max-height: 300px; 
+            width: auto;
             transition: transform 0.3s ease;
+            margin: 0 auto;
         }
 
         img:hover {
@@ -770,7 +790,12 @@ body{
         img {
             width: 40px;
             height: 40px;
-            border-radius: 50%;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        &:hover img {
+            opacity: 1;
+            transform: scale(1.1);
         }
     }
 
@@ -789,12 +814,11 @@ body{
     }
 }
 
-
-
 .slick-prev::before,
 .slick-next::before {
     content: none !important;
 }
+
 
 .text-banner > *{
     font-size: 2rem;

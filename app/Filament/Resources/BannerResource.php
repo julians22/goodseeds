@@ -35,29 +35,29 @@ class BannerResource extends Resource
                     ->disk('banner')
                     ->directory('banners')
                     ->required(),
-                Forms\Components\Toggle::make('primary_text')
-                    ->label('Primary Text')
-                    ->helperText('If enabled, this banner will be the primary text banner, meaning it will be showed on mobile devices')
-                    ->default(false),
-                // Section titles
-                Forms\Components\Section::make('Banner Titles')
-                    ->description('Add up to 4 words, each with a different color, to be displayed on the banner')
-                    ->schema([
-                        Forms\Components\Repeater::make('titles')
-                            ->schema([
-                                Forms\Components\TextInput::make('word')
-                                    ->helperText('Enter a word, e.g. "Nurture"')
-                                    ->label('Word'),
-                                // Word colors
-                                Forms\Components\ColorPicker::make('color')
-                                    ->helperText('Pick a color for the word')
-                                    ->label('Color'),
-                            ])
-                            ->columnSpanFull()
-                            ->defaultItems(4)
-                            ->maxItems(4),
+                // Forms\Components\Toggle::make('primary_text')
+                //     ->label('Primary Text')
+                //     ->helperText('If enabled, this banner will be the primary text banner, meaning it will be showed on mobile devices')
+                //     ->default(false),
+                // // Section titles
+                // Forms\Components\Section::make('Banner Titles')
+                //     ->description('Add up to 4 words, each with a different color, to be displayed on the banner')
+                //     ->schema([
+                //         Forms\Components\Repeater::make('titles')
+                //             ->schema([
+                //                 Forms\Components\TextInput::make('word')
+                //                     ->helperText('Enter a word, e.g. "Nurture"')
+                //                     ->label('Word'),
+                //                 // Word colors
+                //                 Forms\Components\ColorPicker::make('color')
+                //                     ->helperText('Pick a color for the word')
+                //                     ->label('Color'),
+                //             ])
+                //             ->columnSpanFull()
+                //             ->defaultItems(4)
+                //             ->maxItems(4),
 
-                    ])
+                //     ])
 
             ]);
     }
@@ -68,23 +68,23 @@ class BannerResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
                     ->disk('banner'),
-                Tables\Columns\ToggleColumn::make('primary_text')
-                    ->placeholder('Primary Text')
-                    ->afterStateUpdated(function ($record, $state) {
-                        $exceptBanner = Banner::withoutGlobalScope(SoftDeletingScope::class)->where('id', '!=', $record->id)->get();
-                        $exceptBanner->each(function ($banner) {
-                            $banner->update(['primary_text' => false]);
-                        });
-                    }),
-                BannerTextColumn::make('titles'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\ToggleColumn::make('primary_text')
+                //     ->placeholder('Primary Text')
+                //     ->afterStateUpdated(function ($record, $state) {
+                //         $exceptBanner = Banner::withoutGlobalScope(SoftDeletingScope::class)->where('id', '!=', $record->id)->get();
+                //         $exceptBanner->each(function ($banner) {
+                //             $banner->update(['primary_text' => false]);
+                //         });
+                //     }),
+                // BannerTextColumn::make('titles'),
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('updated_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
