@@ -38,9 +38,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-in-out" class="article-detail-content">
-                    <h5 class="d-inline">
-                        {!! $article->getTranslation('content', app()->getLocale()) !!}
-                    </h5>
+                    {!! $article->getTranslation('content', app()->getLocale()) !!}
                 </div>
             </div>
         </div>
