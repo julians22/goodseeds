@@ -113,7 +113,7 @@
                             <div class="mb-3 icon-approach icon-why">
                                 <img src="{{ $item->icon_url }}" alt="" width="100" data-aos="fade-right">
                             </div>
-                            <span class="d-block text-green-light fw-bolder display-5" data-aos="fade-right" data-aos-duration="780">{!! $item->title[app()->getLocale()] ?? '' !!}</span>
+                            <span class="d-block fw-bolder display-5" data-aos="fade-right" data-aos-duration="780" style="color: #0193dd; padding: 2.5rem 0 0.4rem 0 ;">{!! $item->title[app()->getLocale()] ?? '' !!}</span>
                         </div>
                         <div class="mt-lg-2 ">
                             <div class="text-center lead fw-medium" data-aos="fade-right" data-aos-delay="150" data-aos-duration="700">
@@ -138,37 +138,43 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row" style="padding: 2rem 0;">
                 <div id="carouselTeam" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner container">
                         @foreach ($teams as $team)
                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                <div class="row align-items-center text-white team-member">
-                                    <div class="col-12 col-md-6 team-photo" data-aos="fade-right" data-aos-duration="780">
-                                        <img src="{{ $team->image_url }}"
-                                            alt="{{ $team->name }}"
-                                            class="image-profile">
+                                <div class="row team-member">
+
+                                    {{-- KIRI: Foto & Sertifikat --}}
+                                    <div class="col-12 col-md-6 team-left p-0" data-aos="fade-right" data-aos-duration="780">
+                                        <div class="photo-section d-flex justify-content-center align-items-center">
+                                            <img src="{{ $team->image_url }}"
+                                                alt="{{ $team->name }}"
+                                                class="image-profile">
+                                        </div>
+
+                                        @if ($team->certificate)
+                                            <div class="certificate-section d-flex flex-wrap justify-content-center align-items-center gap-3">
+                                                @foreach ($team->certificate as $cert)
+                                                    @php
+                                                        $path = $cert['file'];
+                                                        $url = str_starts_with($path, 'img/')
+                                                            ? asset($path)
+                                                            : asset('storage/'.$path);
+                                                    @endphp
+                                                    <img src="{{ $url }}" alt="Certificate" class="certificate-logo">
+                                                @endforeach
+                                            </div>
+                                        @endif
                                     </div>
 
-                                    <div class="col-12 col-md-6 d-flex flex-column gap-3" data-aos="fade-left" data-aos-duration="780">
-                                        <div class="desc-team">
-                                            @if ($team->certificate)
-                                                <div class="d-flex flex-wrap justify-content-start gap-3 mb-3">
-                                                    @foreach ($team->certificate as $cert)
-                                                        @php
-                                                            $path = $cert['file'];
-                                                            // Kalau sudah diawali "img/", berarti dari public
-                                                            $url = str_starts_with($path, 'img/')
-                                                                ? asset($path)
-                                                                : asset('storage/'.$path);
-                                                        @endphp
-                                                        <img src="{{ $url }}" alt="Certificate" class="certificate-logo">
-                                                    @endforeach
-                                                </div>
-                                            @endif
+                                    {{-- KANAN: Deskripsi --}}
+                                    <div class="col-12 col-md-6 team-right text-white d-flex flex-column justify-content-center" data-aos="fade-left" data-aos-duration="780">
+                                        <div class="desc-team px-5 py-4">
+                                            <h1 class="fw-bold mb-2 team-name">{{ $team->name }}</h1>
+                                            <div class="team-line mb-3"></div>
+                                            <p class="team-desc mb-4">{!! nl2br($team->description[app()->getLocale()] ?? 'What We Do') !!}</p>
 
-                                            <h1 class="fw-bold mb-0 team-name">{{ $team->name }}</h1>
-                                            <h4 class="team-desc">{!! nl2br($team->description[app()->getLocale()] ?? 'What We Do') !!}</h4>
                                             @if ($team->socials_array)
                                                 <div class="team-socials d-flex gap-3 mt-2">
                                                     @foreach ($team->socials_array as $social)
@@ -185,6 +191,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         @endforeach 
                     </div>
 
@@ -211,6 +218,30 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const items = document.querySelectorAll("#carouselTeam .carousel-item");
+        let maxHeight = 0;
+
+        items.forEach(item => {
+            item.style.height = "auto";
+            const h = item.offsetHeight;
+            if (h > maxHeight) maxHeight = h;
+        });
+
+        items.forEach(item => {
+            item.style.height = maxHeight + "px";
+        });
+
+        window.addEventListener("resize", () => {
+            let newMax = 0;
+            items.forEach(item => {
+                item.style.height = "auto";
+                const h = item.offsetHeight;
+                if (h > newMax) newMax = h;
+            });
+            items.forEach(item => item.style.height = newMax + "px");
+        });
+
+            
         const params = new URLSearchParams(window.location.search);
         const serviceId = params.get('service');
         if (serviceId) {

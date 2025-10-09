@@ -38,13 +38,12 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="article-detail-content" data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-in-out" class="success-detail-content">
-                    <h5 class="d-inline">
-                        {!! $success->getTranslation('content', app()->getLocale()) !!}
-                    </h5>
+                    {!! $success->getTranslation('content', app()->getLocale()) !!}
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="container">
         @if ($previous || $next)
             <div class="d-flex justify-content-between mt-5" data-aos="fade-down" data-aos-duration="900" data-aos-easing="ease-in-out">
                 @if ($previous)
@@ -65,5 +64,6 @@
             </div>
         @endif
     </div>
+    
 </main>
 @endsection

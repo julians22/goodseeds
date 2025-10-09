@@ -10,11 +10,32 @@
         <div id="carouselHome" class="carousel slide" data-bs-touch="true" data-bs-ride="true">
             <div class="carousel-inner">
                 @foreach ($banners as $banner)
-                <div class="carousel-item {{$loop->first ? 'active' : ''}}" data-bs-interval="3000">
-                    <img src="{{$banner->image_url}}" class="d-block w-100 banner-image"/>
-                </div>
+                    @php
+                        $mediaPath = $banner->image_url ?? (isset($banner->image) ? asset('storage/' . $banner->image) : null);
+                        $ext = strtolower(pathinfo(parse_url($mediaPath, PHP_URL_PATH) ?? '', PATHINFO_EXTENSION));
+                        $isVideo = in_array($ext, ['mp4', 'webm', 'ogg']);
+                    @endphp
+
+                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}" @if(!$isVideo) data-bs-interval="3000" @endif>
+                        @if ($isVideo)
+                            <video
+                                src="{{ $mediaPath }}"
+                                class="d-block w-100 banner-video"
+                                autoplay
+                                muted
+                                playsinline
+                                webkit-playsinline
+                                preload="metadata"
+                                controlsList="nodownload nofullscreen noremoteplayback"
+                                style="pointer-events: none; user-select: none;"
+                            ></video>
+                        @else
+                            <img src="{{ $mediaPath }}" class="d-block w-100 banner-image"/>
+                        @endif
+                    </div>
                 @endforeach
             </div>
+
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
                 <span class="visually-hidden">Previous</span>
@@ -141,7 +162,7 @@
             $profiles = $sectionSetting->messages ?? __('wordings.homeProfile_data') ?? [];
         @endphp
 
-        <div id="carouselProfile" class="carousel slide" data-bs-touch="true" data-bs-ride="true">
+        <div id="carouselProfile" class="carousel slide" data-bs-touch="true" data-bs-ride="carousel">
             <div class="carousel-inner">
                 @foreach ($profiles as $index => $item)
                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" data-bs-interval="5000">
@@ -217,138 +238,235 @@
         </div>
     </section>
 
-
-    <section id="home-team" style="background-image: url('{{ asset('bg-team.jpg') }}')">
+    <section id="our-team" style="background-image: url('{{ asset('bg-team.jpg') }}')">
         <div class="">
-            <div class="container">
-                <div class="row" style="padding: 4rem 0 2rem 0;">
-                    <div class="col-md-12">
-                        <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center title">
-                            <h2 class="d-inline text-white fw-bolder display-5">
-                                {!! nl2br($sectionSetting->teamTitle[app()->getLocale()] ?? __('wordings.teamTitle')) !!}
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row" style="padding: 0 0 2rem 0;">
-                    <div class="col-md-12">
-                        <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="text-center">
-                            <h4 class="text-white expert-text">
-                                {!! $sectionSetting->teamDescription[app()->getLocale()] ?? __('wordings.teamDescription') !!}
-                            </h4>
-                        </div>
+            <div class="row" style="padding: 4rem 0 2rem 0;">
+                <div class="col-md-12">
+                    <div data-aos="fade" data-aos-duration="900" data-aos-easing="ease-in-out" class="title text-center">
+                        <h1 class="fw-bolder display-5 d-inline text-white">
+                            {!! nl2br($sectionSetting->teamTitle[app()->getLocale()] ?? __('wordings.teamTitle')) !!}
+                        </h1>
                     </div>
                 </div>
             </div>
 
-            {{-- <div class="row">
-                <div class="container">
-                    <div id="carouselHomeTeam" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            @php
-                                $teamsList = $teams->isNotEmpty()
-                                    ? $teams
-                                    : collect($experts)->map(fn($item) => (object)[
-                                        'name' => $item['name'],
-                                        'image_url' => asset($item['image']),
-                                    ]);
+            <div class="row" style="padding: 2rem 0;">
+                <div id="carouselTeam" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner container">
+                        @foreach ($teams as $team)
+                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                <div class="row team-member">
 
-                                $n = count($teamsList);
-                            @endphp                         
-                            @for ($i = 0; $i < $n; $i++)
-                                @php
-                                    $big = $teamsList[$i];
-                                    $small = $teamsList[($i + 1) % $n];
-                                @endphp
-
-                                <div class="carousel-item {{ $i === 0 ? 'active' : '' }}">
-                                    <div class="team-slide d-flex align-items-center justify-content-center">
-                                        <div class="team-card big d-flex align-items-center text-white">
-                                            <div class="team-name">
-                                                <h2>{{ $big->name }}</h2>
-                                            </div>
-                                            <div class="team-photo">
-                                                <img src="{{ $big->image_url }}" alt="{{ $big->name }}">
-                                            </div>
+                                    {{-- KIRI: Foto & Sertifikat --}}
+                                    <div class="col-12 col-md-6 team-left p-0" data-aos="fade-right" data-aos-duration="780">
+                                        <div class="photo-section d-flex justify-content-center align-items-center">
+                                            <img src="{{ $team->image_url }}"
+                                                alt="{{ $team->name }}"
+                                                class="image-profile">
                                         </div>
 
-                                        <div class="team-card small text-center">
-                                            <div class="team-photo">
-                                                <img src="{{ $small->image_url }}" alt="{{ $small->name }}">
+                                        @if ($team->certificate)
+                                            <div class="certificate-section d-flex flex-wrap justify-content-center align-items-center gap-3">
+                                                @foreach ($team->certificate as $cert)
+                                                    @php
+                                                        $path = $cert['file'];
+                                                        $url = str_starts_with($path, 'img/')
+                                                            ? asset($path)
+                                                            : asset('storage/'.$path);
+                                                    @endphp
+                                                    <img src="{{ $url }}" alt="Certificate" class="certificate-logo">
+                                                @endforeach
                                             </div>
-                                            <div class="team-name text-white">
-                                                <h3>{{ $small->name }}</h3>
-                                            </div>
+                                        @endif
+                                    </div>
+
+                                    {{-- KANAN: Deskripsi --}}
+                                    <div class="col-12 col-md-6 team-right text-white d-flex flex-column justify-content-center" data-aos="fade-left" data-aos-duration="780">
+                                        <div class="desc-team px-5 py-4">
+                                            <h1 class="fw-bold mb-2 team-name">{{ $team->name }}</h1>
+                                            <div class="team-line mb-3"></div>
+                                            <p class="team-desc mb-4">{!! nl2br($team->description[app()->getLocale()] ?? 'What We Do') !!}</p>
+
+                                            @if ($team->socials_array)
+                                                <div class="team-socials d-flex gap-3 mt-2">
+                                                    @foreach ($team->socials_array as $social)
+                                                        @php $icon = $social['platform']; @endphp
+                                                        <a href="{{ $social['url'] }}" target="_blank">
+                                                            <img src="{{ asset('img/icons/'.$icon.'.png') }}" 
+                                                                alt="{{ $icon }}" 
+                                                                class="social-icon">
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
-                            @endfor
-                        </div>
+                            </div>
 
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselHomeTeam" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"
-                                style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselHomeTeam" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"
-                                style="background-image: url('{{ asset('img/icons/arrow.png') }}'); transform: rotate(180deg);"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                        @endforeach 
                     </div>
-                </div>
-            </div> --}}
 
-            <div class="row justify-content-center align-items-center">
-                <div class="container">
-                    <div class="team-wrapper">
-                        <div class="col-auto">
-                            <h3 class="text-white mb-0">
-                                {{ $sectionSetting->teamSection['teamNameLeft'] ?? '' }} 
-                            </h3>
-                        </div>
-                        <div class="col-auto team-photo">
-                            <img src="{{ isset($sectionSetting->teamSection['teamImage']) ? asset('storage/' . $sectionSetting->teamSection['teamImage']) : asset('img/icons/default.png') }}"
-                                alt="Team Image"
-                                class="img-fluid">
-                        </div>
-                        <div class="col-auto">
-                            <h3 class="text-white mb-0">
-                                {{ $sectionSetting->teamSection['teamNameRight'] ?? '' }}
-                            </h3>
-                        </div>
-                    </div>
+                    {{-- Tombol navigasi custom --}}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselTeam" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"
+                            style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselTeam" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"
+                            style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
+
             </div>
         </div>
     </section>
 
 @endsection
 
-@push('scripts')
 
+@push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', () => {
+        const items = document.querySelectorAll("#carouselTeam .carousel-item");
+        let maxHeight = 0;
+
+        items.forEach(item => {
+            item.style.height = "auto";
+            const h = item.offsetHeight;
+            if (h > maxHeight) maxHeight = h;
+        });
+
+        items.forEach(item => {
+            item.style.height = maxHeight + "px";
+        });
+
+        window.addEventListener("resize", () => {
+            let newMax = 0;
+            items.forEach(item => {
+                item.style.height = "auto";
+                const h = item.offsetHeight;
+                if (h > newMax) newMax = h;
+            });
+            items.forEach(item => item.style.height = newMax + "px");
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
         let homeSplideOptions = {
-            perPage: 1,
-            perMove: 1,
-            arrows: false,
-            focus: 'center',
-            autoplay: true,
-            interval: 5000,
-            rewind: true,
-            rewindSpeed: 800,
-            drag: true,
-            mediaQuery: 'min',
-            breakpoints: {
-                1024: {
-                    drag: false,
-                    perPage: 2,
+                perPage: 1,
+                perMove: 1,
+                arrows: false,
+                focus: 'center',
+                autoplay: true,
+                interval: 5000,
+                rewind: true,
+                rewindSpeed: 800,
+                drag: true,
+                mediaQuery: 'min',
+                breakpoints: {
+                    1024: {
+                        drag: false,
+                        perPage: 2,
+                    }
                 }
-            }
-        };
+            };
         const homeSplide = initSplide('.splide', homeSplideOptions);
+
+        const carouselEl = document.getElementById('carouselHome');
+        if (!carouselEl || typeof bootstrap === 'undefined') return;
+
+        const carousel = bootstrap.Carousel.getOrCreateInstance(carouselEl);
+        const items = () => Array.from(carouselEl.querySelectorAll('.carousel-item'));
+        const videos = Array.from(carouselEl.querySelectorAll('video.banner-video'));
+
+        const videoTimes = new Map();
+
+        const pauseAll = () => {
+            videos.forEach(v => {
+                try {
+                    v.pause();
+                    videoTimes.set(v.src, v.currentTime);
+                } catch (e) {}
+            });
+        };
+
+        videos.forEach(v => {
+            try { 
+                v.muted = true;
+                v.playsInline = true;
+                v.setAttribute('webkit-playsinline', '');
+                v.preload = 'metadata';
+                v.controls = false;
+                v.disablePictureInPicture = true;
+                v.controlsList = 'nodownload nofullscreen noremoteplayback';
+                v.style.pointerEvents = 'none';
+            } catch (e) {}
+
+            v.addEventListener('ended', function() {
+                const allItems = items();
+                const currentItem = v.closest('.carousel-item');
+                const idx = allItems.indexOf(currentItem);
+                const nextIndex = (idx + 1) % allItems.length;
+
+                try {
+                    carousel.to(nextIndex);
+                    carousel.cycle();
+                } catch (e) {}
+            });
+        });
+
+        carouselEl.addEventListener('slide.bs.carousel', function () {
+            const active = carouselEl.querySelector('.carousel-item.active');
+            if (!active) return;
+
+            const vid = active.querySelector('video.banner-video');
+            if (vid) {
+                try {
+                    videoTimes.set(vid.src, vid.currentTime);
+                    vid.pause();
+                } catch (e) {}
+            }
+        });
+
+        carouselEl.addEventListener('slid.bs.carousel', function () {
+            pauseAll(); 
+
+            const active = carouselEl.querySelector('.carousel-item.active');
+            if (!active) return;
+
+            const vid = active.querySelector('video.banner-video');
+            if (vid) {
+                try { carousel.cycle(); } catch (e) {}
+
+                const lastTime = videoTimes.get(vid.src) || 0;
+                if (lastTime > 0 && lastTime < vid.duration - 0.5) {
+                    vid.currentTime = lastTime;
+                }
+
+                const playPromise = vid.play();
+                if (playPromise && playPromise.catch) {
+                    playPromise.catch(()=>{});
+                }
+            } else {
+                try { carousel.cycle(); } catch (e) {}
+            }
+        });
+
+        (function handleInitial() {
+            const active = carouselEl.querySelector('.carousel-item.active');
+            if (!active) return;
+            const vid = active.querySelector('video.banner-video');
+            if (vid) {
+                try { carousel.pause(); } catch(e){}
+                vid.play().catch(()=>{});
+            } else {
+                try { carousel.cycle(); } catch(e){}
+            }
+        })();
     });
 </script>
 @endpush
+

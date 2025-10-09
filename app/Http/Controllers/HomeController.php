@@ -121,9 +121,58 @@ class HomeController extends Controller
 
     public function showArticle(GeneralSetting $generalSetting, SectionSetting $sectionSetting, $slug)
     {
-        $article = Article::where('slug', $slug)->firstOrFail();
-        $previous = Article::where('slug', '<', $slug)->orderBy('id', 'desc')->first();
-        $next = Article::where('slug', '>', $slug)->orderBy('id', 'asc')->first();
+        $article = Article::where('slug', $slug)
+            ->where('is_published', true)
+            ->firstOrFail();
+        $previous = Article::where('is_published', true)
+            ->where(function ($query) use ($article) {
+            $query->where('article_date', '>', $article->article_date)
+                ->orWhere(function ($q) use ($article) {
+                $q->where('article_date', $article->article_date)
+                    ->where('updated_at', '>', $article->updated_at)
+                    ->orWhere(function ($qq) use ($article) {
+                    $qq->where('article_date', $article->article_date)
+                        ->where('updated_at', $article->updated_at)
+                        ->where('created_at', '>', $article->created_at)
+                        ->orWhere(function ($qqq) use ($article) {
+                        $qqq->where('article_date', $article->article_date)
+                            ->where('updated_at', $article->updated_at)
+                            ->where('created_at', $article->created_at)
+                            ->where('id', '>', $article->id);
+                        });
+                    });
+                });
+            })
+            ->orderBy('article_date', 'asc')
+            ->orderBy('updated_at', 'asc')
+            ->orderBy('created_at', 'asc')
+            ->orderBy('id', 'asc')
+            ->first();
+
+        $next = Article::where('is_published', true)
+            ->where(function ($query) use ($article) {
+            $query->where('article_date', '<', $article->article_date)
+                ->orWhere(function ($q) use ($article) {
+                $q->where('article_date', $article->article_date)
+                    ->where('updated_at', '<', $article->updated_at)
+                    ->orWhere(function ($qq) use ($article) {
+                    $qq->where('article_date', $article->article_date)
+                        ->where('updated_at', $article->updated_at)
+                        ->where('created_at', '<', $article->created_at)
+                        ->orWhere(function ($qqq) use ($article) {
+                        $qqq->where('article_date', $article->article_date)
+                            ->where('updated_at', $article->updated_at)
+                            ->where('created_at', $article->created_at)
+                            ->where('id', '<', $article->id);
+                        });
+                    });
+                });
+            })
+            ->orderBy('article_date', 'desc')
+            ->orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ->first();
 
         return view(
             'article_detail', compact('sectionSetting', 'article'), ['previous' => $previous, 'next' => $next]
@@ -240,52 +289,61 @@ class HomeController extends Controller
 
     public function showSuccessStory(GeneralSetting $generalSetting, SectionSetting $sectionSetting, $slug)
     {
-        // // App::setLocale("en");
-        // $locale = app()->getLocale();
-        // // dump($locale);
-        // $id = last(explode('-', $slug));
-
         $success = Success::where('slug', $slug)
             ->where('is_published', true)
             ->firstOrFail();
 
-        // if ($success->slug[$locale]."-".$success->id != $slug) {
-        //     return redirect()->to(route('success-story-detail', ['slug' => $success->slug[$locale]."-".$success->id]));
-        // }
-
-        // if slug is not in current locale, set the slug
+        // Previous story
         $previous = Success::where('is_published', true)
             ->where(function ($query) use ($success) {
-                if ($success->success_date) {
-                    $query->where('success_date', '>', $success->success_date)
-                        ->orWhere(function ($q) use ($success) {
-                            $q->where('success_date', $success->success_date)
-                                ->where('id', '>', $success->id);
-                        });
-                } else {
-                    $query->where('id', '>', $success->id);
-                }
+                $query->where('success_date', '>', $success->success_date)
+                    ->orWhere(function ($q) use ($success) {
+                        $q->where('success_date', $success->success_date)
+                            ->where('updated_at', '>', $success->updated_at)
+                            ->orWhere(function ($qq) use ($success) {
+                                $qq->where('success_date', $success->success_date)
+                                    ->where('updated_at', $success->updated_at)
+                                    ->where('created_at', '>', $success->created_at)
+                                    ->orWhere(function ($qqq) use ($success) {
+                                        $qqq->where('success_date', $success->success_date)
+                                            ->where('updated_at', $success->updated_at)
+                                            ->where('created_at', $success->created_at)
+                                            ->where('id', '>', $success->id);
+                                    });
+                            });
+                    });
             })
             ->orderBy('success_date', 'asc')
+            ->orderBy('updated_at', 'asc')
+            ->orderBy('created_at', 'asc')
             ->orderBy('id', 'asc')
             ->first();
 
+        // Next story
         $next = Success::where('is_published', true)
             ->where(function ($query) use ($success) {
-                if ($success->success_date) {
-                    $query->where('success_date', '<', $success->success_date)
-                        ->orWhere(function ($q) use ($success) {
-                            $q->where('success_date', $success->success_date)
-                                ->where('id', '<', $success->id);
-                        });
-                } else {
-                    $query->where('id', '<', $success->id);
-                }
+                $query->where('success_date', '<', $success->success_date)
+                    ->orWhere(function ($q) use ($success) {
+                        $q->where('success_date', $success->success_date)
+                            ->where('updated_at', '<', $success->updated_at)
+                            ->orWhere(function ($qq) use ($success) {
+                                $qq->where('success_date', $success->success_date)
+                                    ->where('updated_at', $success->updated_at)
+                                    ->where('created_at', '<', $success->created_at)
+                                    ->orWhere(function ($qqq) use ($success) {
+                                        $qqq->where('success_date', $success->success_date)
+                                            ->where('updated_at', $success->updated_at)
+                                            ->where('created_at', $success->created_at)
+                                            ->where('id', '<', $success->id);
+                                    });
+                            });
+                    });
             })
             ->orderBy('success_date', 'desc')
+            ->orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc')
             ->first();
-
 
         return view(
             'success-story-detail', compact('sectionSetting', 'success'), ['previous' => $previous, 'next' => $next]

@@ -28,10 +28,12 @@ class BannerResource extends Resource
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('image')
-                    ->label('Banner Image')
-                    ->helperText('Recommended size: 1395 x 654 pixels, format: JPG, PNG')
-                    ->image()
+                    ->label('Banner Media')
+                    ->helperText('Recommended image size: 1395 x 654 pixels, format: JPG, PNG. For video: MP4 only.')
+                    // ->image()
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'video/mp4'])
                     ->disk('banner')
+                    ->directory('banners')
                     ->required(),
                 Forms\Components\Toggle::make('primary_text')
                     ->label('Primary Text')
@@ -45,13 +47,11 @@ class BannerResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('word')
                                     ->helperText('Enter a word, e.g. "Nurture"')
-                                    ->label('Word')
-                                    ->required(),
+                                    ->label('Word'),
                                 // Word colors
                                 Forms\Components\ColorPicker::make('color')
                                     ->helperText('Pick a color for the word')
-                                    ->label('Color')
-                                    ->required(),
+                                    ->label('Color'),
                             ])
                             ->columnSpanFull()
                             ->defaultItems(4)
