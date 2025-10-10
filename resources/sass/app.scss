@@ -533,15 +533,13 @@ body{
   .carousel-item {
     position: relative;
     height: 100%;
-    transition: all 0.6s ease-in-out;
-    opacity: 0;
-    transform: translateX(50px);
-     align-items: stretch;
-  }
-  .carousel-item.active {
-    opacity: 1;
-    transform: translateX(0);
-  }
+    align-items: stretch;
+    transition: none; // biarkan Bootstrap yang handle transisinya
+    }
+
+    .carousel-item.active {
+    display: block;
+    }
 
   .team-member {
     display: flex;
@@ -789,7 +787,6 @@ body{
     }
   }
 }
-
 
 #carouselProfile {
     background-color: #018add;
