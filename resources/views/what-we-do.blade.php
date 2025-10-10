@@ -217,63 +217,31 @@
 
 @push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const items = document.querySelectorAll("#carouselTeam .carousel-item");
+document.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll("#carouselTeam .carousel-item");
+
+    function setEqualHeights() {
+        items.forEach(item => item.style.height = "auto");
+
         let maxHeight = 0;
 
         items.forEach(item => {
-            item.style.height = "auto";
-            const h = item.offsetHeight;
+            const wasHidden = item.classList.contains('active') ? false : true;
+            if (wasHidden) item.classList.add('temp-show'); 
+            item.style.display = 'block'; 
+
+            const h = item.scrollHeight;
             if (h > maxHeight) maxHeight = h;
+
+            if (wasHidden) item.style.display = ''; 
+            item.classList.remove('temp-show');
         });
 
-        items.forEach(item => {
-            item.style.height = maxHeight + "px";
-        });
+        items.forEach(item => item.style.height = maxHeight + "px");
+    }
 
-        window.addEventListener("resize", () => {
-            let newMax = 0;
-            items.forEach(item => {
-                item.style.height = "auto";
-                const h = item.offsetHeight;
-                if (h > newMax) newMax = h;
-            });
-            items.forEach(item => item.style.height = newMax + "px");
-        });
-
-            
-        const params = new URLSearchParams(window.location.search);
-        const serviceId = params.get('service');
-        if (serviceId) {
-            const el = document.getElementById('service-' + serviceId);
-            if (el) {
-                el.scrollIntoView({ behavior: 'smooth' });
-            }
-            history.replaceState(null, null, window.location.pathname);
-        }
-
-        let homeSplideOptions = {
-            perPage: 1,
-            perMove: 1,
-            arrows: false,
-            focus: 'center',
-            autoplay: true,
-            interval: 5000,
-            rewind: true,
-            rewindSpeed: 800,
-            drag: true,
-            mediaQuery: 'min',
-            breakpoints: {
-                1024: {
-                    drag: false,
-                    perPage: 2,
-                }
-            }
-        };
-        const homeSplide = initSplide('.splide', homeSplideOptions);
-
-    });
+    window.addEventListener("load", setEqualHeights);
+    window.addEventListener("resize", setEqualHeights);
+});
 </script>
 @endpush
-
-

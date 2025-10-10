@@ -78,7 +78,7 @@
                 @endphp
 
                 @foreach($supports as $item)
-                    <div class="col-12 col-sm-6 col-md-3 mb-4 mt-8 row gx-md-2">
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">
                         <div class="homesupport__card text-center">
                             <div class="homesupport__icon" data-aos="fade-right" data-aos-duration="780">
                                 <img 
@@ -92,6 +92,7 @@
                         </div>
                     </div>
                 @endforeach
+
 
             </div>
         </div>
@@ -302,6 +303,7 @@
                         @endforeach 
                     </div>
 
+                    {{-- Tombol navigasi custom --}}
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselTeam" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"
                             style="background-image: url('{{ asset('img/icons/arrow.png') }}')"></span>
@@ -320,32 +322,33 @@
 
 @endsection
 
-
 @push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const items = document.querySelectorAll("#carouselTeam .carousel-item");
+document.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll("#carouselTeam .carousel-item");
+
+    function setEqualHeights() {
+        items.forEach(item => item.style.height = "auto");
+
         let maxHeight = 0;
 
         items.forEach(item => {
-            item.style.height = "auto";
-            const h = item.offsetHeight;
+            const wasHidden = item.classList.contains('active') ? false : true;
+            if (wasHidden) item.classList.add('temp-show'); 
+            item.style.display = 'block'; 
+
+            const h = item.scrollHeight;
             if (h > maxHeight) maxHeight = h;
+
+            if (wasHidden) item.style.display = ''; 
+            item.classList.remove('temp-show');
         });
 
-        items.forEach(item => {
-            item.style.height = maxHeight + "px";
-        });
+        items.forEach(item => item.style.height = maxHeight + "px");
+    }
 
-        window.addEventListener("resize", () => {
-            let newMax = 0;
-            items.forEach(item => {
-                item.style.height = "auto";
-                const h = item.offsetHeight;
-                if (h > newMax) newMax = h;
-            });
-            items.forEach(item => item.style.height = newMax + "px");
-        });
-    });
+    window.addEventListener("load", setEqualHeights);
+    window.addEventListener("resize", setEqualHeights);
+});
 </script>
-
+@endpush

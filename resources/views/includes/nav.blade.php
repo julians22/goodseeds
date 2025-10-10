@@ -120,7 +120,7 @@
             <span></span>
             <span></span>
         </div>
-        <a href="#">
+        <a href="{{ route('home') }}">
             <span>
                 <img src="{{ $settings['headerLogo'] }}" alt="" width="249">
             </span>
