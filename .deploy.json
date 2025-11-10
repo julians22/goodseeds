@@ -13,6 +13,7 @@
         "tests",
         "artisan",
         "composer.json",
-        "composer.lock"
+        "composer.lock",
+        "package.json"
     ]
 }
