@@ -237,39 +237,6 @@ class HomeController extends Controller
             })->filter()->values()->all();
         };
 
-        if ($teams->isEmpty()) {
-            $teams = collect($experts)->map(function ($expert) use ($normalizeCertificates) {
-                return (object)[
-                    'name'        => $expert['name'],
-                    'certificate' => $normalizeCertificates($expert['certificate']),
-                    'description' => $expert['content'],
-                    'image_url'   => asset($expert['image']),
-                    'socials_array' => [],
-                ];
-            });
-        } else {
-            $teams = $teams->map(function ($team, $i) use ($experts, $normalizeCertificates) {
-                $expert = $experts[$i] ?? null;
-
-                return (object)[
-                    'name' => $team->name ?? ($expert['name'] ?? 'Unknown'),
-
-                    'certificate' => !empty($team->certificate)
-                        ? $normalizeCertificates($team->certificate)
-                        : $normalizeCertificates($expert['certificate'] ?? []),
-
-                    'description' => is_array($team->description) && !empty($team->description)
-                        ? $team->description
-                        : ($expert['content'] ?? []),
-
-                    'image_url' => $team->image_url
-                        ?? asset($expert['image'] ?? 'img/default.png'),
-
-                    'socials_array' => $team->socials_array ?? [],
-                ];
-            });
-        }
-
         return view('what-we-do', compact('teams', 'services', 'approaches', 'experts', 'meta', 'sectionSetting'));
     }
 

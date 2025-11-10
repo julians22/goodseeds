@@ -146,7 +146,7 @@
                                 <div class="row team-member">
 
                                     {{-- KIRI: Foto & Sertifikat --}}
-                                    <div class="col-12 col-md-6 team-left p-0" data-aos="fade-right" data-aos-duration="780">
+                                    <div class="col-12 col-md-6 team-left p-0 {{ !$team->certificate ? 'no-cert' : '' }}" data-aos="fade-right" data-aos-duration="780">
                                         <div class="photo-section d-flex justify-content-center align-items-center">
                                             <img src="{{ $team->image_url }}"
                                                 alt="{{ $team->name }}"
@@ -221,27 +221,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = document.querySelectorAll("#carouselTeam .carousel-item");
 
     function setEqualHeights() {
-        items.forEach(item => item.style.height = "auto");
-
         let maxHeight = 0;
 
         items.forEach(item => {
-            const wasHidden = item.classList.contains('active') ? false : true;
-            if (wasHidden) item.classList.add('temp-show'); 
-            item.style.display = 'block'; 
-
+            item.style.removeProperty('height'); 
             const h = item.scrollHeight;
             if (h > maxHeight) maxHeight = h;
-
-            if (wasHidden) item.style.display = ''; 
-            item.classList.remove('temp-show');
         });
 
-        items.forEach(item => item.style.height = maxHeight + "px");
+        const carouselInner = document.querySelector("#carouselTeam .carousel-inner");
+        if (carouselInner) {
+            carouselInner.style.height = maxHeight + "px";
+        }
     }
 
     window.addEventListener("load", setEqualHeights);
     window.addEventListener("resize", setEqualHeights);
 });
 </script>
+
 @endpush
