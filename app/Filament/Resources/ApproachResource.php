@@ -36,8 +36,7 @@ class ApproachResource extends Resource
                             ->label('English Title')
                             ->required(),
                         Forms\Components\Textarea::make('title.id')
-                            ->label('Bahasa Title')
-                            ->required(),
+                            ->label('Bahasa Title'),
                     ])
                     ->columns(2),
                 Forms\Components\Fieldset::make('description')
@@ -47,8 +46,7 @@ class ApproachResource extends Resource
                             ->label('English Description')
                             ->required(),
                         Forms\Components\RichEditor::make('description.id')
-                            ->label('Bahasa Description')
-                            ->required(),
+                            ->label('Bahasa Description'),
                     ])
                     ->columns(2),
                 Forms\Components\FileUpload::make('icon')

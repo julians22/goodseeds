@@ -38,8 +38,7 @@ class ServiceResource extends Resource
                             ->label('English Description')
                             ->required(),
                         RichEditor::make('description.id')
-                            ->label('Bahasa Description')
-                            ->required(),
+                            ->label('Bahasa Description'),
                     ])
                     ->columns(1),
                 Forms\Components\FileUpload::make('image')

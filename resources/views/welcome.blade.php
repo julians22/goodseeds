@@ -159,7 +159,7 @@
             $profiles = $sectionSetting->messages ?? __('wordings.homeProfile_data') ?? [];
         @endphp
 
-        <div id="carouselProfile" class="carousel slide" data-bs-touch="true" data-bs-ride="carousel">
+        <div id="carouselProfile" class="carousel slide" data-bs-touch="true">
             <div class="carousel-inner">
                 @foreach ($profiles as $index => $item)
                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" data-bs-interval="5000">
@@ -215,10 +215,10 @@
                         <div class="client-item text-center">
                             @if (!empty($client->link))
                                 <a href="{{ $client->link }}" target="_blank" rel="noopener">
-                                    <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
+                                    <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid w-96 h-auto">
                                 </a>
                             @else
-                                <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid">
+                                <img src="{{ $client->icon_url }}" alt="{{ $client->name }}" class="img-fluid w-96 h-auto">
                             @endif
                         </div>
                     @endforeach
@@ -247,7 +247,7 @@
             </div>
 
             <div class="row" style="padding: 2rem 0;">
-                <div id="carouselTeam" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselTeam" class="carousel slide">
                     <div class="carousel-inner container">
                         @foreach ($teams as $team)
                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">

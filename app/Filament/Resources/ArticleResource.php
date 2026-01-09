@@ -33,8 +33,7 @@ class ArticleResource extends Resource
                             ->required(),
                         Forms\Components\TextInput::make('meta.title.id')
                             ->label('Bahasa Meta Title')
-                            ->maxLength(255)
-                            ->required(),
+                            ->maxLength(255),
 
                         Forms\Components\Textarea::make('meta.description.en')
                             ->label('English Meta Description')
@@ -42,8 +41,7 @@ class ArticleResource extends Resource
                             ->required(),
                         Forms\Components\Textarea::make('meta.description.id')
                             ->label('Bahasa Meta Description')
-                            ->maxLength(255)
-                            ->required(),
+                            ->maxLength(255),
                         Forms\Components\TagsInput::make('meta.keywords.en')
                             ->label('EN Keywords')
                             ->placeholder('Ketik lalu tekan Enter'),
@@ -74,7 +72,6 @@ class ArticleResource extends Resource
                             ->maxLength(255),
                         Forms\Components\Textarea::make('title.id')
                             ->label('Bahasa Title')
-                            ->required()
                             ->maxLength(255),
                     ])
                 ->columns(2),
@@ -87,8 +84,7 @@ class ArticleResource extends Resource
                             ->required(),
                         TiptapEditor::make('content.id')
                             ->label('Bahasa Content')
-                            ->maxContentWidth('5xl')
-                            ->required(),
+                            ->maxContentWidth('5xl'),
                     ])
                     ->columns(1),
 
@@ -100,7 +96,6 @@ class ArticleResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('excerpt.id')
                             ->label('Bahasa Excerpt')
-                            ->required()
                             ->maxLength(255),
                     ])
                 ->columns(2),

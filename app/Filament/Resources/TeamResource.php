@@ -33,8 +33,7 @@ class TeamResource extends Resource
                             ->label('English Description')
                             ->required(),
                         Forms\Components\RichEditor::make('description.id')
-                            ->label('Bahasa Description')
-                            ->required(),
+                            ->label('Bahasa Description'),
                     ])
                     ->columns(2),
                 Forms\Components\FileUpload::make('image')

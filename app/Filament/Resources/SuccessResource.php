@@ -34,17 +34,14 @@ class SuccessResource extends Resource
                             ->required(),
                         Forms\Components\TextInput::make('meta.title.id')
                             ->label('Bahasa Meta Title')
-                            ->maxLength(255)
-                            ->required(),
-
+                            ->maxLength(255),
                         Forms\Components\Textarea::make('meta.description.en')
                             ->label('English Meta Description')
                             ->maxLength(255)
                             ->required(),
                         Forms\Components\Textarea::make('meta.description.id')
                             ->label('Bahasa Meta Description')
-                            ->maxLength(255)
-                            ->required(),
+                            ->maxLength(255),
                         Forms\Components\TagsInput::make('meta.keywords.en')
                             ->label('EN Keywords')
                             ->placeholder('Ketik lalu tekan Enter'),
@@ -62,7 +59,6 @@ class SuccessResource extends Resource
                             ->maxLength(255),
                         Forms\Components\Textarea::make('title.id')
                             ->label('Bahasa Title')
-                            ->required()
                             ->maxLength(255),
                     ])
                 ->columns(2),
@@ -90,8 +86,7 @@ class SuccessResource extends Resource
                         TiptapEditor::make('content.id')
                             ->profile('default')
                             ->label('Bahasa Content')
-                            ->maxContentWidth('5xl')
-                            ->required(),
+                            ->maxContentWidth('5xl'),
                     ])
                     ->columns(1),
 

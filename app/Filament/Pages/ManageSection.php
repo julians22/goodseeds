@@ -42,9 +42,7 @@ class ManageSection extends SettingsPage
                                                     ->label('English Title')
                                                     ->required(),
                                                 Forms\Components\Textarea::make('aboutTitle.id')
-                                                    ->label('Bahasa Title')
-                                                    ->required(),
-                                            ])
+                                                    ->label('Bahasa Title'),                                            ])
                                             ->columns(2),
 
                                         Forms\Components\Fieldset::make('aboutDescription')
@@ -54,9 +52,7 @@ class ManageSection extends SettingsPage
                                                     ->label('English Description')
                                                     ->required(),
                                                 TiptapEditor::make('aboutDescription.id')
-                                                    ->label('Bahasa Description')
-                                                    ->required(),
-                                            ])
+                                                    ->label('Bahasa Description'),                                            ])
                                             ->columns(2),
                                     ]),
 
@@ -70,8 +66,7 @@ class ManageSection extends SettingsPage
                                                     ->label('English Title')
                                                     ->required(),
                                                 Forms\Components\Textarea::make('aboutSupportsTitle.id')
-                                                    ->label('Bahasa Title')
-                                                    ->required(),
+                                                    ->label('Bahasa Title'),
                                             ])
                                             ->columns(2),
 
@@ -93,8 +88,7 @@ class ManageSection extends SettingsPage
                                                             ->label('English Description')
                                                             ->required(),
                                                         Forms\Components\Textarea::make('aboutSupportsDescription.id')
-                                                            ->label('Bahasa Description')
-                                                            ->required(),
+                                                            ->label('Bahasa Description'),
                                                     ])
                                                     ->columns(2),
                                             ]),
@@ -110,8 +104,7 @@ class ManageSection extends SettingsPage
                                             ->label('English Title Homepage')
                                             ->required(),
                                         Forms\Components\Textarea::make('servicesTitle.id')
-                                            ->label('Bahasa Title Homepage')
-                                            ->required(),
+                                            ->label('Bahasa Title Homepage'),
                                     ])
                                     ->columns(2),
                                 Forms\Components\Fieldset::make('servicesNewTitle')
@@ -121,8 +114,7 @@ class ManageSection extends SettingsPage
                                             ->label('English Title')
                                             ->required(),
                                         Forms\Components\Textarea::make('servicesNewTitle.id')
-                                            ->label('Bahasa Title')
-                                            ->required(),
+                                            ->label('Bahasa Title'),
                                     ])
                                     ->columns(2),
 
@@ -133,8 +125,7 @@ class ManageSection extends SettingsPage
                                             ->label('English Title')
                                             ->required(),
                                         Forms\Components\RichEditor::make('servicesDescription.id')
-                                            ->label('Bahasa Title')
-                                            ->required(),
+                                            ->label('Bahasa Title'),
                                     ])
                                     ->columns(2),
                             ]),
@@ -151,8 +142,7 @@ class ManageSection extends SettingsPage
                                             ->label('English Title')
                                             ->required(),
                                         Forms\Components\Textarea::make('approachTitle.id')
-                                            ->label('Bahasa Title')
-                                            ->required(),
+                                            ->label('Bahasa Title'),
                                     ])
                                     ->columns(2),
                                 Forms\Components\Fieldset::make('approachDescription')
@@ -162,8 +152,7 @@ class ManageSection extends SettingsPage
                                             ->label('English Title')
                                             ->required(),
                                         Forms\Components\RichEditor::make('approachDescription.id')
-                                            ->label('Bahasa Title')
-                                            ->required(),
+                                            ->label('Bahasa Title'),
                                     ])
                                     ->columns(2),
                             ]),
@@ -176,8 +165,7 @@ class ManageSection extends SettingsPage
                                             ->label('English Title')
                                             ->required(),
                                         Forms\Components\TextInput::make('teamTitle.id')
-                                            ->label('Bahasa Title')
-                                            ->required(),
+                                            ->label('Bahasa Title'),
                                     ])
                                     ->columns(2),
                                 Forms\Components\Fieldset::make('teamDescription')
@@ -187,8 +175,7 @@ class ManageSection extends SettingsPage
                                             ->label('English Title')
                                             ->required(),
                                         Forms\Components\RichEditor::make('teamDescription.id')
-                                            ->label('Bahasa Title')
-                                            ->required(),
+                                            ->label('Bahasa Title'),
                                     ])
                                     ->columns(2),
                                 Forms\Components\Fieldset::make('teamSection')
@@ -219,7 +206,7 @@ class ManageSection extends SettingsPage
                                     ->columns(1)
                                     ->schema([
 
-                                        Forms\Components\Grid::make(2) // Name & Position sejajar
+                                        Forms\Components\Grid::make(2)
                                             ->schema([
                                                 Forms\Components\TextInput::make('messageName')
                                                     ->label('Name')
@@ -229,22 +216,21 @@ class ManageSection extends SettingsPage
                                                     ->required(),
                                             ]),
 
-                                        Forms\Components\FileUpload::make('messageImage') // Image full width
+                                        Forms\Components\FileUpload::make('messageImage') 
                                             ->label('Image')
                                             ->image()
                                             ->disk('public')
-                                            ->directory('quotes') // lowercase lebih aman
+                                            ->directory('quotes') 
                                             ->required(),
 
-                                        Forms\Components\Fieldset::make('messageQuote') // Quote fieldset
+                                        Forms\Components\Fieldset::make('messageQuote') 
                                             ->label('Message Quote')
                                             ->schema([
                                                 Forms\Components\RichEditor::make('messageQuote.en')
                                                     ->label('English Quote')
                                                     ->required(),
                                                 Forms\Components\RichEditor::make('messageQuote.id')
-                                                    ->label('Bahasa Quote')
-                                                    ->required(),
+                                                    ->label('Bahasa Quote'),
                                             ])
                                             ->columns(2),
 
@@ -260,8 +246,7 @@ class ManageSection extends SettingsPage
                                             ->label('English Title')
                                             ->required(),
                                         Forms\Components\Textarea::make('successStoryTitle.id')
-                                            ->label('Bahasa Title')
-                                            ->required(),
+                                            ->label('Bahasa Title'),
                                     ])
                                     ->columns(2),
 
@@ -272,8 +257,7 @@ class ManageSection extends SettingsPage
                                             ->label('English Description')
                                             ->required(),
                                         Forms\Components\RichEditor::make('successStoryDescription.id')
-                                            ->label('Bahasa Description')
-                                            ->required(),
+                                            ->label('Bahasa Description'),
                                     ])
                                     ->columns(2),
                             ]),
@@ -287,8 +271,7 @@ class ManageSection extends SettingsPage
                                             ->label('English Title')
                                             ->required(),
                                         Forms\Components\Textarea::make('articleTitle.id')
-                                            ->label('Bahasa Title')
-                                            ->required(),
+                                            ->label('Bahasa Title'),
                                     ])
                                     ->columns(2),
 
@@ -299,8 +282,7 @@ class ManageSection extends SettingsPage
                                             ->label('English Description')
                                             ->required(),
                                         Forms\Components\RichEditor::make('articleDescription.id')
-                                            ->label('Bahasa Description')
-                                            ->required(),
+                                            ->label('Bahasa Description'),
                                     ])
                                     ->columns(2),
                             ]),

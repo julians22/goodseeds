@@ -22,7 +22,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Welcome') | {{ appName() }}</title>
+    <title>@yield('title', 'Welcome')</title>
     {{-- meta --}}
     <meta name="description" content="@yield('description', 'Welcome')">
     <meta name="keywords" content="@yield('keywords', 'default, keywords')">
