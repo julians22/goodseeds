@@ -2,6 +2,7 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/goos1923/staging-core
+    - /bin/cp -R . $DEPLOYPATH
     - /bin/rm -rf $DEPLOYPATH/.git
     - /bin/rm -rf $DEPLOYPATH/.cpanel.yml
     - /bin/rm -rf $DEPLOYPATH/.gitignore
