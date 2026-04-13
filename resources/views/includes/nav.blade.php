@@ -28,7 +28,7 @@
                 <a class="nav-link fw-bold" href="#contact">@lang("CONTACT US")</a>
             </li>
         </ul>
-        {{-- <div class="dropdown language-dropdown">
+        <div class="dropdown language-dropdown">
             <button class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 @php
                     $currentLocale = App::getLocale();
@@ -52,9 +52,9 @@
                 @endforeach
             </ul>
             @endif
-        </div> --}}
+        </div>
 
-        {{-- <div class="dropdown language-dropdown">
+        <div class="dropdown language-dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 @php
                     $currentLocale = App::getLocale();
@@ -109,7 +109,7 @@
                     @endif
                 @endforeach
             </ul>
-        </div> --}}
+        </div> 
     </div>
 </nav>
 
