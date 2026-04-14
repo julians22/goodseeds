@@ -93,7 +93,7 @@
     }
 
     .certificate-logo-mini {
-        max-height: 90px; 
+        max-height: 120px; 
         width: auto;      
         object-fit: contain;
         display: block;
