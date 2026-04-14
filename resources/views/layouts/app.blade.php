@@ -73,6 +73,7 @@
             display: none;
         }
     </style>
+    @stack('style')
     {{-- vite --}}
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
