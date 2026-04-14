@@ -36,7 +36,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        .language-switcher-pill {
+            /* background: #f0f0f0;  */
+            border-radius: 50px;
+            padding: 5px;
+            display: inline-flex;
+            /* border: 1px solid #ddd; */
+        }
 
+        .lang-pill-item {
+            padding: 8px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .active-lang {
+            background: #ffffff; 
+            color: #000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .pill-divider {
+            width: 1px;
+            height: 15px;
+            background: #ccc;
+            margin: 0 5px;
+        }
+
+        .active-lang + .pill-divider, 
+        .pill-divider:has(+ .active-lang) {
+            display: none;
+        }
+    </style>
     {{-- vite --}}
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
