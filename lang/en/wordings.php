@@ -98,4 +98,7 @@ return [
     //What We Do Page
     'whatServicesTitle' => "Nurture People \n Empowering Business",
     'whatServicesDescription' => "We are a consulting firm dedicated to helping business owners scale and sustain their enterprises through customized consulting, coaching, training, and recruitment. By aligning strategy, optimizing operations, and developing people, we create long-term value and sustainable growth.",
+
+    'nextPage' => "Next Page",
+    'prevPage' => "Previous Page",
 ];

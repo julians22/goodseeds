@@ -49,7 +49,7 @@
                 @if ($previous)
                     <a href="{{ route('success-story-detail', $previous->slug) }}" 
                        class="btn-nav">
-                        &lt; Previous Post
+                        &lt; @lang("wordings.prevPage")
                     </a>
                 @else
                     <div></div>
@@ -58,7 +58,7 @@
                 @if ($next)
                     <a href="{{ route('success-story-detail', $next->slug) }}" 
                        class="btn-nav">
-                        Next Post &gt;
+                        @lang("wordings.nextPage") &gt;
                     </a>
                 @endif
             </div>

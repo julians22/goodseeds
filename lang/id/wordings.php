@@ -96,5 +96,8 @@ return [
 
     //What we Do Page
     'whatServicesTitle' => "Membina Orang \n Memberdayakan Bisnis",
-    'whatServicesDescription' => "Kami menyediakan solusi HR dan bisnis secara menyeluruh, termasuk konsultasi, coaching, pelatihan, dan rekrutmen. Kami membantu bisnis berkembang secara berkelanjutan dengan menyelaraskan strategi, mengoptimalkan operasional, dan mengembangkan sumber daya manusia."
+    'whatServicesDescription' => "Kami menyediakan solusi HR dan bisnis secara menyeluruh, termasuk konsultasi, coaching, pelatihan, dan rekrutmen. Kami membantu bisnis berkembang secara berkelanjutan dengan menyelaraskan strategi, mengoptimalkan operasional, dan mengembangkan sumber daya manusia.",
+
+    'nextPage' => "Halaman Berikutnya",
+    'prevPage' => "Halaman Sebelumnya",
 ];

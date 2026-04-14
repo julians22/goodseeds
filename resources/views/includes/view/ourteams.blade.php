@@ -84,7 +84,7 @@
 
     .certificate-container-top-right {
         position: absolute;
-        top: 0px;    
+        top: -20px;    
         right: 0px;  
         display: flex;
         flex-direction: column; 
@@ -93,7 +93,7 @@
     }
 
     .certificate-logo-mini {
-        max-height: 90px; 
+        max-height: 120px; 
         width: auto;      
         object-fit: contain;
         display: block;
