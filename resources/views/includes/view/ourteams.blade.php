@@ -84,7 +84,7 @@
 
     .certificate-container-top-right {
         position: absolute;
-        top: 0px;    
+        top: -20px;    
         right: 0px;  
         display: flex;
         flex-direction: column; 
