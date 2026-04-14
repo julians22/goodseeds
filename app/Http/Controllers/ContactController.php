@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use App\Mail\ContactMail;
 use App\Models\Contact;
 use App\Settings\GeneralSetting;
@@ -70,7 +71,7 @@ class ContactController extends Controller
 
             DB::commit();
 
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             //throw $th;
             DB::rollBack();
             return response()->json([
@@ -90,7 +91,7 @@ class ContactController extends Controller
             Mail::to($emails)->send(new ContactMail($contact));
 
 
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $mailSend = $th->getMessage();
         }
 

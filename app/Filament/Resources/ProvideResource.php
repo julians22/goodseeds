@@ -2,11 +2,17 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\RichEditor;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\EditAction;
+use App\Filament\Resources\ProvideResource\Pages\ListProvides;
+use App\Filament\Resources\ProvideResource\Pages\CreateProvide;
+use App\Filament\Resources\ProvideResource\Pages\EditProvide;
 use App\Filament\Resources\ProvideResource\Pages;
 use App\Filament\Resources\ProvideResource\RelationManagers;
 use App\Models\Provide;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,17 +23,17 @@ class ProvideResource extends Resource
 {
     protected static ?string $model = Provide::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Provide Section Management';
+    protected static string | \UnitEnum | null $navigationGroup = 'Provide Section Management';
 
     protected static ?string $label = 'Provide Items';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\RichEditor::make('content')
+        return $schema
+            ->components([
+                RichEditor::make('content')
                     ->helperText('The content of the provide item')
                     ->required(),
             ]);
@@ -37,15 +43,15 @@ class ProvideResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('content'),
+                TextColumn::make('content'),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 // Tables\Actions\BulkActionGroup::make([
                 //     Tables\Actions\DeleteBulkAction::make(),
                 // ]),
@@ -62,9 +68,9 @@ class ProvideResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProvides::route('/'),
-            'create' => Pages\CreateProvide::route('/create'),
-            'edit' => Pages\EditProvide::route('/{record}/edit'),
+            'index' => ListProvides::route('/'),
+            'create' => CreateProvide::route('/create'),
+            'edit' => EditProvide::route('/{record}/edit'),
         ];
     }
 }

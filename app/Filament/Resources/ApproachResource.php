@@ -2,11 +2,21 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Fieldset;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Actions\EditAction;
+use App\Filament\Resources\ApproachResource\Pages\ListApproaches;
+use App\Filament\Resources\ApproachResource\Pages\CreateApproach;
+use App\Filament\Resources\ApproachResource\Pages\EditApproach;
 use App\Filament\Resources\ApproachResource\Pages;
 use App\Filament\Resources\ApproachResource\RelationManagers;
 use App\Models\Approach;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -19,37 +29,37 @@ class ApproachResource extends Resource
 {
     protected static ?string $model = Approach::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Approach Section Management';
+    protected static string | \UnitEnum | null $navigationGroup = 'Approach Section Management';
 
     protected static ?string $label = 'Approach Items';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Fieldset::make('title')
+        return $schema
+            ->components([
+                Fieldset::make('title')
                     ->label('Title')
                     ->schema([
-                        Forms\Components\Textarea::make('title.en')
+                        Textarea::make('title.en')
                             ->label('English Title')
                             ->required(),
-                        Forms\Components\Textarea::make('title.id')
+                        Textarea::make('title.id')
                             ->label('Bahasa Title'),
                     ])
                     ->columns(2),
-                Forms\Components\Fieldset::make('description')
+                Fieldset::make('description')
                     ->label('Description')
                     ->schema([
-                        Forms\Components\RichEditor::make('description.en')
+                        RichEditor::make('description.en')
                             ->label('English Description')
                             ->required(),
-                        Forms\Components\RichEditor::make('description.id')
+                        RichEditor::make('description.id')
                             ->label('Bahasa Description'),
                     ])
                     ->columns(2),
-                Forms\Components\FileUpload::make('icon')
+                FileUpload::make('icon')
                     ->helperText('Recommended size: 200 x 200 pixels, format: PNG')
                     ->label('Icon')
                     ->image()
@@ -62,23 +72,23 @@ class ApproachResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('description')
+                TextColumn::make('description')
                     ->formatStateUsing(function ($state) {
                         return Str::limit($state, 50);
                     }),
-                Tables\Columns\ImageColumn::make('icon')
+                ImageColumn::make('icon')
                     ->disk('approach')
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 // Tables\Actions\BulkActionGroup::make([
                 //     Tables\Actions\DeleteBulkAction::make(),
                 // ]),
@@ -95,9 +105,9 @@ class ApproachResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListApproaches::route('/'),
-            'create' => Pages\CreateApproach::route('/create'),
-            'edit' => Pages\EditApproach::route('/{record}/edit'),
+            'index' => ListApproaches::route('/'),
+            'create' => CreateApproach::route('/create'),
+            'edit' => EditApproach::route('/{record}/edit'),
         ];
     }
 

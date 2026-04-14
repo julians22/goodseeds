@@ -29,15 +29,15 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="services-section">
             @foreach ($services as $item)
-                <div  class="row align-items-stretch gx-0 gy-0 service-item">
+                <div  class="align-items-stretch row gx-0 gy-0 service-item">
                     @if($loop->iteration % 2 == 1)
                         <div class="col-md-6 service-image" data-aos="fade-right" data-aos-duration="900" data-aos-easing="ease-in-out">
                             <img src="{{ $item->image_url }}" alt="" class="img-fluid">
                         </div>
-                        <div class="col-md-6 service-text d-flex flex-column justify-content-center" data-aos="fade-left" data-aos-duration="900" data-aos-easing="ease-in-out" style="background:#f1f2f2;">
+                        <div class="d-flex flex-column justify-content-center col-md-6 service-text" data-aos="fade-left" data-aos-duration="900" data-aos-easing="ease-in-out" style="background:#f1f2f2;">
                             <div class="p-5">
                                 <h2 class="fw-bold">{{ $item->name }}</h2>
                                 <article class="fw-medium lead">
@@ -46,10 +46,10 @@
                             </div>
                         </div>
                     @else
-                        <div class="col-md-6 order-md-2 service-image" data-aos="fade-left" data-aos-duration="900" data-aos-easing="ease-in-out">
+                        <div class="order-md-2 col-md-6 service-image" data-aos="fade-left" data-aos-duration="900" data-aos-easing="ease-in-out">
                             <img src="{{ $item->image_url }}" alt="" class="img-fluid">
                         </div>
-                        <div class="col-md-6 order-md-1 service-text d-flex flex-column justify-content-center" data-aos="fade-right" data-aos-duration="900" data-aos-easing="ease-in-out" style="background:#f1f2f2;">
+                        <div class="d-flex flex-column justify-content-center order-md-1 col-md-6 service-text" data-aos="fade-right" data-aos-duration="900" data-aos-easing="ease-in-out" style="background:#f1f2f2;">
                             <div class="p-5">
                                 <h2 class="fw-bold">{{ $item->name }}</h2>
                                 <article class="fw-medium lead description-list">
@@ -94,7 +94,6 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="spacer"></div> --}}
         <div class="container">
             <div class="mt-5 row">
                 <div class="col-md-12">
@@ -115,7 +114,7 @@
                             </div>
                             <span class="d-block fw-bolder display-5" data-aos="fade-right" data-aos-duration="780" style="color: #0193dd; padding: 2.5rem 0 0.4rem 0 ;">{!! $item->title[app()->getLocale()] ?? '' !!}</span>
                         </div>
-                        <div class="mt-lg-2 ">
+                        <div class="mt-lg-2">
                             <div class="text-center lead fw-medium" data-aos="fade-right" data-aos-delay="150" data-aos-duration="700">
                                 {!! $item->description[app()->getLocale()] ?? '' !!}
                             </div>

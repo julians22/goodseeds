@@ -2,12 +2,19 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Fieldset;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Actions\EditAction;
+use App\Filament\Resources\ServiceResource\Pages\ListServices;
 use App\Filament\Resources\ServiceResource\Pages;
 use App\Filament\Resources\ServiceResource\RelationManagers;
 use App\Models\Service;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,22 +24,22 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
-        protected static ?string $navigationGroup = 'Pages Management';
+        protected static string | \UnitEnum | null $navigationGroup = 'Pages Management';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     // perpage
     public static int $perPage = 4;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        return $schema
+            ->components([
+                TextInput::make('name')
                     ->helperText('The name of the service')
                     ->label('Service Name')
                     ->required(),
-                Forms\Components\Fieldset::make('description')
+                Fieldset::make('description')
                     ->schema([
                         RichEditor::make('description.en')
                             ->label('English Description')
@@ -41,7 +48,7 @@ class ServiceResource extends Resource
                             ->label('Bahasa Description'),
                     ])
                     ->columns(1),
-                Forms\Components\FileUpload::make('image')
+                FileUpload::make('image')
                     ->helperText('Recommended size: 497 x 268 pixels, format: JPG, PNG')
                     ->label('Service Image')
                     ->image()
@@ -54,21 +61,21 @@ class ServiceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image')
+                ImageColumn::make('image')
                     ->disk('service'),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
             ->headerActions([
 
@@ -85,7 +92,7 @@ class ServiceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListServices::route('/'),
+            'index' => ListServices::route('/'),
             // 'create' => Pages\CreateService::route('/create'),
             // 'edit' => Pages\EditService::route('/{record}/edit'),
         ];

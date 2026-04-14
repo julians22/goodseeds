@@ -2,14 +2,16 @@
 
 namespace App\Filament\Pages;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Fieldset;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TagsInput;
 use Filament\Pages\Page;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Components\Tabs;
-use Filament\Forms\Components\Tabs\Tab;
-use Filament\Forms\Components\Fieldset;
 use Filament\Notifications\Notification;
 
 use App\Models\HomePages;
@@ -21,12 +23,12 @@ class ManageMeta extends Page implements HasForms
 {
     use InteractsWithForms;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
-    protected static ?string $navigationGroup = 'Settings';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-cog-6-tooth';
+    protected static string | \UnitEnum | null $navigationGroup = 'Settings';
     protected static ?string $navigationLabel = 'Manage Meta';
     protected static ?int $navigationSort = 2;
 
-    protected static string $view = 'filament.pages.manage-meta';
+    protected string $view = 'filament.pages.manage-meta';
 
     public array $data = [];
 
@@ -40,30 +42,30 @@ class ManageMeta extends Page implements HasForms
         ]);
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Tabs::make('Meta')
                     ->tabs([
                         Tab::make('Home Page')
                             ->schema([
                                 Fieldset::make('Meta Title')
                                     ->schema([
-                                        Forms\Components\TextInput::make('home.meta_title.en')->label('EN Title'),
-                                        Forms\Components\TextInput::make('home.meta_title.id')->label('ID Title'),
+                                        TextInput::make('home.meta_title.en')->label('EN Title'),
+                                        TextInput::make('home.meta_title.id')->label('ID Title'),
                                     ]),
                                 Fieldset::make('Meta Description')
                                     ->schema([
-                                        Forms\Components\TextInput::make('home.meta_description.en')->label('EN Description'),
-                                        Forms\Components\TextInput::make('home.meta_description.id')->label('ID Description'),
+                                        TextInput::make('home.meta_description.en')->label('EN Description'),
+                                        TextInput::make('home.meta_description.id')->label('ID Description'),
                                     ]),
                                 Fieldset::make('Meta Keywords')
                                     ->schema([
-                                        Forms\Components\TagsInput::make('home.meta_keywords.en')
+                                        TagsInput::make('home.meta_keywords.en')
                                             ->label('EN Keywords')
                                             ->placeholder('Ketik lalu tekan Enter'),
-                                        Forms\Components\TagsInput::make('home.meta_keywords.id')
+                                        TagsInput::make('home.meta_keywords.id')
                                             ->label('ID Keywords')
                                             ->placeholder('Ketik lalu tekan Enter'),
                                     ]),
@@ -72,20 +74,20 @@ class ManageMeta extends Page implements HasForms
                             ->schema([
                                 Fieldset::make('Meta Title')
                                     ->schema([
-                                        Forms\Components\TextInput::make('articles.meta_title.en')->label('EN Title'),
-                                        Forms\Components\TextInput::make('articles.meta_title.id')->label('ID Title'),
+                                        TextInput::make('articles.meta_title.en')->label('EN Title'),
+                                        TextInput::make('articles.meta_title.id')->label('ID Title'),
                                     ]),
                                 Fieldset::make('Meta Description')
                                     ->schema([
-                                        Forms\Components\TextInput::make('articles.meta_description.en')->label('EN Description'),
-                                        Forms\Components\TextInput::make('articles.meta_description.id')->label('ID Description'),
+                                        TextInput::make('articles.meta_description.en')->label('EN Description'),
+                                        TextInput::make('articles.meta_description.id')->label('ID Description'),
                                     ]),
                                 Fieldset::make('Meta Keywords')
                                     ->schema([
-                                        Forms\Components\TagsInput::make('articles.meta_keywords.en')
+                                        TagsInput::make('articles.meta_keywords.en')
                                             ->label('EN Keywords')
                                             ->placeholder('Ketik lalu tekan Enter'),
-                                        Forms\Components\TagsInput::make('articles.meta_keywords.id')
+                                        TagsInput::make('articles.meta_keywords.id')
                                             ->label('ID Keywords')
                                             ->placeholder('Ketik lalu tekan Enter'),
                                     ]),
@@ -94,20 +96,20 @@ class ManageMeta extends Page implements HasForms
                             ->schema([
                                 Fieldset::make('Meta Title')
                                     ->schema([
-                                        Forms\Components\TextInput::make('success.meta_title.en')->label('EN Title'),
-                                        Forms\Components\TextInput::make('success.meta_title.id')->label('ID Title'),
+                                        TextInput::make('success.meta_title.en')->label('EN Title'),
+                                        TextInput::make('success.meta_title.id')->label('ID Title'),
                                     ]),
                                 Fieldset::make('Meta Description')
                                     ->schema([
-                                        Forms\Components\TextInput::make('success.meta_description.en')->label('EN Description'),
-                                        Forms\Components\TextInput::make('success.meta_description.id')->label('ID Description'),
+                                        TextInput::make('success.meta_description.en')->label('EN Description'),
+                                        TextInput::make('success.meta_description.id')->label('ID Description'),
                                     ]),
                                 Fieldset::make('Meta Keywords')
                                     ->schema([
-                                        Forms\Components\TagsInput::make('success.meta_keywords.en')
+                                        TagsInput::make('success.meta_keywords.en')
                                             ->label('EN Keywords')
                                             ->placeholder('Ketik lalu tekan Enter'),
-                                        Forms\Components\TagsInput::make('success.meta_keywords.id')
+                                        TagsInput::make('success.meta_keywords.id')
                                             ->label('ID Keywords')
                                             ->placeholder('Ketik lalu tekan Enter'),
                                     ]),
@@ -116,20 +118,20 @@ class ManageMeta extends Page implements HasForms
                             ->schema([
                                 Fieldset::make('Meta Title')
                                     ->schema([
-                                        Forms\Components\TextInput::make('services.meta_title.en')->label('EN Title'),
-                                        Forms\Components\TextInput::make('services.meta_title.id')->label('ID Title'),
+                                        TextInput::make('services.meta_title.en')->label('EN Title'),
+                                        TextInput::make('services.meta_title.id')->label('ID Title'),
                                     ]),
                                 Fieldset::make('Meta Description')
                                     ->schema([
-                                        Forms\Components\TextInput::make('services.meta_description.en')->label('EN Description'),
-                                        Forms\Components\TextInput::make('services.meta_description.id')->label('ID Description'),
+                                        TextInput::make('services.meta_description.en')->label('EN Description'),
+                                        TextInput::make('services.meta_description.id')->label('ID Description'),
                                     ]),
                                 Fieldset::make('Meta Keywords')
                                     ->schema([
-                                        Forms\Components\TagsInput::make('services.meta_keywords.en')
+                                        TagsInput::make('services.meta_keywords.en')
                                             ->label('EN Keywords')
                                             ->placeholder('Ketik lalu tekan Enter'),
-                                        Forms\Components\TagsInput::make('services.meta_keywords.id')
+                                        TagsInput::make('services.meta_keywords.id')
                                             ->label('ID Keywords')
                                             ->placeholder('Ketik lalu tekan Enter'),
                                     ]),

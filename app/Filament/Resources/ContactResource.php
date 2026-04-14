@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Actions\ViewAction;
+use App\Filament\Resources\ContactResource\Pages\ManageContacts;
 use App\Filament\Resources\ContactResource\Pages;
 use App\Models\Contact;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -18,16 +20,16 @@ class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationLabel = 'Contact List';
 
     protected static ?int $navigationSort = 8;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 //
             ]);
     }
@@ -45,10 +47,10 @@ class ContactResource extends Resource
                 TextColumn::make('created_at'),
             ])
             ->defaultSort('created_at', 'desc')
-            ->actions([
-                Tables\Actions\ViewAction::make()
+            ->recordActions([
+                ViewAction::make()
                     ->modalWidth('2xl')
-                    ->form([
+                    ->schema([
                         TextInput::make('name')
                             ->disabled()
                             ->placeholder('Name'),
@@ -65,7 +67,7 @@ class ContactResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageContacts::route('/'),
+            'index' => ManageContacts::route('/'),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ApproachResource\Pages;
 
+use Filament\Actions\CreateAction;
 use App\Filament\Resources\ApproachResource;
 use App\Filament\Resources\ApproachResource\Widgets\UpdateApproachSectionWidget;
 use Filament\Actions;
@@ -14,7 +15,7 @@ class ListApproaches extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

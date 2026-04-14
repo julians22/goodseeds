@@ -2,11 +2,26 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Fieldset;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\FileUpload;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use App\Filament\Resources\TeamResource\Pages\ListTeams;
+use App\Filament\Resources\TeamResource\Pages\CreateTeam;
+use App\Filament\Resources\TeamResource\Pages\EditTeam;
 use App\Filament\Resources\TeamResource\Pages;
 use App\Filament\Resources\TeamResource\RelationManagers;
 use App\Models\Team;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,55 +32,55 @@ class TeamResource extends Resource
 {
     protected static ?string $model = Team::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        return $schema
+            ->components([
+                TextInput::make('name')
                     ->helperText('The name of the team member')
                     ->required(),
-                Forms\Components\Fieldset::make('description')
+                Fieldset::make('description')
                     ->label('Description')
                     ->schema([
-                        Forms\Components\RichEditor::make('description.en')
+                        RichEditor::make('description.en')
                             ->label('English Description')
                             ->required(),
-                        Forms\Components\RichEditor::make('description.id')
+                        RichEditor::make('description.id')
                             ->label('Bahasa Description'),
                     ])
                     ->columns(2),
-                Forms\Components\FileUpload::make('image')
+                FileUpload::make('image')
                     ->helperText('Recommended size: 520 x 693px (3 : 4), format: JPG, PNG')
                     ->image()
                     ->required()
                     ->disk('team'),
                 // Reperater for socials
                 // Socialsare options to add social media links, linkedin & Instagram only
-                Forms\Components\Section::make('Socials')
+                Section::make('Socials')
                     ->description('Add social media links for the team member')
                     ->schema([
-                        Forms\Components\Repeater::make('socials')
+                        Repeater::make('socials')
                             ->schema([
-                                Forms\Components\Select::make('platform')
+                                Select::make('platform')
                                     ->options([
                                         'linkedin' => 'LinkedIn',
                                         'instagram' => 'Instagram',
                                     ])
                                     ->helperText('The social media platform, only LinkedIn and Instagram are supported')
                                     ->required(),
-                                Forms\Components\TextInput::make('url')
+                                TextInput::make('url')
                                     ->helperText('The URL of the social media profile')
                                     ->required(),
                                 ]),
                             ]),
-                Forms\Components\Section::make('Certificates')
+                Section::make('Certificates')
                 ->description('Upload certificates related to this team member')
                 ->schema([
-                    Forms\Components\Repeater::make('certificate')
+                    Repeater::make('certificate')
                         ->schema([
-                            Forms\Components\FileUpload::make('file')
+                            FileUpload::make('file')
                                 ->label('Certificate File')
                                 ->helperText('Recommended size: 500 x 500 pixels, Upload certificate image (JPG, PNG, PDF)')
                                 ->image() 
@@ -84,19 +99,19 @@ class TeamResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image')
+                ImageColumn::make('image')
                     ->disk('team')
                     ->circular()
                     ->width('100px')
                     ->height('100px')
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -104,12 +119,12 @@ class TeamResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -124,9 +139,9 @@ class TeamResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTeams::route('/'),
-            'create' => Pages\CreateTeam::route('/create'),
-            'edit' => Pages\EditTeam::route('/{record}/edit'),
+            'index' => ListTeams::route('/'),
+            'create' => CreateTeam::route('/create'),
+            'edit' => EditTeam::route('/{record}/edit'),
         ];
     }
 }

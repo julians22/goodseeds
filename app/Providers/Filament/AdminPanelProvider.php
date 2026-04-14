@@ -2,16 +2,14 @@
 
 namespace App\Providers\Filament;
 
-use BezhanSalleh\FilamentGoogleAnalytics\Widgets\PageViewsWidget;
+use Filament\Pages\Dashboard;
+use BezhanSalleh\GoogleAnalytics\Widgets as GoogleAnalyticsWidgets;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Support\Enums\MaxWidth;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -32,11 +30,10 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->maxContentWidth(MaxWidth::Full)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                Dashboard::class,
             ])
             ->navigationGroups([
                 'Approach Section Management',
@@ -44,14 +41,14 @@ class AdminPanelProvider extends PanelProvider
                 'Settings'
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            // ->widgets([
-            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\PageViewsWidget::class,
-            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\VisitorsWidget::class,
-            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\ActiveUsersOneDayWidget::class,
-            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\ActiveUsersSevenDayWidget::class,
-            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\ActiveUsersTwentyEightDayWidget::class,
-            //     \BezhanSalleh\FilamentGoogleAnalytics\Widgets\SessionsWidget::class,
-            // ])
+            ->widgets([
+                    GoogleAnalyticsWidgets\PageViewsWidget::class,
+                    GoogleAnalyticsWidgets\VisitorsWidget::class,
+                    GoogleAnalyticsWidgets\ActiveUsersOneDayWidget::class,
+                    GoogleAnalyticsWidgets\ActiveUsersSevenDayWidget::class,
+                    GoogleAnalyticsWidgets\ActiveUsersTwentyEightDayWidget::class,
+                    GoogleAnalyticsWidgets\SessionsWidget::class,
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -66,7 +63,7 @@ class AdminPanelProvider extends PanelProvider
             ->darkMode(false)
             ->authMiddleware([
                 Authenticate::class,
-            ])
-            ->viteTheme('resources/css/filament/admin/theme.css');
+            ]);
+            // ->viteTheme('resources/css/filament/admin/theme.css');
     }
 }

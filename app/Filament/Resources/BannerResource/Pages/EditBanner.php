@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\BannerResource\Pages;
 
+use Filament\Actions\DeleteAction;
 use App\Filament\Resources\BannerResource;
 use App\Models\Banner;
 use Filament\Actions;
@@ -15,7 +16,7 @@ class EditBanner extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 
