@@ -54,7 +54,7 @@
             @endif
         </div>
 
-        <div class="dropdown language-dropdown">
+        {{-- <div class="dropdown language-dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 @php
                     $currentLocale = App::getLocale();
@@ -108,7 +108,7 @@
                         </li>
                     @endif
                 @endforeach
-            </ul>
+            </ul> --}}
         </div> 
     </div>
 </nav>
@@ -148,6 +148,27 @@
         </li>
         <li>
             <a class="nav-link fw-bold" href="#contact">CONTACT US</a>
+        </li>
+        <li class="nav-item mt-3">
+            <div class="language-switcher-pill d-flex align-items-center">
+                @php
+                    $locales = collect(LocaleConfig::getLocales())->sort();
+                @endphp
+
+                @foreach($locales as $locale)
+                    @php $isActive = (App::getLocale() == $locale); @endphp
+                    
+                    <a href="{{ Route::localizedUrl($locale) }}" 
+                    class="lang-pill-item {{ $isActive ? 'active-lang' : '' }} d-flex align-items-center">
+                        <img src="{{ asset('img/flags/' . $locale . '.png') }}" width="20" class="me-2">
+                        <span>{{ strtoupper($locale) }}</span>
+                    </a>
+
+                    @if (!$loop->last)
+                        <div class="pill-divider"></div>
+                    @endif
+                @endforeach
+            </div>
         </li>
       </ul>
     </div>
