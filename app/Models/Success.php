@@ -8,14 +8,16 @@ use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Success extends Model implements HasMedia
 {
-    use HasFactory, HasTranslations, InteractsWithMedia;
+    use HasFactory, HasTranslations, InteractsWithMedia, HasSlug;
 
     protected $table = "success";
 
-    public array $translatable = ['title', 'content', 'excerpt']; 
+    public array $translatable = ['title', 'content', 'excerpt'];
 
     protected $fillable = [
         'title',
@@ -28,48 +30,16 @@ class Success extends Model implements HasMedia
     ];
 
     protected $casts = [
-        // 'slug' => 'array',
         'meta' => 'array',
         'is_published' => 'boolean',
     ];
 
-    // protected static function booted()
-    // {
-    //     static::saving(function ($model) {
-    //         $slugs = $model->slug ?? [];
-
-    //         foreach (['en', 'id'] as $locale) {
-    //             $title = $model->getTranslation('title', $locale);
-
-    //             if (!empty($title) && empty($slugs[$locale])) {
-    //                 $slugs[$locale] = Str::slug($title);
-    //             }
-    //         }
-
-    //         $model->slug = $slugs;
-    //     });
-    // }
-
-    protected static function booted()
+    public function getSlugOptions(): SlugOptions
     {
-        static::saving(function ($model) {
-            if (empty($model->slug)) {
-                $title = $model->getTranslation('title', app()->getLocale()) 
-                        ?? $model->getTranslation('title', app()->getFallbackLocale());
-
-                if ($title) {
-                    $model->slug = Str::slug($title);
-                }
-            }
-        });
-    }
-
-
-    public function getTranslatedSlug(?string $locale = null): ?string
-    {
-        $locale = $locale ?: app()->getLocale();
-
-        return $this->slug[$locale] ?? $this->slug[app()->getFallbackLocale()] ?? null;
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug')
+            ->usingLanguage('id'); // sama kayak Article
     }
 
     public function registerMediaCollections(): void
@@ -83,4 +53,3 @@ class Success extends Model implements HasMedia
             ->useFallbackUrl('/img/fallback/article.png');
     }
 }
-
