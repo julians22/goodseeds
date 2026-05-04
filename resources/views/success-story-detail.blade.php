@@ -38,7 +38,27 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="article-detail-content" data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-in-out" class="success-detail-content" style="overflow-x:auto;">
-                    {!! $success->getTranslation('content', app()->getLocale()) !!}
+                    <style>
+                        .success-detail-content {
+                            overflow: hidden; 
+                        }
+
+                        .table-scroll {
+                            overflow-x: auto;
+                            -webkit-overflow-scrolling: touch;
+                        }
+
+                        .table-scroll table {
+                            min-width: 600px;
+                            border-collapse: collapse;
+                        }
+                    </style>
+                    @php
+                        $content = $success->getTranslation('content', app()->getLocale());
+                        $content = preg_replace('/<table/', '<div class="table-scroll"><table', $content);
+                        $content = preg_replace('/<\/table>/', '</table></div>', $content);
+                    @endphp
+                    {!! $content !!}
                 </div>
             </div>
         </div>
