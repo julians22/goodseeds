@@ -37,7 +37,7 @@
     <div class="container article-detail">
         <div class="row">
             <div class="col-md-12">
-                <div data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-in-out" class="article-detail-content">
+                <div data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-in-out" class="article-detail-content" style="overflow-x:auto;">
                     {!! $article->getTranslation('content', app()->getLocale()) !!}
                 </div>
             </div>
