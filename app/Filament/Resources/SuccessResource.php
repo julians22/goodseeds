@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use FilamentTiptapEditor\TiptapEditor;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Support\Str;
 
 class SuccessResource extends Resource
 {
@@ -51,14 +52,34 @@ class SuccessResource extends Resource
                     ])
                     ->columns(2),
 
+                Forms\Components\Hidden::make('slug'),
+                Forms\Components\Hidden::make('slug_en'),
+                Forms\Components\Hidden::make('slug_id'),
+
                 Forms\Components\Fieldset::make('Title')
                     ->schema([
                         Forms\Components\Textarea::make('title.en')
                             ->label('English Title')
                             ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function ($state, callable $set) {
+
+                                $slug = Str::slug($state);
+
+                                $set('slug', $slug);
+                                $set('slug_en', $slug);
+                            })
                             ->maxLength(255),
+
                         Forms\Components\Textarea::make('title.id')
                             ->label('Bahasa Title')
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function ($state, callable $set) {
+
+                                if (!empty($state)) {
+                                    $set('slug_id', Str::slug($state));
+                                }
+                            })
                             ->maxLength(255),
                     ])
                 ->columns(2),

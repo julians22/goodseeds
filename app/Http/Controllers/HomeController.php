@@ -121,7 +121,11 @@ class HomeController extends Controller
 
     public function showArticle(GeneralSetting $generalSetting, SectionSetting $sectionSetting, $slug)
     {
-        $article = Article::where('slug', $slug)
+        $article = Article::where(function ($query) use ($slug) {
+                $query->where('slug', $slug)
+                    ->orWhere('slug_en', $slug)
+                    ->orWhere('slug_id', $slug);
+            })
             ->where('is_published', true)
             ->firstOrFail();
         $previous = Article::where('is_published', true)
@@ -256,7 +260,11 @@ class HomeController extends Controller
 
     public function showSuccessStory(GeneralSetting $generalSetting, SectionSetting $sectionSetting, $slug)
     {
-        $success = Success::where('slug', $slug)
+        $success = Success::where(function ($query) use ($slug) {
+                $query->where('slug', $slug)
+                    ->orWhere('slug_en', $slug)
+                    ->orWhere('slug_id', $slug);
+            })
             ->where('is_published', true)
             ->firstOrFail();
 

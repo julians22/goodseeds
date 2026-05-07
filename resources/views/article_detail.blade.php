@@ -67,7 +67,7 @@
         @if ($previous || $next)
             <div class="d-flex justify-content-between mt-5" data-aos="fade-down" data-aos-duration="900" data-aos-easing="ease-in-out">
                 @if ($previous)
-                    <a href="{{ route('insight-detail', $previous->slug) }}" 
+                    <a href="{{ route('insight-detail', $previous->localized_slug) }}" 
                        class="btn-nav">
                         &lt; @lang("wordings.prevPage")
                     </a>
@@ -76,7 +76,7 @@
                 @endif
 
                 @if ($next)
-                    <a href="{{ route('insight-detail', $next->slug) }}" 
+                    <a href="{{ route('insight-detail', $next->localized_slug) }}" 
                        class="btn-nav">
                         @lang("wordings.nextPage") &gt;
                     </a> 

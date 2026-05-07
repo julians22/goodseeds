@@ -32,7 +32,7 @@
         <div class="mt-4 row g-4 card-article">
             @foreach ($articles as $item)
               <div class="col-lg-4 col-md-6">
-                <a href="{{ route('insight-detail', $item->slug) }}" class="text-decoration-none text-reset">
+                <a href="{{ route('insight-detail', $item->localized_slug) }}" class="text-decoration-none text-reset">
                     <div class="card-whatwedo" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                         <div class="card-header">
                             <img src="{{ $item->getFirstMediaUrl('thumbnail') }}" class="img-fluid" />

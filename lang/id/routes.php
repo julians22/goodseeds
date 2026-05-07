@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'insight' => 'wawasan',
+    'insight' => 'artikel',
     'success_story' => 'kisah-sukses',
     'what_we_do' => 'apa-yang-kami-lakukan',
 ];
