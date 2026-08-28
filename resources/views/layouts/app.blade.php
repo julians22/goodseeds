@@ -36,6 +36,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="canonical" href="{{ url()->current() }}">
     <style>
         .language-switcher-pill {
             /* background: #f0f0f0;  */

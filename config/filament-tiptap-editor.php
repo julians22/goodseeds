@@ -29,7 +29,9 @@ return [
         'goodseeds' => ['bold', 'italic', 'link', 'bullet-list', 'ordered-list', 'bullet-list', 'color', 'highlight'],
         'none' => [],
     ],
-
+    'blocks' => [
+        \App\Filament\Note\SpecialNoteBlock::class,
+    ],
     /*
     |--------------------------------------------------------------------------
     | Actions

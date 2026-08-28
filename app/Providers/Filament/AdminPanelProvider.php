@@ -19,11 +19,26 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\Facades\Vite;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Support\Facades\Blade;
+use Filament\Support\Assets\Js;
+use Filament\Support\Facades\FilamentAsset;
+use App\Filament\Note\SpecialNoteBlock;
+use FilamentTiptapEditor\TiptapEditor;
 
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
-    {
+    {   
+        TiptapEditor::configureUsing(function (TiptapEditor $component) {
+            $component
+                ->collapseBlocksPanel()
+                ->blocks([
+                SpecialNoteBlock::class,
+            ]);
+        });
+
         return $panel
             ->default()
             ->id('admin')

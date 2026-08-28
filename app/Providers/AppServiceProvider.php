@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Settings\GeneralSetting;
+use App\Filament\Note\SpecialNoteBlock;
+use FilamentTiptapEditor\TiptapEditor;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        TiptapEditor::configureUsing(function (TiptapEditor $component) {
+            $component->blocks([
+                SpecialNoteBlock::class,
+            ]);
+        });
         View::composer('*', function ($view) {
         $generalSetting = app(GeneralSetting::class);
 

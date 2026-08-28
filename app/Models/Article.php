@@ -23,6 +23,7 @@ class Article extends Model implements HasMedia
         'slug_en',
         'slug_id',
         'content',
+        'content_en',
         'excerpt',
         'meta',
         'article_date',
@@ -32,6 +33,8 @@ class Article extends Model implements HasMedia
     protected $casts = [
         'meta' => 'array',
         'is_published' => 'boolean',
+        'content_en' => 'json',
+        'content' => 'json'
     ];
 
     public function getLocalizedSlugAttribute(): string

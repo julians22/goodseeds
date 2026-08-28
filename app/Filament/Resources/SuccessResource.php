@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use FilamentTiptapEditor\TiptapEditor;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Support\Str;
+use FilamentTiptapEditor\Enums\TiptapOutput;
+use App\Filament\Note\SpecialNoteBlock;
 
 class SuccessResource extends Resource
 {
@@ -100,27 +102,34 @@ class SuccessResource extends Resource
                 Forms\Components\Fieldset::make('Content')
                     ->schema([
                         TiptapEditor::make('content.en')
-                            ->profile('default')
                             ->label('English Content')
                             ->maxContentWidth('5xl')
-                            ->required(),
-                        TiptapEditor::make('content.id')
                             ->profile('default')
+                            ->blocks([
+                                SpecialNoteBlock::class,
+                            ])
+                            ->output(TiptapOutput::Json)
+                            ->required(),
+
+                        TiptapEditor::make('content.id')
                             ->label('Bahasa Content')
-                            ->maxContentWidth('5xl'),
+                            ->maxContentWidth('5xl')
+                            ->profile('default')
+                            ->blocks([
+                                SpecialNoteBlock::class,
+                            ])
+                            ->output(TiptapOutput::Json),
                     ])
                     ->columns(1),
 
                 Forms\Components\Fieldset::make('Excerpt')
                     ->schema([
-                        Forms\Components\TextInput::make('excerpt.en')
+                        Forms\Components\Textarea::make('excerpt.en')
                             ->label('English Excerpt')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('excerpt.id')
+                            ->required(),
+                        Forms\Components\Textarea::make('excerpt.id')
                             ->label('Bahasa Excerpt')
-                            ->required()
-                            ->maxLength(255),
+                            ->required(),
                     ])
                 ->columns(2),
 

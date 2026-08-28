@@ -21,10 +21,31 @@
         })->first();
 
         if ($article) {
-
             $localizedSlugs = [
                 'en' => $article->slug_en ?: $article->slug,
                 'id' => $article->slug_id ?: $article->slug,
+            ];
+        }
+    }
+
+    // SUCCESS STORY DETAIL
+    if (
+        str_ends_with($currentRouteName, 'success-story-detail')
+        && isset($currentRouteParameters['slug'])
+    ) {
+
+        $currentSlug = $currentRouteParameters['slug'];
+
+        $success = \App\Models\Success::where(function ($query) use ($currentSlug) {
+            $query->where('slug', $currentSlug)
+                ->orWhere('slug_en', $currentSlug)
+                ->orWhere('slug_id', $currentSlug);
+        })->first();
+
+        if ($success) {
+            $localizedSlugs = [
+                'en' => $success->slug_en ?: $success->slug,
+                'id' => $success->slug_id ?: $success->slug,
             ];
         }
     }
@@ -101,7 +122,10 @@
 
                                 // ganti slug sesuai locale
                                 if (
-                                    str_ends_with($currentRouteName, 'insight-detail')
+                                    (
+                                        str_ends_with($currentRouteName, 'insight-detail')
+                                        || str_ends_with($currentRouteName, 'success-story-detail')
+                                    )
                                     && isset($localizedSlugs[$locale])
                                 ) {
                                     $params['slug'] = $localizedSlugs[$locale];
@@ -201,7 +225,10 @@
                             $params = $currentRouteParameters;
 
                             if (
-                                str_ends_with($currentRouteName, 'insight-detail')
+                                (
+                                    str_ends_with($currentRouteName, 'insight-detail')
+                                    || str_ends_with($currentRouteName, 'success-story-detail')
+                                )
                                 && isset($localizedSlugs[$locale])
                             ) {
                                 $params['slug'] = $localizedSlugs[$locale];

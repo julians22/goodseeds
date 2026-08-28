@@ -1,0 +1,13 @@
+.special-note {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 16px 0;
+}
+
+.special-note p {
+    margin: 0;
+}
+
+.special-note img {
+    max-width: 100%;
+}

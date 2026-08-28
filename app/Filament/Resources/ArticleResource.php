@@ -2,19 +2,25 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Note\SpecialNoteBlock;
 use App\Filament\Resources\ArticleResource\Pages;
 use App\Filament\Resources\ArticleResource\RelationManagers;
 use App\Models\Article;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Tables;
 use Filament\Tables\Table;
+use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Support\Str;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\ColorPicker;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use FilamentTiptapEditor\Enums\TiptapOutput;
 
 class ArticleResource extends Resource
 {
@@ -76,7 +82,6 @@ class ArticleResource extends Resource
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(function ($state, callable $set) {
-
                                 $slug = Str::slug($state);
 
                                 $set('slug', $slug);
@@ -88,38 +93,52 @@ class ArticleResource extends Resource
                             ->label('Bahasa Title')
                             ->live(onBlur: true)
                             ->afterStateUpdated(function ($state, callable $set) {
-
                                 if (!empty($state)) {
                                     $set('slug_id', Str::slug($state));
                                 }
                             })
                             ->maxLength(255),
                     ])
-                ->columns(2),
+                    ->columns(2),
 
                 Forms\Components\Fieldset::make('Content')
                     ->schema([
                         TiptapEditor::make('content.en')
                             ->label('English Content')
                             ->maxContentWidth('5xl')
+                            ->profile('default')
+                            ->blocks([
+                                SpecialNoteBlock::class,
+                            ])
+                            ->output(TiptapOutput::Json)
                             ->required(),
+
                         TiptapEditor::make('content.id')
                             ->label('Bahasa Content')
-                            ->maxContentWidth('5xl'),
+                            ->maxContentWidth('5xl')
+                            ->profile('default')
+                            ->blocks([
+                                SpecialNoteBlock::class,
+                            ])
+                            ->output(TiptapOutput::Json),
                     ])
                     ->columns(1),
 
+
+                TiptapEditor::make('content_en')
+                    ->label('Test Bahasa')
+                    ->profile('default')
+                    ->output(TiptapOutput::Json),
+
                 Forms\Components\Fieldset::make('Excerpt')
                     ->schema([
-                        Forms\Components\TextInput::make('excerpt.en')
+                        Forms\Components\Textarea::make('excerpt.en')
                             ->label('English Excerpt')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('excerpt.id')
-                            ->label('Bahasa Excerpt')
-                            ->maxLength(255),
+                            ->required(),
+                        Forms\Components\Textarea::make('excerpt.id')
+                            ->label('Bahasa Excerpt'),
                     ])
-                ->columns(2),
+                    ->columns(2),
 
                 Forms\Components\DatePicker::make('article_date')
                     ->label('Article Date')
@@ -132,7 +151,6 @@ class ArticleResource extends Resource
                     ->label('Is Published')
                     ->default(true)
                     ->required(),
-
             ]);
     }
 
